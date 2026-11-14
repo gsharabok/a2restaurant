@@ -23,6 +23,8 @@ type InterpretResponse = {
 
 /** Silence after which the words so far are treated as a finished turn. */
 const TURN_GAP_MS = 1500;
+/** When the waiter has an answer ready, the turn ends this soon after the last new word. */
+const REPLY_GAP_MS = 500;
 
 export type Transcript = { settled: string; unsettled: string; previous: string };
 
@@ -35,6 +37,8 @@ export function useLiveOrder(
   restaurantId: string,
   onTurnCommitted?: (turn: CommittedTurn | null) => void,
   onPayAsked?: () => void,
+  /** Shown every interpretation as the turn it would make; returns true when the waiter will answer it. */
+  onTurnPreview?: (turn: CommittedTurn) => boolean,
 ) {
   const [priced, setPriced] = useState<PricedOrder>(EMPTY_PRICED);
   const [suggestion, setSuggestion] = useState<Suggestion | null>(null);
@@ -60,10 +64,14 @@ export function useLiveOrder(
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const committed = useRef(onTurnCommitted);
   const payAsked = useRef(onPayAsked);
+  const preview = useRef(onTurnPreview);
+  /** How the turn will end: on silence or not, whether an answer is waiting, and when words last arrived or changed. */
+  const ending = useRef({ onSilence: true, answerReady: false, heardAt: 0, changedAt: 0 });
   useEffect(() => {
     committed.current = onTurnCommitted;
     payAsked.current = onPayAsked;
-  }, [onTurnCommitted, onPayAsked]);
+    preview.current = onTurnPreview;
+  }, [onTurnCommitted, onPayAsked, onTurnPreview]);
 
   const commit = useCallback(() => {
     if (inFlight.current) {
@@ -71,6 +79,7 @@ export function useLiveOrder(
       return;
     }
     pendingCommit.current = false;
+    ending.current.answerReady = false;
     const result = latest.current;
     if (!said.current) return;
     let turn: CommittedTurn | null = null;
@@ -108,6 +117,35 @@ export function useLiveOrder(
     committed.current?.(turn);
   }, []);
 
+  /** A question should be answered promptly; an order waits longer, since the guest may be thinking of the next item. */
+  const endOnSilence = useCallback(() => {
+    if (timer.current) clearTimeout(timer.current);
+    const { onSilence, answerReady, heardAt, changedAt } = ending.current;
+    if (!onSilence) return;
+    const due = answerReady ? changedAt + REPLY_GAP_MS : heardAt + TURN_GAP_MS;
+    timer.current = setTimeout(commit, Math.max(0, due - performance.now()));
+  }, [commit]);
+
+  /** Lets the waiter get its answer ready while the guest is still talking. */
+  const previewTurn = useCallback(
+    (result: InterpretResponse) => {
+      const next = result.suggestion ?? (result.accepted ? null : shown.current);
+      ending.current.answerReady = Boolean(
+        preview.current?.({
+          ...result,
+          priced: shownPriced.current,
+          countBefore: basePriced.current.count,
+          acceptedName: result.accepted ? acceptedNames(shown.current, result.accepted) : null,
+          reviewsSay: result.reviews?.say ?? result.reviewsMissing,
+          suggestionsShown: Boolean(next?.items.length),
+          done: result.done && result.order.lines.length > 0,
+        }),
+      );
+      endOnSilence();
+    },
+    [endOnSilence],
+  );
+
   const hear = useCallback(
     (text: { settled: string; unsettled: string }, options?: { endOnSilence?: boolean }) => {
       const full = `${text.settled} ${text.unsettled}`.trim();
@@ -128,7 +166,13 @@ export function useLiveOrder(
         setNutritionAsked(false);
         return;
       }
-      if (options?.endOnSilence !== false) timer.current = setTimeout(commit, TURN_GAP_MS);
+      ending.current.onSilence = options?.endOnSilence !== false;
+      ending.current.heardAt = performance.now();
+      if (full !== said.current) {
+        ending.current.changedAt = ending.current.heardAt;
+        ending.current.answerReady = false;
+      }
+      endOnSilence();
       if (full === said.current) return;
       said.current = full;
 
@@ -169,6 +213,7 @@ export function useLiveOrder(
           setNutritionAsked(result.nutrition);
           setLatency(Math.round(performance.now() - sent));
           setError(null);
+          previewTurn(result);
         })
         .catch((cause: Error) => {
           if (cause.name === "AbortError" || id !== seq.current) return;
@@ -180,7 +225,7 @@ export function useLiveOrder(
           if (pendingCommit.current) commit();
         });
     },
-    [commit, restaurantId],
+    [commit, endOnSilence, previewTurn, restaurantId],
   );
 
   /** Ends the turn now (Enter in typed mode) instead of waiting for silence. */
