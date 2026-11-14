@@ -43,6 +43,8 @@ export function useSpeech(onText: (text: SpeechText) => void) {
   const carried = useRef(""); // settled text from earlier recognition sessions in this turn
   const offset = useRef(0); // results before this index belong to an earlier turn
   const lastResults = useRef<ArrayLike<RecognitionResult> | null>(null);
+  // Unsettled words the previous turn already used, so they aren't heard twice once they settle.
+  const used = useRef<{ index: number; text: string } | null>(null);
   const onTextRef = useRef(onText);
   const beginRef = useRef<() => void>(() => {});
   useEffect(() => {
@@ -55,7 +57,10 @@ export function useSpeech(onText: (text: SpeechText) => void) {
     const results = lastResults.current;
     if (results) {
       for (let i = offset.current; i < results.length; i++) {
-        const text = results[i][0].transcript;
+        let text = results[i][0].transcript;
+        if (used.current?.index === i && text.trim().toLowerCase().startsWith(used.current.text)) {
+          text = text.trim().slice(used.current.text.length);
+        }
         if (results[i].isFinal) settled += ` ${text}`;
         else unsettled += ` ${text}`;
       }
@@ -90,6 +95,7 @@ export function useSpeech(onText: (text: SpeechText) => void) {
       carried.current = read().settled;
       lastResults.current = null;
       offset.current = 0;
+      used.current = null;
       if (wanted.current) {
         try {
           beginRef.current();
@@ -134,6 +140,10 @@ export function useSpeech(onText: (text: SpeechText) => void) {
       let next = results.length;
       while (next > 0 && !results[next - 1].isFinal) next--;
       offset.current = next;
+      let pending = "";
+      for (let i = next; i < results.length; i++) pending += results[i][0].transcript;
+      // Chrome keeps unsettled words in one growing result, so remembering the first is enough.
+      used.current = pending.trim() ? { index: next, text: pending.trim().toLowerCase() } : null;
     }
   }, []);
 
