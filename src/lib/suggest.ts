@@ -36,7 +36,7 @@ export function toSuggestion(menu: Menu, pick: SuggestionPick): Suggestion {
   const topic = kind && !pick.itemIds.every((id) => menu.itemsById.get(id)?.category === kind) ? "other" : pick.topic;
   return {
     caption: !items.length
-      ? (NOTHING[topic] ?? "Sorry, nothing on the menu matches that.")
+      ? ((pick.exact ? NOTHING[topic] : undefined) ?? "Sorry, nothing on the menu matches that.")
       : pick.exact
         ? CAPTIONS[topic]
         : topic === "unavailable"
