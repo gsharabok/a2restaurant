@@ -4505,9 +4505,6 @@
       "heard": "Ristretto Bianco: Three Starbucks Blonde Ristretto shots are paired with whole milk – in a perfectly balanced coffee to milk ratio Also ordered as 'a ristretto bianco', 'blonde flat white'.",
       "tags": [],
       "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Ristretto-Bianco_2.jpeg",
-      "options": [
-        "milk"
-      ],
       "nutrition": {
         "kcal": 106,
         "protein": 6,
@@ -4587,7 +4584,6 @@
       "heard": "Toffee Nut Frappuccino: Toffee nut flavour syrup is combined with coffee and milk, blended with ice, topped with whipped cream and toffee nut flavour sprinkles. Also ordered as 'a toffee nut frappuccino'. A festive drink. Always served cold over ice.",
       "tags": [
         "festive",
-        "vegan",
         "vegetarian"
       ],
       "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Toffee-Nut-Frappuccino_1.jpeg",
@@ -4651,7 +4647,6 @@
       "heard": "Gingerbread Frappuccino: Gingerbread flavour syrup is combined with coffee, milk and blended with ice. It’s topped with whipped cream and cinnamon. Also ordered as 'a gingerbread frappuccino'. A festive drink. Always served cold over ice.",
       "tags": [
         "festive",
-        "vegan",
         "vegetarian"
       ],
       "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Gingerbread-Frappuccino_0.jpeg",
@@ -4715,7 +4710,6 @@
       "heard": "Peppermint Mocha Frappuccino: A blend of coffee, milk and ice are mixed with peppermint flavour syrup and mocha sauce, topped with whipped cream and finished with crunchy peppermint sugar sprinkles. Also ordered as 'a peppermint mocha frappuccino', 'mint frappuccino'. A festive drink. Always served cold over ice.",
       "tags": [
         "festive",
-        "vegan",
         "vegetarian"
       ],
       "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Peppermint-Mocha-Frappuccino.jpeg",
