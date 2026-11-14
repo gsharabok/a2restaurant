@@ -77,8 +77,8 @@ const PATTERNS: { metric: Metric; pattern: RegExp }[] = [
 const BEFORE_MAX = /(?:under|below|(?<!\b(?:no|not) )less than|fewer than|at most|max|maximum|no more than|not more than|up to|within|not over|budget of|only have|i have|i've got|i got|keep (?:it|that|this) to|limit of|cap of|top out at)(?: of)?(?: about| around)?\s*[£$€]?$/;
 const BEFORE_MIN = /(?:at least|(?<!\bnot )over|(?<!\b(?:no|not) )more than|above|min|minimum|no less than|not less than|north of)(?: of)?(?: about| around)?\s*[£$€]?$/;
 const BEFORE_ABOUT = /(?:about|around|roughly|approximately|approx|close to|near|nearly|circa|~)\s*[£$€]?$/;
-const AFTER_MAX = /^[\w\s]{0,14}?\b(?:or less|or fewer|or under|or below|max|maximum|tops)\b/;
-const AFTER_MIN = /^[\w\s]{0,14}?\b(?:or more|or over|or above|minimum|plus)\b/;
+const AFTER_MAX = /^[\w\s]{0,14}?\b(?:or less|or fewer|or under|or below|max|maximum|tops|at most(?!\s*(?:about\s+|around\s+)?[£$€]?\s*\d))\b/;
+const AFTER_MIN = /^[\w\s]{0,14}?\b(?:or more|or over|or above|minimum|plus|at least(?!\s*(?:about\s+|around\s+)?[£$€]?\s*\d))\b/;
 /** Where the words after a number stop being about it: the next clause or the next number. */
 const NEXT_CLAUSE = /[,.;]|\band\b|\bbut\b|\bwith\b|\d/;
 
@@ -91,15 +91,19 @@ export function parseGoals(said: string): Goals | null {
       const value = Number(match[1]);
       const at = match.index ?? 0;
       const before = text.slice(Math.max(0, at - 40), at).trimEnd();
-      const after = text.slice(at + match[0].length, at + match[0].length + 40).split(NEXT_CLAUSE)[0];
+      const rest = text.slice(at + match[0].length, at + match[0].length + 40);
+      // Cut at the next clause, keeping what follows so "at most 700" is seen to belong to the 700.
+      const clause = rest.search(NEXT_CLAUSE);
+      const after = clause < 0 ? rest : rest.slice(0, clause);
+      const trailing = (pattern: RegExp) => (pattern.exec(rest)?.[0].length ?? Infinity) <= after.length;
       // The word in front of the number is the stronger sign; what follows it only counts within the same clause.
       const op: Goal["op"] = BEFORE_MIN.test(before)
         ? "min"
         : BEFORE_MAX.test(before)
           ? "max"
-          : AFTER_MAX.test(after)
+          : trailing(AFTER_MAX)
             ? "max"
-            : AFTER_MIN.test(after)
+            : trailing(AFTER_MIN)
               ? "min"
               : BEFORE_ABOUT.test(before)
                 ? metric === "price" ? "max" : "about"
