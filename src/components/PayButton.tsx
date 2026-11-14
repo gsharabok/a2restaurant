@@ -71,7 +71,7 @@ export function PayButton({ restaurant, priced, className = "", ref }: Props) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 grid place-items-center bg-black/70 text-left backdrop-blur-md"
+            className="fixed inset-0 z-50 grid place-items-center bg-black/70 px-4 text-left backdrop-blur-md"
             onClick={() => setState("idle")}
             data-testid="checkout"
           >

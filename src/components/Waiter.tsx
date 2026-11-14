@@ -127,6 +127,13 @@ export function Waiter({ restaurant, restaurants }: Props) {
     if (answering) prepare(saySuggestion(answering));
   }, [answering, prepare]);
   const empty = priced.lines.length === 0;
+  // On a phone the order is a scrolling list, so a new item is brought into view rather than left below the fold.
+  const cards = useRef<HTMLElement>(null);
+  const lineCount = priced.lines.length;
+  useEffect(() => {
+    const list = cards.current;
+    if (list && window.matchMedia("(max-width: 639px)").matches) list.scrollTo({ top: list.scrollHeight, behavior: "smooth" });
+  }, [lineCount]);
 
   const words = `${transcript.settled} ${transcript.unsettled}`.trim();
   const problem = order.error ?? speech.error ?? voice.error;
@@ -145,19 +152,19 @@ export function Waiter({ restaurant, restaurants }: Props) {
     <main className="relative flex h-dvh flex-col overflow-hidden bg-[#0b0a09] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_40rem_at_50%_-10%,rgba(251,191,36,0.10),transparent_60%)]" />
 
-      <header className="relative z-20 flex items-start justify-between px-10 pt-8">
+      <header className="relative z-20 flex items-start justify-between gap-3 px-10 pt-8 max-sm:px-5 max-sm:pt-5">
         <div className="relative">
           <button
             onClick={() => setChoosing((open) => !open)}
             aria-haspopup="listbox"
             aria-expanded={choosing}
-            className="-ml-3 flex items-center gap-2 rounded-xl px-3 py-1 text-2xl font-semibold tracking-tight transition hover:bg-white/[0.06]"
+            className="-ml-3 flex items-center gap-2 rounded-xl px-3 py-1 text-left text-2xl font-semibold tracking-tight transition max-sm:text-xl hover:bg-white/[0.06]"
             data-testid="restaurant-picker"
           >
             {restaurant.name}
             <ChevronDown className={`h-5 w-5 text-white/40 transition-transform ${choosing ? "rotate-180" : ""}`} />
           </button>
-          <p className="text-sm text-white/40">{restaurant.tagline}</p>
+          <p className="text-sm text-white/40 max-sm:text-xs">{restaurant.tagline}</p>
           <AnimatePresence>
             {choosing && (
               <motion.ul
@@ -188,7 +195,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
             )}
           </AnimatePresence>
         </div>
-        <div className="text-right">
+        <div className="shrink-0 text-right">
           <p className="text-xs uppercase tracking-[0.2em] text-white/35">
             {priced.count > 0 ? `${priced.count} item${priced.count === 1 ? "" : "s"}` : "Your order"}
           </p>
@@ -196,7 +203,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
             key={priced.total}
             initial={{ opacity: 0.4, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl font-semibold tabular-nums tracking-tight"
+            className="text-4xl font-semibold tabular-nums tracking-tight max-sm:text-3xl"
             data-testid="total"
           >
             {formatPrice(priced.total)}
@@ -208,7 +215,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
         </div>
       </header>
 
-      <section className="relative z-10 flex min-h-0 flex-1 overflow-y-auto px-10 py-6 [@media(max-height:780px)]:py-2 [scrollbar-width:none]">
+      <section ref={cards} className="relative z-10 flex min-h-0 flex-1 overflow-y-auto px-10 py-6 max-sm:px-4 max-sm:py-3 [@media(max-height:780px)]:py-2 [scrollbar-width:none]">
         <AnimatePresence mode="wait" initial={false}>
           {empty ? (
             <motion.div
@@ -218,11 +225,11 @@ export function Waiter({ restaurant, restaurants }: Props) {
               exit={{ opacity: 0, y: -10 }}
               className="m-auto text-center"
             >
-              <h1 className="text-5xl font-semibold tracking-tight">What can I get you?</h1>
-              <p className="mt-4 text-lg text-white/45">
+              <h1 className="text-5xl font-semibold tracking-tight max-sm:text-3xl">What can I get you?</h1>
+              <p className="mt-4 text-lg text-white/45 max-sm:mt-2 max-sm:text-base">
                 {speech.listening ? "I'm listening. Just say your order." : "Tap the microphone and say your order."}
               </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-2">
+              <div className="mt-8 flex flex-wrap justify-center gap-2 max-sm:mt-5">
                 {restaurant.hints.map((hint) => (
                   <span key={hint} className="rounded-full border border-white/10 px-4 py-1.5 text-sm text-white/50">
                     {hint}
@@ -233,7 +240,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
           ) : (
             <motion.div key="order" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="m-auto w-full">
               <LayoutGroup>
-                <motion.div layout className="mx-auto flex max-w-[86rem] flex-wrap items-stretch justify-center gap-4">
+                <motion.div layout className="mx-auto flex max-w-[86rem] flex-wrap items-stretch justify-center gap-4 max-sm:gap-2.5">
                   <AnimatePresence mode="popLayout">
                     {priced.lines.map((line) => (
                       <OrderCard key={line.itemId} line={line} size={cardSize} detailed={showNutrition} />
@@ -252,11 +259,11 @@ export function Waiter({ restaurant, restaurants }: Props) {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 24 }}
-            className="relative z-10 mx-auto mb-4 w-full max-w-3xl px-6"
+            className="relative z-10 mx-auto mb-4 w-full max-w-3xl px-6 max-sm:mb-2 max-sm:px-4"
             data-testid="nutrition"
           >
-            <div className="flex items-center gap-6 rounded-2xl border border-white/10 bg-white/[0.05] px-6 py-4 backdrop-blur">
-              <div className="flex gap-6">
+            <div className="flex items-center gap-6 rounded-2xl border border-white/10 bg-white/[0.05] px-6 py-4 backdrop-blur max-sm:flex-col max-sm:items-stretch max-sm:gap-2.5 max-sm:px-4 max-sm:py-3">
+              <div className="flex gap-6 max-sm:justify-between max-sm:gap-3">
                 {macros.map((macro) => (
                   <div key={macro.label}>
                     <p className="text-[10px] uppercase tracking-wider text-white/40">{macro.label}</p>
@@ -268,7 +275,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
                 ))}
               </div>
               {priced.nutrition.richIn.length > 0 && (
-              <div className="min-w-0 flex-1 border-l border-white/10 pl-6">
+              <div className="min-w-0 flex-1 border-l border-white/10 pl-6 max-sm:border-l-0 max-sm:border-t max-sm:pl-0 max-sm:pt-2.5">
                 <p className="text-[10px] uppercase tracking-wider text-white/40">Good source of</p>
                 <div className="mt-1 flex flex-wrap gap-1.5">
                   {priced.nutrition.richIn.length > 0 ? (
@@ -293,7 +300,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 24 }}
-            className="relative z-10 mx-auto mb-4 w-full max-w-5xl px-6"
+            className="relative z-10 mx-auto mb-4 w-full max-w-5xl px-6 max-sm:mb-2 max-sm:px-4"
             data-testid="suggestions"
           >
             <p
@@ -303,16 +310,16 @@ export function Waiter({ restaurant, restaurants }: Props) {
             >
               {suggestion.caption}
             </p>
-            <div className="flex justify-center gap-3">
+            <div className="flex justify-center gap-3 max-sm:flex-col max-sm:gap-1.5">
               {suggestion.items.map((item, index) => (
                 <div
                   key={item.id}
-                  className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl border border-amber-200/25 bg-amber-200/[0.06] px-4 py-3"
+                  className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl border border-amber-200/25 bg-amber-200/[0.06] px-4 py-3 max-sm:flex-none max-sm:px-3 max-sm:py-1.5"
                 >
-                  <ItemImage src={item.image} size={48} className="h-12 w-12 shrink-0" />
+                  <ItemImage src={item.image} size={48} className="h-12 w-12 shrink-0 max-sm:h-10 max-sm:w-10" />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-semibold">{item.name}</p>
-                    <p className="text-[11px] text-white/45 tabular-nums">{item.kcal} kcal · {item.protein}g protein</p>
+                    <p className="text-[11px] text-white/45 tabular-nums max-sm:hidden">{item.kcal} kcal · {item.protein}g protein</p>
                     <p className="text-[11px] text-amber-200/70">say “{suggestion.items.length === 1 ? "yes please" : `add the ${["first", "second", "third"][index]} one`}”</p>
                   </div>
                   <p className="shrink-0 text-sm font-semibold tabular-nums">{formatPrice(item.price)}</p>
@@ -323,7 +330,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
         )}
       </AnimatePresence>
 
-      <footer className="relative z-10 px-6 pb-6">
+      <footer className="relative z-10 px-6 pb-6 max-sm:px-3 max-sm:pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <AnimatePresence>
           {voice.line && voice.line !== suggestion?.caption && (
             <motion.button
@@ -332,7 +339,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
               exit={{ opacity: 0, y: 8 }}
               onClick={voice.stop}
               title="Click to stop the waiter"
-              className="mx-auto mb-3 flex max-w-3xl items-center gap-3 rounded-2xl border border-amber-200/20 bg-amber-200/[0.07] px-4 py-2 text-left text-sm text-amber-100/90 backdrop-blur"
+              className={`${showSuggestions ? "max-sm:hidden" : ""} mx-auto mb-3 flex max-w-3xl items-center gap-3 rounded-2xl max-sm:mb-2 border border-amber-200/20 bg-amber-200/[0.07] px-4 py-2 text-left text-sm text-amber-100/90 backdrop-blur`}
               data-testid="waiter-line"
               data-speaking={voice.speaking}
             >
@@ -350,7 +357,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
             </motion.button>
           )}
         </AnimatePresence>
-        <div className="mx-auto flex max-w-4xl items-center gap-4 rounded-full border border-white/10 bg-white/[0.06] py-2.5 pl-2.5 pr-5 backdrop-blur">
+        <div className="mx-auto flex max-w-4xl items-center gap-4 rounded-full border border-white/10 bg-white/[0.06] py-2.5 pl-2.5 pr-5 backdrop-blur max-sm:flex-wrap max-sm:gap-x-2 max-sm:gap-y-1.5 max-sm:rounded-3xl max-sm:px-2.5">
           <button
             onClick={toggleMic}
             disabled={!speech.supported}
@@ -363,7 +370,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
             {speech.supported ? <Mic className="relative h-5 w-5" /> : <MicOff className="relative h-5 w-5" />}
           </button>
 
-          <div className="min-w-0 flex-1 text-lg" data-testid="transcript">
+          <div className="min-w-0 flex-1 text-lg max-sm:order-first max-sm:basis-full max-sm:px-2 max-sm:pt-1 max-sm:text-base" data-testid="transcript">
             {typing ? (
               <input
                 autoFocus
@@ -379,7 +386,8 @@ export function Waiter({ restaurant, restaurants }: Props) {
                   endTurn();
                   setTyped("");
                 }}
-                placeholder="Type your order, press Enter to finish the sentence"
+                enterKeyHint="send"
+                placeholder="Type your order and press Enter"
                 className="w-full bg-transparent text-white outline-none placeholder:text-white/30"
                 data-testid="typed-input"
               />
@@ -398,11 +406,11 @@ export function Waiter({ restaurant, restaurants }: Props) {
           </div>
 
           {order.latency !== null && (
-            <span className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-xs tabular-nums text-white/50" title="Words to screen, last update" data-testid="latency">
+            <span className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-xs tabular-nums text-white/50 max-sm:hidden" title="Words to screen, last update" data-testid="latency">
               {order.latency} ms
             </span>
           )}
-          <div className="flex shrink-0 items-center gap-1 text-white/45">
+          <div className="flex shrink-0 items-center gap-1 text-white/45 max-sm:ml-auto">
             <IconButton label={voice.enabled ? "Mute the waiter" : "Let the waiter speak"} active={voice.enabled} onClick={() => voice.setEnabled(!voice.enabled)}>
               {voice.enabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
             </IconButton>
@@ -426,7 +434,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
             </IconButton>
           </div>
         </div>
-        <p className="mt-2 h-4 text-center text-xs text-red-300/90" role="status">
+        <p className="mt-2 min-h-4 text-center text-xs text-red-300/90 max-sm:mt-1 max-sm:empty:hidden" role="status">
           {problem ?? (!speech.supported ? "This browser has no speech recognition. Use Chrome, or type your order." : "")}
         </p>
       </footer>
@@ -437,13 +445,13 @@ export function Waiter({ restaurant, restaurants }: Props) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-20 grid place-items-center bg-black/70 backdrop-blur-md"
+            className="absolute inset-0 z-20 grid place-items-center bg-black/70 px-4 backdrop-blur-md"
             data-testid="summary"
           >
             <motion.div
               initial={{ scale: 0.92, y: 20 }}
               animate={{ scale: 1, y: 0 }}
-              className="w-full max-w-md rounded-3xl border border-white/10 bg-[#151310] p-8 shadow-2xl"
+              className="w-full max-w-md rounded-3xl border border-white/10 bg-[#151310] p-8 shadow-2xl max-sm:p-6"
             >
               <p className="text-xs uppercase tracking-[0.2em] text-amber-200/80">Order ready</p>
               <h2 className="mt-1 text-3xl font-semibold tracking-tight">Here&apos;s your order</h2>
