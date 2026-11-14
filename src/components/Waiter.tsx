@@ -241,7 +241,13 @@ export function Waiter({ restaurant }: Props) {
             className="relative z-10 mx-auto mb-4 w-full max-w-5xl px-6"
             data-testid="suggestions"
           >
-            <p className="mb-2 text-center text-sm text-amber-200/90">{suggestion.caption}</p>
+            <p
+              className={`mb-2 text-center text-sm text-amber-200/90 ${voice.line === suggestion.caption ? "cursor-pointer" : ""}`}
+              title={voice.line === suggestion.caption ? "Click to stop the waiter" : undefined}
+              onClick={voice.line === suggestion.caption ? voice.stop : undefined}
+            >
+              {suggestion.caption}
+            </p>
             <div className="flex justify-center gap-3">
               {suggestion.items.map((item, index) => (
                 <div
