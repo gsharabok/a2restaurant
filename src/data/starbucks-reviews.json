@@ -1,0 +1,1622 @@
+{
+ "source": {
+  "name": "Google",
+  "url": "https://www.google.com/maps/search/?api=1&query=Starbucks+Coffee+126+Baker+St+London",
+  "basis": "Reviews of one branch, not the chain. From a Google Maps page of the 126 Baker St, London branch saved on 2026-11-14, holding 380 of its 1,036 reviews. Topics group the reviews that use related words.",
+  "averageNote": "Stars are those of the reviews that mention it, not a score for the item itself."
+ },
+ "restaurant": {
+  "title": "Starbucks, 126 Baker St",
+  "rating": 4.1,
+  "count": 1036,
+  "distribution": [
+   496,
+   283,
+   141,
+   56,
+   60
+  ],
+  "collected": 380,
+  "summary": "Guests mostly talk about the staff and the coffee, and like the seating downstairs. The complaints are about cleanliness and prices.",
+  "say": "The Baker Street Starbucks is rated 4.1 out of 5 from 1,036 Google reviews.",
+  "cards": [
+   {
+    "author": "Paulo Lucian Riess",
+    "info": "Local Guide · 210 reviews · 380 photos",
+    "rating": 5,
+    "when": "a year ago",
+    "text": "Reliable Starbucks brew... Friendly staff here and a convenient location on Baker Street. Quiet little area downstairs and a sunny terrace outside... Great place to relax with a coffee",
+    "photos": [
+     "https://lh3.googleusercontent.com/grass-cs/AABkmLdKdfqP2PHZ3PRY3JOldUQjgM_Hv-6ulx2Rb3A4DhsjZebL68tUnB9CBQxoJNFwWsW8I9BsDCicxvxiOtoUbWaXyf2XqM__MCHsSmoU7h4a4On1HUAUlHczNsgA6hsplWeU-X0TyZpLF81W=w660-h495-p-k-no",
+     "https://lh3.googleusercontent.com/grass-cs/AABkmLdDBL4BsFgh3I1ULOY5OCnm5AuxdqKEO3g0tAEbzfr8YAjsTTqwYOl1ujvCFhgH7UCFEAm6WWHzKlZmgzzDnLZAIrfoE_ymdGmkxQ-YA2tqJp5VQNFFeqrv2Pq8Y2FPUtGXHy6WcL0dVxcE=w660-h495-p-k-no"
+    ],
+    "reply": null
+   },
+   {
+    "author": "Sonja Patrcevic",
+    "info": "Local Guide · 22 reviews · 9 photos",
+    "rating": 5,
+    "when": "4 years ago",
+    "text": "Well what to say about the Starbucks on Baker Street in London!? Perfect spot to enjoy perfect coffee specialy if weather is like today!beautifull sunny day",
+    "photos": [
+     "https://lh3.googleusercontent.com/grass-cs/AABkmLc1gnj-oGG9dACMlbp4-QEtpGwMiORdsdbWcSA5YSqS57bVFvguFZUwONhqXtLviccNsJBlLmEAUNMld5_6k6R_qhT6AshjKPMYUrhK6I9pLCg_c2bbYRaVSS5xrUKJSXI5r6k0BA=w660-h495-p-k-no",
+     "https://lh3.googleusercontent.com/grass-cs/AABkmLfxYUvA2xWw5DpQzxm4dYP-4aR3RUwWiS5M1jyu4rn70B6YNUEV8UJIo8bgIy0wsb4DY_b0g13o1AtHLIWDvbyOfjV-Sy4DDNDXDAfvmbWUjZP6TB6BK2BWhgy-xjcDM7FhTOU=w660-h495-p-k-no"
+    ],
+    "reply": null
+   },
+   {
+    "author": "Eva -",
+    "info": "Local Guide · 10 reviews · 3 photos",
+    "rating": 5,
+    "when": "3 years ago",
+    "text": "Great place to sit and relax. They have plenty of space downstairs, lovely music. The restroom was closed so can't really say anything about that.",
+    "photos": [
+     "https://lh3.googleusercontent.com/grass-cs/AABkmLdaCh20zdaFgr29JttX6fnkCROqE607lhk9DGcwGtl6VzSO3NreHHYCqCJymznjsQS4Pr_l29fYX93XIxdfxTNc3HLc84qnpSIyD8T7ewzd6PJYWNee0t_GpVVwIZDwwpjQzXuD=w660-h990-p-k-no",
+     "https://lh3.googleusercontent.com/grass-cs/AABkmLeIo365wvnn5QvzeIK090SmDhbbchske7PhTU3PP-_7-i0sLIzzrMCwi9Zy0Jho5I1kPUavjcNtJcM1WawsvjR8BhGBIRl16P_V4mfCETsBVnb0qi4dP_siE7owwbFHcOYQf9Q=w660-h990-p-k-no"
+    ],
+    "reply": null
+   },
+   {
+    "author": "F J",
+    "info": "Local Guide · 291 reviews · 1,761 photos",
+    "rating": 4,
+    "when": "6 years ago",
+    "text": "This is my local travel hub. Its where I get my morning fix.. The staff are friendly and the service is fast pace. Perfect for a connecting journey.",
+    "photos": [
+     "https://lh3.googleusercontent.com/grass-cs/AABkmLdu8Y4oRFTT8OR84UIUtJokNFA-3qQ8GuFD-A79dNLMIqJGYY6cAVfMhrwyrOAJPvN_XGYdYF_WREXYFgeQHessZAVS-UgqAdn4bX8Aiq66TM7xFkWLf9NwkHhtPNc862VQDqnFFg=w660-h990-p-k-no",
+     "https://lh3.googleusercontent.com/grass-cs/AABkmLf36mLGZMghdt3dV9YSF-Pb6WPzLAJrKIBuSvUwUErJqxOKVYorDYZRqpv8JgHQW5XYAZp7dZamtkTQHY8j4V70h2StxNXLXtLenr_frKw9vSwMYnFGkbx5GY1zkV9zMwMgc16W=w660-h990-p-k-no"
+    ],
+    "reply": null
+   },
+   {
+    "author": "Tereza Bednářová",
+    "info": "Local Guide · 80 reviews · 675 photos",
+    "rating": 1,
+    "when": "5 years ago",
+    "text": "Very bad experience. There were like four customers, but we were waiting for two coffes for about 20 minutes. Staff werent really friendly too. The toilets were really messy, toilet paper was missing, the tables weren't really clean either.",
+    "photos": [],
+    "reply": null
+   },
+   {
+    "author": "Stefano Turconi",
+    "info": "11 reviews · 1 photo",
+    "rating": 1,
+    "when": "8 years ago",
+    "text": "Conveniently located on my way to work. Been there several times but was a complete turn off. The grumpiest baristas in London and totally inconsistent drinks. By their own admission they train new staff on the job. Thumb down!",
+    "photos": [],
+    "reply": null
+   }
+  ]
+ },
+ "topics": {
+  "coffee": {
+   "mentions": 159,
+   "average": 3.8,
+   "positiveShare": 0.65,
+   "distribution": [
+    70,
+    33,
+    23,
+    14,
+    19
+   ],
+   "quotes": [
+    {
+     "text": "Great place to relax with a coffee",
+     "author": "Paulo Lucian Riess",
+     "rating": 5,
+     "when": "a year ago"
+    },
+    {
+     "text": "Service is always great and friendly, drinks made well too.",
+     "author": "Estelle Yip",
+     "rating": 5,
+     "when": "3 months ago"
+    },
+    {
+     "text": "A good place to get a relax and enjoy the coffee.",
+     "author": "Lee Chi Ping",
+     "rating": 4,
+     "when": "2 months ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Paulo Lucian Riess",
+     "info": "Local Guide · 210 reviews · 380 photos",
+     "rating": 5,
+     "when": "a year ago",
+     "text": "Reliable Starbucks brew... Friendly staff here and a convenient location on Baker Street. Quiet little area downstairs and a sunny terrace outside... Great place to relax with a coffee",
+     "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLdKdfqP2PHZ3PRY3JOldUQjgM_Hv-6ulx2Rb3A4DhsjZebL68tUnB9CBQxoJNFwWsW8I9BsDCicxvxiOtoUbWaXyf2XqM__MCHsSmoU7h4a4On1HUAUlHczNsgA6hsplWeU-X0TyZpLF81W=w660-h495-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLdDBL4BsFgh3I1ULOY5OCnm5AuxdqKEO3g0tAEbzfr8YAjsTTqwYOl1ujvCFhgH7UCFEAm6WWHzKlZmgzzDnLZAIrfoE_ymdGmkxQ-YA2tqJp5VQNFFeqrv2Pq8Y2FPUtGXHy6WcL0dVxcE=w660-h495-p-k-no"
+     ],
+     "reply": null
+    },
+    {
+     "author": "Estelle Yip",
+     "info": "Local Guide · 61 reviews · 114 photos",
+     "rating": 5,
+     "when": "3 months ago",
+     "text": "Service is always great and friendly, drinks made well too. Extra touch if they remembered their regular customers",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Lee Chi Ping",
+     "info": "Local Guide · 95 reviews · 145 photos",
+     "rating": 4,
+     "when": "2 months ago",
+     "text": "The downstairs sitting area is nice and quiet. A good place to get a relax and enjoy the coffee.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Sonja Patrcevic",
+     "info": "Local Guide · 22 reviews · 9 photos",
+     "rating": 5,
+     "when": "4 years ago",
+     "text": "Well what to say about the Starbucks on Baker Street in London!? Perfect spot to enjoy perfect coffee specialy if weather is like today!beautifull sunny day",
+     "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLc1gnj-oGG9dACMlbp4-QEtpGwMiORdsdbWcSA5YSqS57bVFvguFZUwONhqXtLviccNsJBlLmEAUNMld5_6k6R_qhT6AshjKPMYUrhK6I9pLCg_c2bbYRaVSS5xrUKJSXI5r6k0BA=w660-h495-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLfxYUvA2xWw5DpQzxm4dYP-4aR3RUwWiS5M1jyu4rn70B6YNUEV8UJIo8bgIy0wsb4DY_b0g13o1AtHLIWDvbyOfjV-Sy4DDNDXDAfvmbWUjZP6TB6BK2BWhgy-xjcDM7FhTOU=w660-h495-p-k-no"
+     ],
+     "reply": null
+    },
+    {
+     "author": "Maneesha Panesar",
+     "info": "Local Guide · 65 reviews · 4 photos",
+     "rating": 4,
+     "when": "a year ago",
+     "text": "Cannot comment on food (I'm not a big fan for Starbucks food in general) however the staff here are always so lovely and service has always been very quick here. Thank you for always making my morning visit so pleasant! The baristas here are excellent, I've never had bad coffee!",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "label": "Coffee & drinks"
+  },
+  "service": {
+   "mentions": 133,
+   "average": 3.7,
+   "positiveShare": 0.69,
+   "distribution": [
+    58,
+    34,
+    10,
+    11,
+    20
+   ],
+   "quotes": [
+    {
+     "text": "Friendly staff here and a convenient location on Baker Street.",
+     "author": "Paulo Lucian Riess",
+     "rating": 5,
+     "when": "a year ago"
+    },
+    {
+     "text": "Service is always great and friendly, drinks made well too.",
+     "author": "Estelle Yip",
+     "rating": 5,
+     "when": "3 months ago"
+    },
+    {
+     "text": "Service from Lily, Hansol and Joshua was amazing!",
+     "author": "Gabriella Andrejeva",
+     "rating": 5,
+     "when": "a year ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Paulo Lucian Riess",
+     "info": "Local Guide · 210 reviews · 380 photos",
+     "rating": 5,
+     "when": "a year ago",
+     "text": "Reliable Starbucks brew... Friendly staff here and a convenient location on Baker Street. Quiet little area downstairs and a sunny terrace outside... Great place to relax with a coffee",
+     "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLdKdfqP2PHZ3PRY3JOldUQjgM_Hv-6ulx2Rb3A4DhsjZebL68tUnB9CBQxoJNFwWsW8I9BsDCicxvxiOtoUbWaXyf2XqM__MCHsSmoU7h4a4On1HUAUlHczNsgA6hsplWeU-X0TyZpLF81W=w660-h495-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLdDBL4BsFgh3I1ULOY5OCnm5AuxdqKEO3g0tAEbzfr8YAjsTTqwYOl1ujvCFhgH7UCFEAm6WWHzKlZmgzzDnLZAIrfoE_ymdGmkxQ-YA2tqJp5VQNFFeqrv2Pq8Y2FPUtGXHy6WcL0dVxcE=w660-h495-p-k-no"
+     ],
+     "reply": null
+    },
+    {
+     "author": "Estelle Yip",
+     "info": "Local Guide · 61 reviews · 114 photos",
+     "rating": 5,
+     "when": "3 months ago",
+     "text": "Service is always great and friendly, drinks made well too. Extra touch if they remembered their regular customers",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Gabriella Andrejeva",
+     "info": "Local Guide · 42 reviews · 79 photos",
+     "rating": 5,
+     "when": "a year ago",
+     "text": "Service from Lily, Hansol and Joshua was amazing! Super friendly will definitely be back just cause of their politeness!",
+     "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLfpyLSQ1Xl3twjz8UYbvgRMZRVriU7Swxel6ErpgougtF0su_sPctlzhe--SqmaTE1bbU5zSy_XOLrez1gpbGCXa68nFq-74T4R5hRkz722pa7PEqHiKJMaKBcbCEvkrTPy2pf982Loxo2H=w1320-h990-p-k-no"
+     ],
+     "reply": null
+    },
+    {
+     "author": "F J",
+     "info": "Local Guide · 291 reviews · 1,761 photos",
+     "rating": 4,
+     "when": "6 years ago",
+     "text": "This is my local travel hub. Its where I get my morning fix.. The staff are friendly and the service is fast pace. Perfect for a connecting journey.",
+     "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLdu8Y4oRFTT8OR84UIUtJokNFA-3qQ8GuFD-A79dNLMIqJGYY6cAVfMhrwyrOAJPvN_XGYdYF_WREXYFgeQHessZAVS-UgqAdn4bX8Aiq66TM7xFkWLf9NwkHhtPNc862VQDqnFFg=w660-h990-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLf36mLGZMghdt3dV9YSF-Pb6WPzLAJrKIBuSvUwUErJqxOKVYorDYZRqpv8JgHQW5XYAZp7dZamtkTQHY8j4V70h2StxNXLXtLenr_frKw9vSwMYnFGkbx5GY1zkV9zMwMgc16W=w660-h990-p-k-no"
+     ],
+     "reply": null
+    },
+    {
+     "author": "Maneesha Panesar",
+     "info": "Local Guide · 65 reviews · 4 photos",
+     "rating": 4,
+     "when": "a year ago",
+     "text": "Cannot comment on food (I'm not a big fan for Starbucks food in general) however the staff here are always so lovely and service has always been very quick here. Thank you for always making my morning visit so pleasant! The baristas here are excellent, I've never had bad coffee!",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "label": "Staff & service"
+  },
+  "cleanliness": {
+   "mentions": 41,
+   "average": 3.0,
+   "positiveShare": 0.32,
+   "distribution": [
+    7,
+    6,
+    13,
+    9,
+    6
+   ],
+   "quotes": [
+    {
+     "text": "Reasonably clean.",
+     "author": "Ah Ta",
+     "rating": 4,
+     "when": "2 years ago"
+    },
+    {
+     "text": "Quite a big branch with outside and downstairs seating plus working toilet facility ( unisex and baby changing facility) Drinks made to my expectation no…",
+     "author": "R D",
+     "rating": 5,
+     "when": "5 years ago"
+    },
+    {
+     "text": "The toilets were really messy, toilet paper was missing, the tables weren't really clean either.",
+     "author": "Tereza Bednářová",
+     "rating": 1,
+     "when": "5 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Ah Ta",
+     "info": "Local Guide · 1,374 reviews · 716 photos",
+     "rating": 4,
+     "when": "2 years ago",
+     "text": "I had the Strawberry Açai Starbucks Refresha Drink which was good! Not too sweet and refreshing! My shock was the cost and how much things have gone up especially as this was mainly water! Staff were pleasant but could be friendlier. Limited seating upstairs but more downstairs. Some outside seating too. Reasonably clean.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "R D",
+     "info": "Local Guide · 333 reviews · 444 photos",
+     "rating": 5,
+     "when": "5 years ago",
+     "text": "Really impressed with this Starbucks visit. Hadn't been to this branch before and was pleasantly welcomed and they were fully stocked. Quite a big branch with outside and downstairs seating plus working toilet facility ( unisex and baby changing facility) Drinks made to my expectation no complaints on this one.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Tereza Bednářová",
+     "info": "Local Guide · 80 reviews · 675 photos",
+     "rating": 1,
+     "when": "5 years ago",
+     "text": "Very bad experience. There were like four customers, but we were waiting for two coffes for about 20 minutes. Staff werent really friendly too. The toilets were really messy, toilet paper was missing, the tables weren't really clean either.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Archie Chak",
+     "info": "1 review",
+     "rating": 1,
+     "when": "7 years ago",
+     "text": "Visited this place today 09/02. Barista was trying to serve my coffee in a dirty cup from previous customer. Absolutely Disgusting. Cleanless level is very poor too, table downstairs is dirty and sticky. Never ever again",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "A k",
+     "info": "1 review",
+     "rating": 5,
+     "when": "8 years ago",
+     "text": "Great place to hang out. Has additional seating downstairs and toilets/baby changing facilities. Downstairs doesn't get good phone service and the free WiFi isn't the greatest. Great staff - would work here",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "label": "Cleanliness"
+  },
+  "seating": {
+   "mentions": 72,
+   "average": 3.8,
+   "positiveShare": 0.71,
+   "distribution": [
+    24,
+    27,
+    8,
+    6,
+    7
+   ],
+   "quotes": [
+    {
+     "text": "Quiet little area downstairs and a sunny terrace outside...",
+     "author": "Paulo Lucian Riess",
+     "rating": 5,
+     "when": "a year ago"
+    },
+    {
+     "text": "The downstairs sitting area is nice and quiet.",
+     "author": "Lee Chi Ping",
+     "rating": 4,
+     "when": "2 months ago"
+    },
+    {
+     "text": "Great place to sit and relax.",
+     "author": "Eva -",
+     "rating": 5,
+     "when": "3 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Paulo Lucian Riess",
+     "info": "Local Guide · 210 reviews · 380 photos",
+     "rating": 5,
+     "when": "a year ago",
+     "text": "Reliable Starbucks brew... Friendly staff here and a convenient location on Baker Street. Quiet little area downstairs and a sunny terrace outside... Great place to relax with a coffee",
+     "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLdKdfqP2PHZ3PRY3JOldUQjgM_Hv-6ulx2Rb3A4DhsjZebL68tUnB9CBQxoJNFwWsW8I9BsDCicxvxiOtoUbWaXyf2XqM__MCHsSmoU7h4a4On1HUAUlHczNsgA6hsplWeU-X0TyZpLF81W=w660-h495-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLdDBL4BsFgh3I1ULOY5OCnm5AuxdqKEO3g0tAEbzfr8YAjsTTqwYOl1ujvCFhgH7UCFEAm6WWHzKlZmgzzDnLZAIrfoE_ymdGmkxQ-YA2tqJp5VQNFFeqrv2Pq8Y2FPUtGXHy6WcL0dVxcE=w660-h495-p-k-no"
+     ],
+     "reply": null
+    },
+    {
+     "author": "Lee Chi Ping",
+     "info": "Local Guide · 95 reviews · 145 photos",
+     "rating": 4,
+     "when": "2 months ago",
+     "text": "The downstairs sitting area is nice and quiet. A good place to get a relax and enjoy the coffee.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Eva -",
+     "info": "Local Guide · 10 reviews · 3 photos",
+     "rating": 5,
+     "when": "3 years ago",
+     "text": "Great place to sit and relax. They have plenty of space downstairs, lovely music. The restroom was closed so can't really say anything about that.",
+     "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLdaCh20zdaFgr29JttX6fnkCROqE607lhk9DGcwGtl6VzSO3NreHHYCqCJymznjsQS4Pr_l29fYX93XIxdfxTNc3HLc84qnpSIyD8T7ewzd6PJYWNee0t_GpVVwIZDwwpjQzXuD=w660-h990-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLeIo365wvnn5QvzeIK090SmDhbbchske7PhTU3PP-_7-i0sLIzzrMCwi9Zy0Jho5I1kPUavjcNtJcM1WawsvjR8BhGBIRl16P_V4mfCETsBVnb0qi4dP_siE7owwbFHcOYQf9Q=w660-h990-p-k-no"
+     ],
+     "reply": null
+    },
+    {
+     "author": "Tracey-Anne",
+     "info": "Local Guide · 365 reviews · 105 photos",
+     "rating": 4,
+     "when": "3 years ago",
+     "text": "Love this little shop, well it seems little, until you go downstairs where there's a nice seating area. Impressed! The staff are always smiling and friendly. The food is good and the coffees are top notch! They even give little samples of a new coffee they are promoting, a nice touch. Always a nice experience, definitely recommend.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Ah Ta",
+     "info": "Local Guide · 1,374 reviews · 716 photos",
+     "rating": 4,
+     "when": "2 years ago",
+     "text": "I had the Strawberry Açai Starbucks Refresha Drink which was good! Not too sweet and refreshing! My shock was the cost and how much things have gone up especially as this was mainly water! Staff were pleasant but could be friendlier. Limited seating upstairs but more downstairs. Some outside seating too. Reasonably clean.",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "label": "Seating & space"
+  },
+  "busy": {
+   "mentions": 50,
+   "average": 3.7,
+   "positiveShare": 0.7,
+   "distribution": [
+    15,
+    20,
+    5,
+    6,
+    4
+   ],
+   "quotes": [
+    {
+     "text": "The staff are friendly and the service is fast pace.",
+     "author": "F J",
+     "rating": 4,
+     "when": "6 years ago"
+    },
+    {
+     "text": "Cannot comment on food (I'm not a big fan for Starbucks food in general) however the staff here are always so lovely and service has always been very quick…",
+     "author": "Maneesha Panesar",
+     "rating": 4,
+     "when": "a year ago"
+    },
+    {
+     "text": "There were like four customers, but we were waiting for two coffes for about 20 minutes.",
+     "author": "Tereza Bednářová",
+     "rating": 1,
+     "when": "5 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "F J",
+     "info": "Local Guide · 291 reviews · 1,761 photos",
+     "rating": 4,
+     "when": "6 years ago",
+     "text": "This is my local travel hub. Its where I get my morning fix.. The staff are friendly and the service is fast pace. Perfect for a connecting journey.",
+     "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLdu8Y4oRFTT8OR84UIUtJokNFA-3qQ8GuFD-A79dNLMIqJGYY6cAVfMhrwyrOAJPvN_XGYdYF_WREXYFgeQHessZAVS-UgqAdn4bX8Aiq66TM7xFkWLf9NwkHhtPNc862VQDqnFFg=w660-h990-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLf36mLGZMghdt3dV9YSF-Pb6WPzLAJrKIBuSvUwUErJqxOKVYorDYZRqpv8JgHQW5XYAZp7dZamtkTQHY8j4V70h2StxNXLXtLenr_frKw9vSwMYnFGkbx5GY1zkV9zMwMgc16W=w660-h990-p-k-no"
+     ],
+     "reply": null
+    },
+    {
+     "author": "Maneesha Panesar",
+     "info": "Local Guide · 65 reviews · 4 photos",
+     "rating": 4,
+     "when": "a year ago",
+     "text": "Cannot comment on food (I'm not a big fan for Starbucks food in general) however the staff here are always so lovely and service has always been very quick here. Thank you for always making my morning visit so pleasant! The baristas here are excellent, I've never had bad coffee!",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Tereza Bednářová",
+     "info": "Local Guide · 80 reviews · 675 photos",
+     "rating": 1,
+     "when": "5 years ago",
+     "text": "Very bad experience. There were like four customers, but we were waiting for two coffes for about 20 minutes. Staff werent really friendly too. The toilets were really messy, toilet paper was missing, the tables weren't really clean either.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Mac Morrison",
+     "info": "Local Guide · 166 reviews · 94 photos",
+     "rating": 4,
+     "when": "9 years ago",
+     "text": "This store is a little cramped - but service is always good. Theres outside seats and a massive comfy seating area hidden away downstairs.. so remember to try out downstairs if you want to just sit and use a laptop etc, as upstairs has only one bench with high seats and a queue of people barging around.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Victoria",
+     "info": "Local Guide · 118 reviews · 14 photos",
+     "rating": 3,
+     "when": "a year ago",
+     "text": "i got the wrong coffee, but everything else was nice. there's a sitting area in the basement, bathrooms, electricity and wifi. close to marylebone station, if you have to wait for a train",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "label": "Queues & speed"
+  },
+  "food": {
+   "mentions": 23,
+   "average": 3.8,
+   "positiveShare": 0.7,
+   "distribution": [
+    7,
+    9,
+    4,
+    2,
+    1
+   ],
+   "quotes": [
+    {
+     "text": "Cannot comment on food (I'm not a big fan for Starbucks food in general) however the staff here are always so lovely and service has always been very quick…",
+     "author": "Maneesha Panesar",
+     "rating": 4,
+     "when": "a year ago"
+    },
+    {
+     "text": "The food is good and the coffees are top notch!",
+     "author": "Tracey-Anne",
+     "rating": 4,
+     "when": "3 years ago"
+    },
+    {
+     "text": "Coffee was great but unfortunately a number of times when ordering food, it has come out roasting hot and by the time I arrive at work it's solid hard,…",
+     "author": "Thomas-James Fisher",
+     "rating": 4,
+     "when": "7 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Maneesha Panesar",
+     "info": "Local Guide · 65 reviews · 4 photos",
+     "rating": 4,
+     "when": "a year ago",
+     "text": "Cannot comment on food (I'm not a big fan for Starbucks food in general) however the staff here are always so lovely and service has always been very quick here. Thank you for always making my morning visit so pleasant! The baristas here are excellent, I've never had bad coffee!",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Tracey-Anne",
+     "info": "Local Guide · 365 reviews · 105 photos",
+     "rating": 4,
+     "when": "3 years ago",
+     "text": "Love this little shop, well it seems little, until you go downstairs where there's a nice seating area. Impressed! The staff are always smiling and friendly. The food is good and the coffees are top notch! They even give little samples of a new coffee they are promoting, a nice touch. Always a nice experience, definitely recommend.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Thomas-James Fisher",
+     "info": "Local Guide · 16 reviews · 2 photos",
+     "rating": 4,
+     "when": "7 years ago",
+     "text": "Coffee was great but unfortunately a number of times when ordering food, it has come out roasting hot and by the time I arrive at work it's solid hard, apart from that great service.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Chris Wynn",
+     "info": "Local Guide · 31 reviews · 15 photos",
+     "rating": 3,
+     "when": "7 years ago",
+     "text": "Standard Starbucks with the usual drinks and food. Polite staff. Dropped a star off the score because the toilets were bloody awful.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Edward Caudy",
+     "info": "Local Guide · 12 reviews · 67 photos",
+     "rating": 5,
+     "when": "8 years ago",
+     "text": "Friendly staff. Good coffee and food. Plenty of seating downstairs. Relaxing soft music",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "label": "Food"
+  },
+  "price": {
+   "mentions": 12,
+   "average": 2.7,
+   "positiveShare": 0.33,
+   "distribution": [
+    3,
+    1,
+    2,
+    1,
+    5
+   ],
+   "quotes": [
+    {
+     "text": "Even more overpriced than other Starbucks.",
+     "author": "Raj",
+     "rating": 1,
+     "when": "9 years ago"
+    },
+    {
+     "text": "Rude, slow and expensive",
+     "author": "Phil Robertson",
+     "rating": 2,
+     "when": "4 years ago"
+    },
+    {
+     "text": "Check the price you're charged is the and as on the price-list.",
+     "author": "Paul Knapton",
+     "rating": 1,
+     "when": "8 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Raj",
+     "info": "Local Guide · 99 reviews · 9 photos",
+     "rating": 1,
+     "when": "9 years ago",
+     "text": "Even more overpriced than other Starbucks. Lukewarm coffeee served first time then asked if I wanted it extra hot - hot would be nice! Second time coffee made wrong. Avoid this place",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Phil Robertson",
+     "info": "7 reviews",
+     "rating": 2,
+     "when": "4 years ago",
+     "text": "Good job I wasn’t in a rush to catch a train, no need to roll your eyes when I didn’t quite hear what the drink dumped down on the side was either. Rude, slow and expensive",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Paul Knapton",
+     "info": "Local Guide · 56 reviews · 349 photos",
+     "rating": 1,
+     "when": "8 years ago",
+     "text": "Check the price you're charged is the and as on the price-list.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Anne Rodriguez",
+     "info": "Local Guide · 60 reviews · 42 photos",
+     "rating": 5,
+     "when": "7 years ago",
+     "text": "Perfect for a light snack, everything is delicious, plus the prices are much cheaper in London than in France or Spain.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Pedro J.S",
+     "info": "Local Guide · 358 reviews · 476 photos",
+     "rating": 4,
+     "when": "3 years ago",
+     "text": "Fast and good service. Fresh pastries. Prices are somewhat cheaper than the rest of London.",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "label": "Price"
+  }
+ },
+ "items": {
+  "latte": {
+   "mentions": 6,
+   "average": 3.0,
+   "positiveShare": 0.5,
+   "distribution": [
+    3,
+    0,
+    0,
+    0,
+    3
+   ],
+   "quotes": [
+    {
+     "text": "I'm not a coffee fan, but I do love lattes!",
+     "author": "Denisa Anton",
+     "rating": 5,
+     "when": "6 years ago"
+    },
+    {
+     "text": "Nothing beats their Soya Latte.",
+     "author": "Sumeet Girdhani",
+     "rating": 5,
+     "when": "5 years ago"
+    },
+    {
+     "text": "Had my first Pumpkin Spice Latte here today with the sweetest baristas, Arpit and Riad.",
+     "author": "Rose Bates",
+     "rating": 5,
+     "when": "2 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Denisa Anton",
+     "info": "Local Guide · 175 reviews · 472 photos",
+     "rating": 5,
+     "when": "6 years ago",
+     "text": "I love it!! I'm not a coffee fan, but I do love lattes! So Starbucks is the coffee maker for me. I must try the caramel macchiato!",
+     "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLcRE2z6r2l0toDbG7eQilvqhaabGDrRRYZaqh8z-tjHjjpXVjiMNMEZneN023ovDTMcl5l_32DYh5AW0JwkimCDLufYlJQO8G1eQZ7IvbMbMlcYLcUPmeQQvK7S8M7svIvhbsM9hg=w1320-h990-p-k-no"
+     ],
+     "reply": null
+    },
+    {
+     "author": "Sumeet Girdhani",
+     "info": "Local Guide · 804 reviews · 650 photos",
+     "rating": 5,
+     "when": "5 years ago",
+     "text": "Superb coffee's as usual from Starbucks. Nothing beats their Soya Latte. Very friendly staff always.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Rose Bates",
+     "info": "Local Guide · 14 reviews · 6 photos",
+     "rating": 5,
+     "when": "2 years ago",
+     "text": "Had my first Pumpkin Spice Latte here today with the sweetest baristas, Arpit and Riad. Thank you!",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Lyudmyla Tyvanyuk",
+     "info": "8 reviews · 1 photo",
+     "rating": 1,
+     "when": "6 years ago",
+     "text": "I ordered a wet latte, instead I got a skinny normal latte. The downstairs was closed so we had to sit outside in freezing cold. And there was no soap in the toilet. The standards have lowered significantly.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Daisy Ann Holmes",
+     "info": "Local Guide · 21 reviews · 24 photos",
+     "rating": 1,
+     "when": "3 years ago",
+     "text": "They don’t want to put dairy foam on your oat milk latte drink even though you requested it.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Fine Deck",
+     "info": "5 reviews",
+     "rating": 1,
+     "when": "5 months ago",
+     "text": "Paid 6.80£ for iced latte",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "hot_chocolate": {
+   "mentions": 5,
+   "average": 3.2,
+   "positiveShare": 0.4,
+   "distribution": [
+    1,
+    1,
+    2,
+    0,
+    1
+   ],
+   "quotes": [
+    {
+     "text": "Friendly staff in this very small and busy branch, I tried the limited edition Berry Hot Chocolate.",
+     "author": "Parvinder Phul",
+     "rating": 4,
+     "when": "7 years ago"
+    },
+    {
+     "text": "Nice Hot Chocolate though.",
+     "author": "Jeremy",
+     "rating": 3,
+     "when": "5 years ago"
+    },
+    {
+     "text": "Lovely team who work fast and always have a smile on their face, but twice, in a row, have had hot chocolate which tastes of coffee.",
+     "author": "Kal",
+     "rating": 3,
+     "when": "4 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Parvinder Phul",
+     "info": "Local Guide · 190 reviews · 852 photos",
+     "rating": 4,
+     "when": "7 years ago",
+     "text": "Friendly staff in this very small and busy branch, I tried the limited edition Berry Hot Chocolate. Should have heeded the advice from the staff member who was serving me and gone for tried and tested.... the berry was quite overpowering. Lesson learned.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Jeremy",
+     "info": "Local Guide · 24 reviews · 1 photo",
+     "rating": 3,
+     "when": "5 years ago",
+     "text": "Bit slow on serving today! No smiles from staff at all. Nice Hot Chocolate though. Very smooth and milky...",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Kal",
+     "info": "Local Guide · 31 reviews",
+     "rating": 3,
+     "when": "4 years ago",
+     "text": "Lovely team who work fast and always have a smile on their face, but twice, in a row, have had hot chocolate which tastes of coffee. Proper cleaning of utensils between drinks would be good? People who do not like coffee can taste even a hint of it…",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Marufa Begum",
+     "info": "Local Guide · 24 reviews · 18 photos",
+     "rating": 1,
+     "when": "6 years ago",
+     "text": "Customer service was appalling. I ordered two hot chocolates and a mocha, lady first put two out and said Hot Chocolate with Marshmallows. I said to her, \"I'm really sorry I didn't want Marshmallows\" she abruptly replied \"they're not…",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Amaan Abdullah bindo",
+     "info": "Local Guide · 285 reviews · 3 photos",
+     "rating": 5,
+     "when": "4 years ago",
+     "text": "Nice fudge brownie hot chocolate",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "chai_latte": {
+   "mentions": 5,
+   "average": 4.0,
+   "positiveShare": 0.6,
+   "distribution": [
+    2,
+    1,
+    2,
+    0,
+    0
+   ],
+   "quotes": [
+    {
+     "text": "Good service Chai latte was unsually sweet!!",
+     "author": "Sheena Valand",
+     "rating": 3,
+     "when": "4 years ago"
+    },
+    {
+     "text": "I have heard the 'dirty chai' is worth trying (chai with a shot of espresso)",
+     "author": "Peter Hartman",
+     "rating": 3,
+     "when": "10 years ago"
+    },
+    {
+     "text": "The best medium soya chai latte I've had!",
+     "author": "Amina M",
+     "rating": 5,
+     "when": "4 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Sheena Valand",
+     "info": "Local Guide · 92 reviews · 94 photos",
+     "rating": 3,
+     "when": "4 years ago",
+     "text": "Good service Chai latte was unsually sweet!! I threw it in the bin as it wasn't made quite right",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Peter Hartman",
+     "info": "Local Guide · 224 reviews · 162 photos",
+     "rating": 3,
+     "when": "10 years ago",
+     "text": "I have heard the 'dirty chai' is worth trying (chai with a shot of espresso)",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Amina M",
+     "info": "Local Guide · 381 reviews · 2 photos",
+     "rating": 5,
+     "when": "4 years ago",
+     "text": "The best medium soya chai latte I've had! Very quick service and got my name right 👍🏼…",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "L Larmené",
+     "info": "4 reviews · 1 photo",
+     "rating": 4,
+     "when": "7 years ago",
+     "text": "Delicious Chai latte 👌🏻 and plenty of place to sit. Had a lovely young gentleman help us and it was an incredibly pleasant experience!…",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Tony Nwachi",
+     "info": "Local Guide · 51 reviews · 6 photos",
+     "rating": 5,
+     "when": "7 years ago",
+     "text": "Brilliant chai latte",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "espresso": {
+   "mentions": 5,
+   "average": 3.8,
+   "positiveShare": 0.6,
+   "distribution": [
+    1,
+    2,
+    2,
+    0,
+    0
+   ],
+   "quotes": [
+    {
+     "text": "Great for those who need a break with a nice, long, hot coffee, or for those who need a quick, strong energy boost with a take-away espresso.",
+     "author": "Gianluca Brandas",
+     "rating": 4,
+     "when": "7 years ago"
+    },
+    {
+     "text": "I go abroad to drink espresso coffee, not bad for an Italian.",
+     "author": "Moreno C.",
+     "rating": 4,
+     "when": "2 years ago"
+    },
+    {
+     "text": "I have heard the 'dirty chai' is worth trying (chai with a shot of espresso)",
+     "author": "Peter Hartman",
+     "rating": 3,
+     "when": "10 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Gianluca Brandas",
+     "info": "Local Guide · 50 reviews · 93 photos",
+     "rating": 4,
+     "when": "7 years ago",
+     "text": "The classic Starbucks. Great for those who need a break with a nice, long, hot coffee, or for those who need a quick, strong energy boost with a take-away espresso. The decor is beautiful, and there's free Wi-Fi.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Moreno C.",
+     "info": "Local Guide · 183 reviews · 143 photos",
+     "rating": 4,
+     "when": "2 years ago",
+     "text": "I go abroad to drink espresso coffee, not bad for an Italian.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Peter Hartman",
+     "info": "Local Guide · 224 reviews · 162 photos",
+     "rating": 3,
+     "when": "10 years ago",
+     "text": "I have heard the 'dirty chai' is worth trying (chai with a shot of espresso)",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Sándor Laza",
+     "info": "Local Guide · 197 reviews · 780 photos",
+     "rating": 5,
+     "when": "9 years ago",
+     "text": "Nice lication, good coffee. Second best espresso in London.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Marco Peira",
+     "info": "Local Guide · 91 reviews · 20 photos",
+     "rating": 3,
+     "when": "9 years ago",
+     "text": "Nice espresso",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "matcha_latte": {
+   "mentions": 4,
+   "average": 5.0,
+   "positiveShare": 1.0,
+   "distribution": [
+    4,
+    0,
+    0,
+    0,
+    0
+   ],
+   "quotes": [
+    {
+     "text": "I’m a big matcha fan, though Starbucks usually isn’t my first choice.",
+     "author": "S H",
+     "rating": 5,
+     "when": "a year ago"
+    },
+    {
+     "text": "Today I ordered a matcha frappuccino as usual, and I was very impressed because they made everything exactly as I requested.",
+     "author": "Nutcharat L",
+     "rating": 5,
+     "when": "3 months ago"
+    },
+    {
+     "text": "My go-to drink is Oat milk matcha latte with extra matcha.",
+     "author": "Aphirat Suthajitto",
+     "rating": 5,
+     "when": "2 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "S H",
+     "info": "7 reviews",
+     "rating": 5,
+     "when": "a year ago",
+     "text": "I’m a big matcha fan, though Starbucks usually isn’t my first choice. But I had one of the best iced matcha lattes here—made by Yeon. The building is currently under construction and still covered in scaffolding, but don’t let that stop you from walking in for a matcha.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Nutcharat L",
+     "info": "Local Guide · 75 reviews · 276 photos",
+     "rating": 5,
+     "when": "3 months ago",
+     "text": "Today I ordered a matcha frappuccino as usual, and I was very impressed because they made everything exactly as I requested. The taste was perfect – not too sweet, the matcha was fragrant and just the right strength.…",
+     "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLfwXUeupttphCCRfyqOR1rxnpe52KoZTAFh9BAv2tJvKWtlASMvu2OWxme_SOQ672sGCaLePkRYsA4O9FXQaNuJd9MG34p_9Q82Tah7JYYhH2wzqummlNJDQJ4IY9UnUYr1BXhpMgG8xELs=w660-h990-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLeSnXnSt2JbUzQZ3EeIuVprZ4-90bhPqh76s1DjSl1f8bG-8_EPVDQUr4NjH6CJQhsaBwKrk_UuI3qSHr1l80ksNRuBTcGX38ZqgufNq3VtrSwAal2Koi0RcDfryAAOEnTmxBA48NmUbygZ=w660-h495-p-k-no"
+     ],
+     "reply": null
+    },
+    {
+     "author": "Aphirat Suthajitto",
+     "info": "Local Guide · 206 reviews · 1,149 photos",
+     "rating": 5,
+     "when": "2 years ago",
+     "text": "My go-to drink is Oat milk matcha latte with extra matcha.",
+     "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLeo5Y1l18snXc_MtdzJy-MJGFjW0zdF7kyU0Uk3mtPDAC-jw1Gx9WcYLUGRn7jLq6z61cvV1NmMLfRmD0ADss6WYcu1i8XC2f3iLOR5YM5_ANPr376nUHRMv5hM5DKm0xnoqMzKMQ=w660-h990-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLflZZbskQdJXos1tyOWeyWkhX2OCM2aF_DmQYvtE7ZAvEpZMcNqCFwvCJzXPGmhXjbpUwiH-I8rhCDiyygzyDLgG54kqRzo3nnUdw0asysj2m5W8Du-wKI2hEpCrVKQXQDAVBqzCA=w660-h990-p-k-no"
+     ],
+     "reply": null
+    },
+    {
+     "author": "Sandra Ebassa Ongbiteke",
+     "info": "Local Guide · 60 reviews · 29 photos",
+     "rating": 5,
+     "when": "7 years ago",
+     "text": "Always happy with my matcha latte",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "mocha": {
+   "mentions": 3,
+   "average": 3.0,
+   "positiveShare": 0.33,
+   "distribution": [
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "quotes": [
+    {
+     "text": "Costa mocha was better just opposite the road.",
+     "author": "Ameer Mohamed",
+     "rating": 3,
+     "when": "6 years ago"
+    },
+    {
+     "text": "I ordered two hot chocolates and a mocha, lady first put two out and said Hot Chocolate with Marshmallows.",
+     "author": "Marufa Begum",
+     "rating": 1,
+     "when": "6 years ago"
+    },
+    {
+     "text": "I love their mocha",
+     "author": "Liam Burke",
+     "rating": 5,
+     "when": "9 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Ameer Mohamed",
+     "info": "Local Guide · 19 reviews · 3 photos",
+     "rating": 3,
+     "when": "6 years ago",
+     "text": "No social distancing. Costa mocha was better just opposite the road.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Marufa Begum",
+     "info": "Local Guide · 24 reviews · 18 photos",
+     "rating": 1,
+     "when": "6 years ago",
+     "text": "Customer service was appalling. I ordered two hot chocolates and a mocha, lady first put two out and said Hot Chocolate with Marshmallows. I said to her, \"I'm really sorry I didn't want Marshmallows\" she abruptly replied \"they're not…",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "Liam Burke",
+     "info": "Local Guide · 35 reviews",
+     "rating": 5,
+     "when": "9 years ago",
+     "text": "I love their mocha",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "white_mocha": {
+   "mentions": 2,
+   "average": 2.5,
+   "positiveShare": 0.5,
+   "distribution": [
+    0,
+    1,
+    0,
+    0,
+    1
+   ],
+   "quotes": [
+    {
+     "text": "I ordered a white chocolate mocha, but instead I just got warm milk.",
+     "author": "Sheyla Sara",
+     "rating": 1,
+     "when": "4 years ago"
+    },
+    {
+     "text": "The White Mocha was on point and service was quite prompt even with the place being busy with over 12 people ordering and just 2-3 attendants 👍",
+     "author": "I A",
+     "rating": 4,
+     "when": "3 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Sheyla Sara",
+     "info": "9 reviews",
+     "rating": 1,
+     "when": "4 years ago",
+     "text": "I ordered a white chocolate mocha, but instead I just got warm milk. I paid 4,20£ for milk.",
+     "photos": [],
+     "reply": null
+    },
+    {
+     "author": "I A",
+     "info": "Local Guide · 105 reviews · 195 photos",
+     "rating": 4,
+     "when": "3 years ago",
+     "text": "The White Mocha was on point and service was quite prompt even with the place being busy with over 12 people ordering and just 2-3 attendants 👍…",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "matcha_frappuccino": {
+   "mentions": 1,
+   "average": 5.0,
+   "positiveShare": 1.0,
+   "distribution": [
+    1,
+    0,
+    0,
+    0,
+    0
+   ],
+   "quotes": [
+    {
+     "text": "Today I ordered a matcha frappuccino as usual, and I was very impressed because they made everything exactly as I requested.",
+     "author": "Nutcharat L",
+     "rating": 5,
+     "when": "3 months ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Nutcharat L",
+     "info": "Local Guide · 75 reviews · 276 photos",
+     "rating": 5,
+     "when": "3 months ago",
+     "text": "Today I ordered a matcha frappuccino as usual, and I was very impressed because they made everything exactly as I requested. The taste was perfect – not too sweet, the matcha was fragrant and just the right strength.…",
+     "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLfwXUeupttphCCRfyqOR1rxnpe52KoZTAFh9BAv2tJvKWtlASMvu2OWxme_SOQ672sGCaLePkRYsA4O9FXQaNuJd9MG34p_9Q82Tah7JYYhH2wzqummlNJDQJ4IY9UnUYr1BXhpMgG8xELs=w660-h990-p-k-no",
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLeSnXnSt2JbUzQZ3EeIuVprZ4-90bhPqh76s1DjSl1f8bG-8_EPVDQUr4NjH6CJQhsaBwKrk_UuI3qSHr1l80ksNRuBTcGX38ZqgufNq3VtrSwAal2Koi0RcDfryAAOEnTmxBA48NmUbygZ=w660-h495-p-k-no"
+     ],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "strawberry_acai": {
+   "mentions": 1,
+   "average": 4.0,
+   "positiveShare": 1.0,
+   "distribution": [
+    0,
+    1,
+    0,
+    0,
+    0
+   ],
+   "quotes": [
+    {
+     "text": "I had the Strawberry Açai Starbucks Refresha Drink which was good!",
+     "author": "Ah Ta",
+     "rating": 4,
+     "when": "2 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Ah Ta",
+     "info": "Local Guide · 1,374 reviews · 716 photos",
+     "rating": 4,
+     "when": "2 years ago",
+     "text": "I had the Strawberry Açai Starbucks Refresha Drink which was good! Not too sweet and refreshing! My shock was the cost and how much things have gone up especially as this was mainly water! Staff were pleasant but could be friendlier. Limited seating upstairs but more downstairs. Some outside seating too. Reasonably clean.",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "cold_brew": {
+   "mentions": 1,
+   "average": 1.0,
+   "positiveShare": 0.0,
+   "distribution": [
+    0,
+    0,
+    0,
+    0,
+    1
+   ],
+   "quotes": [
+    {
+     "text": "They didn't know what was nitro cold brew.",
+     "author": "Aditya Trivedi",
+     "rating": 1,
+     "when": "6 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Aditya Trivedi",
+     "info": "Local Guide · 106 reviews · 312 photos",
+     "rating": 1,
+     "when": "6 years ago",
+     "text": "Good coffee, of course, but horrible staff. They didn't know what was nitro cold brew. When asked for one, the staff gave me a blank look. They discussed in their local language and finally told me that they haven't heard of anything like…",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "filter": {
+   "mentions": 1,
+   "average": 3.0,
+   "positiveShare": 0.0,
+   "distribution": [
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   "quotes": [
+    {
+     "text": "Can’t believe they stopped doing drip/filter coffee though - Starbucks isn’t Starbucks without Pike Place!",
+     "author": "Makoto O",
+     "rating": 3,
+     "when": "4 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Makoto O",
+     "info": "Local Guide · 180 reviews · 487 photos",
+     "rating": 3,
+     "when": "4 years ago",
+     "text": "Nice refurb - cool sleek design. Can’t believe they stopped doing drip/filter coffee though - Starbucks isn’t Starbucks without Pike Place!",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "shaken_espresso": {
+   "mentions": 1,
+   "average": 3.0,
+   "positiveShare": 0.0,
+   "distribution": [
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   "quotes": [
+    {
+     "text": "I ordered a grande toasted vanilla shaken espresso with vanilla sweet cream, but my drink wasn’t made well sadly :( but the staff were polite!",
+     "author": "Samiya K (Sam)",
+     "rating": 3,
+     "when": "3 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Samiya K (Sam)",
+     "info": "Local Guide · 21 reviews · 11 photos",
+     "rating": 3,
+     "when": "3 years ago",
+     "text": "I ordered a grande toasted vanilla shaken espresso with vanilla sweet cream, but my drink wasn’t made well sadly :( but the staff were polite!",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "flat_white": {
+   "mentions": 1,
+   "average": 5.0,
+   "positiveShare": 1.0,
+   "distribution": [
+    1,
+    0,
+    0,
+    0,
+    0
+   ],
+   "quotes": [
+    {
+     "text": "Nice, smooth flat white!",
+     "author": "Vladimir Gritsenko",
+     "rating": 5,
+     "when": "a year ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Vladimir Gritsenko",
+     "info": "11 reviews",
+     "rating": 5,
+     "when": "a year ago",
+     "text": "Nice, smooth flat white! Both baristas were very kind!",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "coffee_frappuccino": {
+   "mentions": 1,
+   "average": 5.0,
+   "positiveShare": 1.0,
+   "distribution": [
+    1,
+    0,
+    0,
+    0,
+    0
+   ],
+   "quotes": [
+    {
+     "text": "Love the vanilla frappuccino alas not all of them do it well...",
+     "author": "rosamund parks",
+     "rating": 5,
+     "when": "7 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "rosamund parks",
+     "info": "Local Guide · 113 reviews · 175 photos",
+     "rating": 5,
+     "when": "7 years ago",
+     "text": "Love the vanilla frappuccino alas not all of them do it well... was disappointed on this occasion but was already at my next destination to return and complain..",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "banana_loaf": {
+   "mentions": 1,
+   "average": 5.0,
+   "positiveShare": 1.0,
+   "distribution": [
+    1,
+    0,
+    0,
+    0,
+    0
+   ],
+   "quotes": [
+    {
+     "text": "Coffee really good, but banana bread was good, but rlly dry :)",
+     "author": "Beáta Žáková",
+     "rating": 5,
+     "when": "2 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Beáta Žáková",
+     "info": "Local Guide · 58 reviews · 117 photos",
+     "rating": 5,
+     "when": "2 years ago",
+     "text": "Coffee really good, but banana bread was good, but rlly dry :)",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "caramel_frappuccino": {
+   "mentions": 1,
+   "average": 5.0,
+   "positiveShare": 1.0,
+   "distribution": [
+    1,
+    0,
+    0,
+    0,
+    0
+   ],
+   "quotes": [
+    {
+     "text": "Loved the caramel frappacino.",
+     "author": "Charat Mehra",
+     "rating": 5,
+     "when": "4 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Charat Mehra",
+     "info": "Local Guide · 151 reviews",
+     "rating": 5,
+     "when": "4 years ago",
+     "text": "Quick and efficient service. Loved the caramel frappacino.",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "brownie": {
+   "mentions": 1,
+   "average": 5.0,
+   "positiveShare": 1.0,
+   "distribution": [
+    1,
+    0,
+    0,
+    0,
+    0
+   ],
+   "quotes": [
+    {
+     "text": "Nice fudge brownie hot chocolate",
+     "author": "Amaan Abdullah bindo",
+     "rating": 5,
+     "when": "4 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Amaan Abdullah bindo",
+     "info": "Local Guide · 285 reviews · 3 photos",
+     "rating": 5,
+     "when": "4 years ago",
+     "text": "Nice fudge brownie hot chocolate",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "espresso_macchiato": {
+   "mentions": 1,
+   "average": 5.0,
+   "positiveShare": 1.0,
+   "distribution": [
+    1,
+    0,
+    0,
+    0,
+    0
+   ],
+   "quotes": [
+    {
+     "text": "The new cloud macchiato here was insane",
+     "author": "Jason Praful",
+     "rating": 5,
+     "when": "6 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Jason Praful",
+     "info": "Local Guide · 244 reviews · 127 photos",
+     "rating": 5,
+     "when": "6 years ago",
+     "text": "The new cloud macchiato here was insane",
+     "photos": [],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  },
+  "caramel_macchiato": {
+   "mentions": 1,
+   "average": 5.0,
+   "positiveShare": 1.0,
+   "distribution": [
+    1,
+    0,
+    0,
+    0,
+    0
+   ],
+   "quotes": [
+    {
+     "text": "I must try the caramel macchiato!",
+     "author": "Denisa Anton",
+     "rating": 5,
+     "when": "6 years ago"
+    }
+   ],
+   "cards": [
+    {
+     "author": "Denisa Anton",
+     "info": "Local Guide · 175 reviews · 472 photos",
+     "rating": 5,
+     "when": "6 years ago",
+     "text": "I love it!! I'm not a coffee fan, but I do love lattes! So Starbucks is the coffee maker for me. I must try the caramel macchiato!",
+     "photos": [
+      "https://lh3.googleusercontent.com/grass-cs/AABkmLcRE2z6r2l0toDbG7eQilvqhaabGDrRRYZaqh8z-tjHjjpXVjiMNMEZneN023ovDTMcl5l_32DYh5AW0JwkimCDLufYlJQO8G1eQZ7IvbMbMlcYLcUPmeQQvK7S8M7svIvhbsM9hg=w1320-h990-p-k-no"
+     ],
+     "reply": null
+    }
+   ],
+   "summary": null,
+   "say": null,
+   "photos": []
+  }
+ }
+}

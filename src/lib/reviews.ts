@@ -1,4 +1,5 @@
 import kaffeine from "@/data/kaffeine-reviews.json";
+import starbucks from "@/data/starbucks-reviews.json";
 import type { Menu } from "./menu";
 
 export type ReviewCard = { author: string; info: string; rating: number; when: string; text: string; photos: string[]; reply: string | null };
@@ -30,13 +31,13 @@ export type ReviewSheet = {
 type Block = { mentions: number; average: number; positiveShare: number; distribution: number[]; quotes: ReviewQuote[]; cards: ReviewCard[] };
 type ReviewData = {
   source: { name: string; url: string; basis: string; averageNote: string };
-  restaurant: { rating: number; count: number; distribution: number[]; collected: number; summary: string; say: string; cards: ReviewCard[] };
+  restaurant: { /** Names the branch when the reviews are of one branch of a chain. */ title?: string; rating: number; count: number; distribution: number[]; collected: number; summary: string; say: string; cards: ReviewCard[] };
   topics: Record<string, Block & { label: string }>;
   items: Record<string, Block & { summary: string | null; say: string | null; photos: string[] }>;
 };
 
 /** Keyed by the restaurant id used in the URL. A restaurant without saved reviews has no entry. */
-const data: Record<string, ReviewData> = { kaffeine: kaffeine as ReviewData };
+const data: Record<string, ReviewData> = { kaffeine: kaffeine as ReviewData, starbucks: starbucks as ReviewData };
 
 export const hasReviews = (restaurantId: string) => Object.hasOwn(data, restaurantId);
 
@@ -68,7 +69,7 @@ export function reviewSheet(restaurantId: string, menu: Menu, subject: ReviewSub
     return {
       ...shared,
       key: "restaurant",
-      title: menu.restaurant.name,
+      title: restaurant.title ?? menu.restaurant.name,
       rating: restaurant.rating,
       countLabel: `${restaurant.count.toLocaleString("en-GB")} Google reviews`,
       distribution: restaurant.distribution,
