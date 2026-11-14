@@ -328,11 +328,12 @@ export async function interpret(input: {
   // Numbers the meal must add up to are read in code, so only those turns pay for the second call.
   const refining = combo && acceptedSet.length === 0 && (answers.refine?.noul ?? 0) >= MIN_ASKING;
   const curateAsk = refining ? `${input.shownCombo}. ${said}` : said;
-  const goals = acceptedSet.length === 0 ? parseGoals(curateAsk) : null;
+  const reviewsAsked = (answers.reviews?.noul ?? 0) >= MIN_REVIEWS;
+  // A number in a question about reviews ("is the £5 brownie any good?") is not a goal for a meal.
+  const goals = acceptedSet.length === 0 && !reviewsAsked ? parseGoals(curateAsk) : null;
   // A turn that asks for a curated set leaves the order alone: dishes named in it are wishes for the set.
   const order = goals ? before : sanitizeOrder(menu, { lines });
   const nutrition = (answers.nutrition?.noul ?? 0) >= MIN_ASKING && order.lines.length > 0;
-  const reviewsAsked = (answers.reviews?.noul ?? 0) >= MIN_REVIEWS;
   const reviews =
     withReviews && reviewsAsked
       ? await pickReviewSubject({ menu, restaurantId: input.restaurantId!, said, apiKey: input.apiKey, signal: input.signal })
