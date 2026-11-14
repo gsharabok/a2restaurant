@@ -376,6 +376,16 @@ export function Waiter({ restaurant, restaurants, choosingPlace = false }: Props
                   key={item.id}
                   role={item.place ? "button" : undefined}
                   onClick={item.place ? () => pick(index) : undefined}
+                  tabIndex={item.place ? 0 : undefined}
+                  onKeyDown={
+                    item.place
+                      ? (event) => {
+                          if (event.key !== "Enter" && event.key !== " ") return;
+                          event.preventDefault();
+                          pick(index);
+                        }
+                      : undefined
+                  }
                   className={`flex min-w-0 flex-1 items-center gap-3 rounded-2xl border border-amber-200/25 bg-amber-200/[0.06] px-4 py-3 max-sm:flex-none max-sm:px-3 max-sm:py-1.5 ${item.place ? "cursor-pointer transition hover:bg-amber-200/[0.12]" : ""}`}
                 >
                   <ItemImage src={item.image} size={48} className="h-12 w-12 shrink-0 max-sm:h-10 max-sm:w-10" />
