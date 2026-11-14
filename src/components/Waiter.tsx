@@ -12,7 +12,7 @@ import { useSpeech, type SpeechText } from "@/hooks/useSpeech";
 import { useWaiterVoice } from "@/hooks/useWaiterVoice";
 import { formatPrice } from "@/lib/format";
 import type { Suggestion } from "@/lib/suggest";
-import { saySuggestion, type CommittedTurn } from "@/lib/waiterSay";
+import type { CommittedTurn } from "@/lib/waiterSay";
 
 type Props = {
   restaurant: { id: string; name: string; tagline: string; nutritionNote: string; hints: string[]; demoTurns: string[] };
@@ -32,7 +32,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
     offer: useCallback((suggestion: Suggestion) => offerRef.current(suggestion), []),
     onMicResume: useCallback(() => resetSpeechTurn.current(), []),
   });
-  const { onTurn, micHeard, guestTyped } = voice;
+  const { onTurn, onPreview, micHeard, guestTyped } = voice;
   const order = useLiveOrder(
     restaurant.id,
     useCallback(
@@ -43,24 +43,27 @@ export function Waiter({ restaurant, restaurants }: Props) {
       [onTurn],
     ),
     useCallback(() => setPayAsks((asks) => asks + 1), []),
+    onPreview,
   );
   // Opened after the screen has drawn the turn, so the checkout charges the order that turn left.
   useEffect(() => {
     if (payAsks > 0) payButton.current?.pay();
   }, [payAsks]);
   const orderHear = order.hear;
-  // While the waiter is talking through the speakers, the microphone hears the waiter, not the guest.
+  const echoCancelled = useRef(false);
+  // The waiter's own voice coming back through the speakers is not the guest.
   const hearMic = useCallback(
     (text: SpeechText) => {
-      if (!micHeard(Boolean(text.settled || text.unsettled))) orderHear(text);
+      if (!micHeard(`${text.settled} ${text.unsettled}`.trim(), echoCancelled.current)) orderHear(text);
     },
     [micHeard, orderHear],
   );
   const speech = useSpeech(hearMic);
   useEffect(() => {
+    echoCancelled.current = speech.echoCancelled;
     resetSpeechTurn.current = speech.resetTurn;
     offerRef.current = order.offer;
-  }, [speech.resetTurn, order.offer]);
+  }, [speech.echoCancelled, speech.resetTurn, order.offer]);
 
   const [typing, setTyping] = useState(false);
   const [typed, setTyped] = useState("");
@@ -120,12 +123,6 @@ export function Waiter({ restaurant, restaurants }: Props) {
   };
 
   const { priced, suggestion, nutritionAsked, transcript, done } = order;
-  // An answer that shows up mid-sentence is voiced ahead of time, during the guest's closing pause.
-  const answering = Boolean(transcript.settled || transcript.unsettled) && suggestion;
-  const { prepare } = voice;
-  useEffect(() => {
-    if (answering) prepare(saySuggestion(answering));
-  }, [answering, prepare]);
   const empty = priced.lines.length === 0;
   // On a phone the order is a scrolling list, so a new item is brought into view rather than left below the fold.
   const cards = useRef<HTMLElement>(null);
