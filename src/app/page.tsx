@@ -1,7 +1,6 @@
-import { Waiter } from "@/components/Waiter";
-import { menu } from "@/lib/menu";
+import { RestaurantScreen } from "@/components/RestaurantScreen";
+import { DEFAULT_RESTAURANT } from "@/lib/menu";
 
 export default function Home() {
-  const { name, tagline, address, nutritionNote } = menu.restaurant;
-  return <Waiter restaurant={{ name, tagline, address, nutritionNote }} />;
+  return <RestaurantScreen id={DEFAULT_RESTAURANT} />;
 }

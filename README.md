@@ -6,6 +6,8 @@ The one-way version (screen only, no voice) is tagged `v0.1-one-way-demo`: `git 
 
 The seed restaurant is [Kaffeine](https://kaffeine.co.uk/location/66-great-titchfield-street/), 66 Great Titchfield St, London. Food prices come from its published menu; drink and side prices are placeholders.
 
+The dropdown at the top left switches restaurant. The second one is Starbucks UK (`/starbucks`): product names, descriptions, photos and nutrition come from its [published menu](https://www.starbucks.co.uk/menu), with photos loaded from Starbucks' own media library. Starbucks does not publish prices there, so every Starbucks price is a placeholder. Each restaurant is one JSON file in `src/data`, registered in `src/lib/menu.ts`.
+
 ## Run it
 
 ```bash
@@ -13,6 +15,7 @@ npm install
 cat > .env.local <<'ENV'
 TYPESAFE_API_KEY=your-key      # from https://console.typesafe.ai/keys
 ELEVENLABS_API_KEY=your-key    # the waiter's voice; without it the app still works, silently
+STRIPE_SECRET_KEY=sk_test_...  # optional: "Pay with Link" opens Stripe Checkout; without it, a demo checkout
 ENV
 npm run dev
 ```

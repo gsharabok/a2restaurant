@@ -1,4 +1,4 @@
-import { itemsById, menu } from "./menu";
+import type { Menu } from "./menu";
 import { defaultOptions, sanitizeOrder, type Order, type OrderLine } from "./order";
 
 const API_URL = "https://api.typesafe.ai/v1/systemone";
@@ -36,15 +36,15 @@ type Question =
   | { type: "noul"; instructions: string };
 type Answer = { type: string; choice?: string; confidence?: number | null; noul?: number };
 
-const describeLine = (line: OrderLine) => {
-  const item = itemsById.get(line.itemId)!;
+const describeLine = (menu: Menu, line: OrderLine) => {
+  const item = menu.itemsById.get(line.itemId)!;
   const options = Object.entries(line.options)
     .map(([group, value]) => `${menu.optionGroups[group].label.toLowerCase()}: ${value}`)
     .join(", ");
   return `${line.qty} x ${item.name}${options ? ` (${options})` : ""}`;
 };
 
-function buildQuestions(before: Order, shownSuggestions: string[]): Record<string, Question> {
+function buildQuestions(menu: Menu, before: Order, shownSuggestions: string[]): Record<string, Question> {
   const questions: Record<string, Question> = {};
   const beforeById = new Map(before.lines.map((line) => [line.itemId, line]));
 
@@ -56,7 +56,7 @@ function buildQuestions(before: Order, shownSuggestions: string[]): Record<strin
     questions[`qty_${item.id}`] = {
       type: "choice",
       instructions:
-        `A guest is ordering out loud at a cafe. \`guest_said_this_turn\` is a live transcript and may stop mid-sentence. ` +
+        `A guest is ordering out loud at a coffee shop. \`guest_said_this_turn\` is a live transcript and may stop mid-sentence. ` +
         `Menu item "${item.name}": ${item.heard} ${context} ` +
         `Counting what was there before and every addition, change, swap or removal the guest has said this turn, how many of this item should the order have now?`,
       criteria: {
@@ -78,7 +78,7 @@ function buildQuestions(before: Order, shownSuggestions: string[]): Record<strin
       criteria[UNSPECIFIED] = `The guest has not said anything this turn about the ${def.label.toLowerCase()} of the ${item.name}.`;
       questions[`opt_${item.id}_${group}`] = {
         type: "choice",
-        instructions: `A guest is ordering out loud at a cafe. For the ${item.name}, which ${def.label.toLowerCase()} has the guest asked for this turn?`,
+        instructions: `A guest is ordering out loud at a coffee shop. For the ${item.name}, which ${def.label.toLowerCase()} has the guest asked for this turn?`,
         criteria,
       };
     }
@@ -109,7 +109,7 @@ function buildQuestions(before: Order, shownSuggestions: string[]): Record<strin
       none: "The guest has not accepted any of the suggestions shown on screen.",
     };
     shownSuggestions.slice(0, 3).forEach((id, index) => {
-      criteria[ordinals[index]] = `The guest accepts the ${ordinals[index]} suggestion (${itemsById.get(id)?.name}), for example "add the ${ordinals[index]} one" or by naming it.`;
+      criteria[ordinals[index]] = `The guest accepts the ${ordinals[index]} suggestion (${menu.itemsById.get(id)?.name}), for example "add the ${ordinals[index]} one" or by naming it.`;
     });
     questions.accept = {
       type: "choice",
@@ -133,13 +133,14 @@ async function ask(body: object, apiKey: string, signal?: AbortSignal): Promise<
 }
 
 /** Scores every dish against the guest's question and returns the best three not already ordered. */
-async function pickSuggestions(input: { said: string; order: Order; apiKey: string; signal?: AbortSignal }): Promise<SuggestionPick> {
+async function pickSuggestions(input: { menu: Menu; said: string; order: Order; apiKey: string; signal?: AbortSignal }): Promise<SuggestionPick> {
+  const { menu } = input;
   const ordered = new Set(input.order.lines.map((line) => line.itemId));
   const candidates = menu.items.filter((item) => !ordered.has(item.id));
   const questions: Record<string, Question> = {
     topic: {
       type: "choice",
-      instructions: "A cafe guest asked the waiter a question or for a suggestion. What are they asking for?",
+      instructions: "A coffee shop guest asked the waiter a question or for a suggestion. What are they asking for?",
       criteria: {
         healthy: "Something healthy, light, fresh or low-calorie.",
         protein: "Something high in protein or filling after exercise.",
@@ -158,7 +159,7 @@ async function pickSuggestions(input: { said: string; order: Order; apiKey: stri
     questions[`match_${item.id}`] = {
       type: "noul",
       instructions:
-        `A cafe guest asked the waiter a question or for a suggestion. \`guest_already_ordered\` is what they have so far. ` +
+        `A coffee shop guest asked the waiter a question or for a suggestion. \`guest_already_ordered\` is what they have so far. ` +
         `Would "${item.name}" be a good dish to show them in answer? If they ask what goes with something they already have, ` +
         `a good answer complements it (food with a drink, a drink with food) and is not another item of the same kind. ` +
         `${item.name}: ${item.description}. Menu section: ${item.category}. Tags: ${item.tags.join(", ") || "none"}. ` +
@@ -166,7 +167,7 @@ async function pickSuggestions(input: { said: string; order: Order; apiKey: stri
     };
   }
   const state = {
-    guest_already_ordered: input.order.lines.length ? input.order.lines.map(describeLine) : "nothing yet",
+    guest_already_ordered: input.order.lines.length ? input.order.lines.map((line) => describeLine(menu, line)) : "nothing yet",
     guest_said: input.said,
   };
   const answers = await ask({ state, questions }, input.apiKey, input.signal);
@@ -189,14 +190,16 @@ async function pickSuggestions(input: { said: string; order: Order; apiKey: stri
 }
 
 export async function interpret(input: {
+  menu: Menu;
   before: Order;
   said: string;
   shownSuggestions?: string[];
   apiKey: string;
   signal?: AbortSignal;
 }): Promise<Interpretation> {
-  const before = sanitizeOrder(input.before);
-  const shown = (input.shownSuggestions ?? []).filter((id) => itemsById.has(id));
+  const { menu } = input;
+  const before = sanitizeOrder(menu, input.before);
+  const shown = (input.shownSuggestions ?? []).filter((id) => menu.itemsById.has(id));
   const said = input.said.trim();
   if (!said) return { order: before, suggest: null, accepted: null, nutrition: false, done: false, ms: 0, confidences: {} };
 
@@ -204,11 +207,11 @@ export async function interpret(input: {
   const answers = await ask(
     {
       state: {
-        order_before_this_turn: before.lines.length ? before.lines.map(describeLine) : "empty",
-        ...(shown.length ? { suggestions_on_screen: shown.map((id) => itemsById.get(id)!.name) } : {}),
+        order_before_this_turn: before.lines.length ? before.lines.map((line) => describeLine(menu, line)) : "empty",
+        ...(shown.length ? { suggestions_on_screen: shown.map((id) => menu.itemsById.get(id)!.name) } : {}),
         guest_said_this_turn: said,
       },
-      questions: buildQuestions(before, shown),
+      questions: buildQuestions(menu, before, shown),
     },
     input.apiKey,
     input.signal,
@@ -234,7 +237,7 @@ export async function interpret(input: {
     if (qty <= 0) continue;
     confidences[item.id] = answer?.confidence ?? 1;
 
-    const options = { ...defaultOptions(item), ...(had?.options ?? {}) };
+    const options = { ...defaultOptions(menu, item), ...(had?.options ?? {}) };
     for (const group of item.options ?? []) {
       const chosen = answers[`opt_${item.id}_${group}`];
       if (chosen?.choice && chosen.choice !== UNSPECIFIED && sure(chosen)) options[group] = chosen.choice;
@@ -249,11 +252,11 @@ export async function interpret(input: {
   };
   lines.sort((a, b) => position(a) - position(b));
 
-  const order = sanitizeOrder({ lines });
+  const order = sanitizeOrder(menu, { lines });
   const nutrition = (answers.nutrition?.noul ?? 0) >= MIN_ASKING && order.lines.length > 0;
   const suggest =
     !nutrition && (answers.asking?.noul ?? 0) >= MIN_ASKING
-      ? await pickSuggestions({ said, order, apiKey: input.apiKey, signal: input.signal })
+      ? await pickSuggestions({ menu, said, order, apiKey: input.apiKey, signal: input.signal })
       : null;
 
   return {

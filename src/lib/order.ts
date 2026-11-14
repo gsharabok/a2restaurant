@@ -1,4 +1,4 @@
-import { itemsById, menu, type MenuItem, type Nutrition } from "./menu";
+import { resolveVariant, type Menu, type MenuItem, type Nutrition } from "./menu";
 
 export const MAX_QTY = 4;
 
@@ -24,21 +24,21 @@ export const EMPTY_PRICED: PricedOrder = { lines: [], total: 0, count: 0, nutrit
 
 export const emptyOrder: Order = { lines: [] };
 
-export function defaultOptions(item: MenuItem): Record<string, string> {
+export function defaultOptions(menu: Menu, item: MenuItem): Record<string, string> {
   return Object.fromEntries((item.options ?? []).map((group) => [group, menu.optionGroups[group].default]));
 }
 
 /** Drops anything not on the menu and fills missing options with defaults. */
-export function sanitizeOrder(input: unknown): Order {
+export function sanitizeOrder(menu: Menu, input: unknown): Order {
   const rawLines = (input as Order | undefined)?.lines;
   if (!Array.isArray(rawLines)) return { lines: [] };
   const lines: OrderLine[] = [];
   for (const raw of rawLines) {
-    const item = itemsById.get(String(raw?.itemId));
+    const item = menu.itemsById.get(String(raw?.itemId));
     if (!item || lines.some((line) => line.itemId === item.id)) continue;
     const qty = Math.min(MAX_QTY, Math.max(0, Math.floor(Number(raw?.qty) || 0)));
     if (qty === 0) continue;
-    const options = defaultOptions(item);
+    const options = defaultOptions(menu, item);
     for (const group of Object.keys(options)) {
       const wanted = raw?.options?.[group];
       if (menu.optionGroups[group].values.some((value) => value.id === wanted)) options[group] = wanted;
@@ -49,9 +49,10 @@ export function sanitizeOrder(input: unknown): Order {
 }
 
 /** Prices come from the menu only; nothing a model returns is trusted for money. */
-export function priceOrder(order: Order): PricedOrder {
-  const lines = sanitizeOrder(order).lines.map((line) => {
-    const item = itemsById.get(line.itemId)!;
+export function priceOrder(menu: Menu, order: Order): PricedOrder {
+  const lines = sanitizeOrder(menu, order).lines.map((line) => {
+    const item = menu.itemsById.get(line.itemId)!;
+    const { image, nutrition: base } = resolveVariant(item, line.options);
     let unitPrice = item.price;
     let scale = 1;
     const optionRows = Object.entries(line.options).map(([group, value]) => {
@@ -72,7 +73,7 @@ export function priceOrder(order: Order): PricedOrder {
     return {
       ...line,
       name: item.name,
-      image: item.image,
+      image,
       description: item.description,
       category: item.category,
       unitPrice,
@@ -80,11 +81,12 @@ export function priceOrder(order: Order): PricedOrder {
       pricePlaceholder: Boolean(item.pricePlaceholder),
       optionRows,
       nutrition: {
-        kcal: Math.round((item.nutrition.kcal * scale) / 5) * 5,
-        protein: Math.round(item.nutrition.protein * scale),
-        carbs: Math.round(item.nutrition.carbs * scale),
-        fat: Math.round(item.nutrition.fat * scale),
-        richIn: item.nutrition.richIn,
+        // A scaled figure is an estimate, so it is rounded to 5; an unscaled one is shown as the menu gives it.
+        kcal: scale === 1 ? base.kcal : Math.round((base.kcal * scale) / 5) * 5,
+        protein: Math.round(base.protein * scale),
+        carbs: Math.round(base.carbs * scale),
+        fat: Math.round(base.fat * scale),
+        richIn: base.richIn,
       },
     };
   });

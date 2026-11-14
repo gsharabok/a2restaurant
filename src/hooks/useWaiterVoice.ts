@@ -11,6 +11,8 @@ const UPSELL_PAUSE_MS = 1400;
 const FADE_MS = 150;
 
 type Options = {
+  /** Whose menu the offer is picked from. */
+  restaurantId: string;
   /** Puts an offer on screen so the guest can accept it by voice. */
   offer: (suggestion: Suggestion) => void;
   /** Called when the microphone counts again after the waiter spoke. */
@@ -21,7 +23,7 @@ type Options = {
  * The waiter's voice. It only speaks after a finished guest turn, stays quiet for plain orders,
  * and gives way as soon as the guest speaks or types.
  */
-export function useWaiterVoice({ offer, onMicResume }: Options) {
+export function useWaiterVoice({ restaurantId, offer, onMicResume }: Options) {
   const [enabled, setEnabledState] = useState(true);
   /** On headphones the microphone cannot hear the waiter, so the guest's voice may cut it off. */
   const [headphones, setHeadphonesState] = useState(false);
@@ -147,7 +149,7 @@ export function useWaiterVoice({ offer, onMicResume }: Options) {
       const pairing = fetch("/api/interpret", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ before: turn.order, said: UPSELL_QUESTION, shownSuggestions: [] }),
+        body: JSON.stringify({ restaurant: restaurantId, before: turn.order, said: UPSELL_QUESTION, shownSuggestions: [] }),
       })
         .then((response) => (response.ok ? response.json() : null))
         .then((body: { suggestion: Suggestion | null } | null) => upsellOffer(body?.suggestion ?? null))
@@ -160,7 +162,7 @@ export function useWaiterVoice({ offer, onMicResume }: Options) {
         say(suggestion.caption);
       }, UPSELL_PAUSE_MS);
     },
-    [cancelUpsell, say],
+    [cancelUpsell, say, restaurantId],
   );
 
   /**

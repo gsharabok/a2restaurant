@@ -25,7 +25,7 @@ export type Transcript = { settled: string; unsettled: string; previous: string 
  * stood when the turn began, so revised words correct the screen instead of stacking up.
  * Only the newest answer is ever rendered.
  */
-export function useLiveOrder(onTurnCommitted?: (turn: CommittedTurn | null) => void) {
+export function useLiveOrder(restaurantId: string, onTurnCommitted?: (turn: CommittedTurn | null) => void) {
   const [priced, setPriced] = useState<PricedOrder>(EMPTY_PRICED);
   const [suggestion, setSuggestion] = useState<Suggestion | null>(null);
   const [transcript, setTranscript] = useState<Transcript>({ settled: "", unsettled: "", previous: "" });
@@ -122,6 +122,7 @@ export function useLiveOrder(onTurnCommitted?: (turn: CommittedTurn | null) => v
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          restaurant: restaurantId,
           before: base.current,
           said: full,
           shownSuggestions: shown.current?.items.map((item) => item.id) ?? [],
@@ -158,7 +159,7 @@ export function useLiveOrder(onTurnCommitted?: (turn: CommittedTurn | null) => v
           if (pendingCommit.current) commit();
         });
     },
-    [commit],
+    [commit, restaurantId],
   );
 
   /** Ends the turn now (Enter in typed mode) instead of waiting for silence. */
