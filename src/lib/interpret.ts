@@ -26,6 +26,8 @@ export type Interpretation = {
   /** The guest asked about the nutrition of what they are ordering. */
   nutrition: boolean;
   done: boolean;
+  /** The guest asked to pay for the order. */
+  pay: boolean;
   ms: number;
   /** Confidence of every quantity answer that put an item in the order, for tuning. */
   confidences: Record<string, number>;
@@ -102,6 +104,13 @@ function buildQuestions(menu: Menu, before: Order, shownSuggestions: string[]): 
     type: "noul",
     instructions:
       "Has the guest clearly said they are finished ordering, for example \"that's it\", \"that's all\" or \"that's everything\"?",
+  };
+  questions.pay = {
+    type: "noul",
+    instructions:
+      "Has the guest said they want to pay for their order now? " +
+      "Examples: \"I want to pay\", \"I'd like to pay\", \"can I pay\", \"let me pay\", \"check out\", \"the bill please\", \"pay with Link\", \"charge me\". " +
+      "Asking what something costs, or only saying they are finished ordering, does not count.",
   };
   if (shownSuggestions.length > 0) {
     const ordinals = ["first", "second", "third"];
@@ -201,7 +210,7 @@ export async function interpret(input: {
   const before = sanitizeOrder(menu, input.before);
   const shown = (input.shownSuggestions ?? []).filter((id) => menu.itemsById.has(id));
   const said = input.said.trim();
-  if (!said) return { order: before, suggest: null, accepted: null, nutrition: false, done: false, ms: 0, confidences: {} };
+  if (!said) return { order: before, suggest: null, accepted: null, nutrition: false, done: false, pay: false, ms: 0, confidences: {} };
 
   const started = performance.now();
   const answers = await ask(
@@ -265,6 +274,7 @@ export async function interpret(input: {
     accepted: acceptedId ? ordinal + 1 : null,
     nutrition,
     done: (answers.done?.noul ?? 0) > 0.7,
+    pay: (answers.pay?.noul ?? 0) > 0.7 && order.lines.length > 0,
     ms: Math.round(performance.now() - started),
     confidences,
   };

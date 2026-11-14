@@ -35,6 +35,7 @@ export async function POST(request: Request) {
       accepted: result.accepted,
       nutrition: result.nutrition,
       done: result.done,
+      pay: result.pay,
       ms: result.ms,
     });
   } catch (error) {

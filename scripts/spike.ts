@@ -28,6 +28,7 @@ type Case = {
   accepted?: number | null;
   nutrition?: boolean;
   done?: boolean;
+  pay?: boolean;
 };
 
 // Compact line syntax: "2 latte milk=oat temp=iced"
@@ -53,6 +54,11 @@ const cases: Case[] = [
   { name: "demo 3: ask for healthy", before: ["1 poached_eggs", "1 almond_croissant", "1 latte milk=oat temp=iced", "1 side_avocado"], said: "I want something healthy too", expect: ["1 poached_eggs", "1 almond_croissant", "1 latte milk=oat temp=iced", "1 side_avocado"], suggest: "healthy" },
   { name: "demo 3: accept first suggestion", before: ["1 poached_eggs", "1 latte milk=oat temp=iced"], shown: ["fruit_salad", "granola", "goats_curd_salad"], said: "Add the first one", expect: ["1 poached_eggs", "1 latte milk=oat temp=iced", "1 fruit_salad"], accepted: 1 },
   { name: "demo 4: done", before: ["1 poached_eggs", "1 latte milk=oat temp=iced"], said: "That's it, thanks", expect: ["1 poached_eggs", "1 latte milk=oat temp=iced"], done: true },
+  { name: "pay: I want to pay", before: ["1 flat_white", "1 croissant"], said: "I want to pay", expect: ["1 flat_white", "1 croissant"], pay: true },
+  { name: "pay: done and pay", before: ["1 flat_white"], said: "That's everything, can I pay with Link please", expect: ["1 flat_white"], done: true, pay: true },
+  { name: "pay: the bill", before: ["1 latte", "1 bacon_roll"], at: "starbucks", said: "Okay, I'd like to check out now", expect: ["1 latte", "1 bacon_roll"], pay: true },
+  { name: "pay: price question is not paying", before: ["1 flat_white"], said: "How much is that so far?", expect: ["1 flat_white"], pay: false },
+  { name: "pay: nothing to pay for", said: "I want to pay", expect: [], pay: false },
   { name: "brief: eggs bacon coffee", said: "I'm gonna have some eggs, maybe a little bit of bacon, and then a coffee", expect: ["1 poached_eggs", "1 side_bacon", "1 flat_white"] },
   { name: "quantities", said: "Two flat whites and three almond croissants please", expect: ["2 flat_white", "3 almond_croissant"] },
   { name: "options in one go", said: "A large oat milk latte with an extra shot and a banana bread", expect: ["1 latte milk=oat shots=extra size=large", "1 banana_bread"] },
@@ -107,6 +113,7 @@ async function main() {
       !(test.suggestNone ?? []).some((id) => result.suggest?.itemIds.includes(id)) &&
       (test.accepted === undefined || result.accepted === test.accepted) &&
       (test.done === undefined || result.done === test.done) &&
+      result.pay === (test.pay ?? false) &&
       result.nutrition === (test.nutrition ?? false) &&
       (test.suggest !== undefined || test.suggestAny !== undefined || result.suggest === null);
     if (ok) passed++;
@@ -115,7 +122,7 @@ async function main() {
       console.log(`       said: ${test.said}`);
       console.log(`       want: ${want.join(" | ")}  suggest=${test.suggest ?? null} accepted=${test.accepted ?? null} done=${test.done ?? false}`);
       console.log(`       conf: ${Object.entries(result.confidences).map(([id, c]) => `${id}=${c.toFixed(2)}`).join(" ")}`);
-      console.log(`       got:  ${got.join(" | ")}  suggest=${result.suggest ? `${result.suggest.topic}:${result.suggest.itemIds.join(",")}` : null} nutrition=${result.nutrition} accepted=${result.accepted} done=${result.done}`);
+      console.log(`       got:  ${got.join(" | ")}  suggest=${result.suggest ? `${result.suggest.topic}:${result.suggest.itemIds.join(",")}` : null} nutrition=${result.nutrition} accepted=${result.accepted} done=${result.done} pay=${result.pay}`);
     }
   }
   times.sort((a, b) => a - b);

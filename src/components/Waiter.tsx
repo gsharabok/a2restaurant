@@ -6,7 +6,7 @@ import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { ChevronDown, Headphones, Keyboard, Mic, MicOff, Play, RotateCcw, Square, Volume2, VolumeX } from "lucide-react";
 import { ItemImage } from "./ItemImage";
 import { OrderCard } from "./OrderCard";
-import { PayButton } from "./PayButton";
+import { PayButton, type PayHandle } from "./PayButton";
 import { useLiveOrder } from "@/hooks/useLiveOrder";
 import { useSpeech, type SpeechText } from "@/hooks/useSpeech";
 import { useWaiterVoice } from "@/hooks/useWaiterVoice";
@@ -24,6 +24,7 @@ const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export function Waiter({ restaurant, restaurants }: Props) {
   const [choosing, setChoosing] = useState(false);
   const resetSpeechTurn = useRef<() => void>(() => {});
+  const payButton = useRef<PayHandle>(null);
   const offerRef = useRef<(suggestion: Suggestion) => void>(() => {});
   const voice = useWaiterVoice({
     restaurantId: restaurant.id,
@@ -40,6 +41,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
       },
       [onTurn],
     ),
+    useCallback(() => payButton.current?.pay(), []),
   );
   const orderHear = order.hear;
   // While the waiter is talking through the speakers, the microphone hears the waiter, not the guest.
@@ -197,7 +199,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
           <p className="mt-1 h-4 text-xs tabular-nums text-white/40" data-testid="total-nutrition">
             {!empty && `${priced.nutrition.kcal.toLocaleString("en-GB")} kcal · ${priced.nutrition.protein}g protein`}
           </p>
-          {!empty && <PayButton restaurant={restaurant} priced={priced} className="mt-2" />}
+          {!empty && <PayButton ref={payButton} restaurant={restaurant} priced={priced} className="mt-2" />}
         </div>
       </header>
 
