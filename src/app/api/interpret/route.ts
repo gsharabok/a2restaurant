@@ -3,6 +3,7 @@ import { getMenu } from "@/lib/menu";
 import { interpret } from "@/lib/interpret";
 import { priceOrder, sanitizeOrder } from "@/lib/order";
 import { toSuggestion } from "@/lib/suggest";
+import { reviewSheet } from "@/lib/reviews";
 
 export async function POST(request: Request) {
   // Speech re-reads the order on every interim result, a few times a second while the guest talks.
@@ -19,6 +20,7 @@ export async function POST(request: Request) {
     shownSuggestions?: unknown;
     shownCombo?: unknown;
   } | null;
+  const restaurantId = String(body?.restaurant ?? "");
   const menu = getMenu(body?.restaurant);
   if (!menu) return Response.json({ error: "Unknown restaurant." }, { status: 400 });
   const said = typeof body?.said === "string" ? body.said.slice(0, 2000) : "";
@@ -27,6 +29,7 @@ export async function POST(request: Request) {
   try {
     const result = await interpret({
       menu,
+      restaurantId,
       before: sanitizeOrder(menu, body?.before),
       said,
       shownSuggestions: shown,
@@ -34,6 +37,8 @@ export async function POST(request: Request) {
       apiKey,
       signal: request.signal,
     });
+    const sheet = result.reviews ? reviewSheet(restaurantId, menu, result.reviews) : null;
+    const unreviewed = result.reviews?.kind === "item" ? menu.itemsById.get(result.reviews.id) : undefined;
     return Response.json({
       order: result.order,
       priced: priceOrder(menu, result.order),
@@ -42,6 +47,8 @@ export async function POST(request: Request) {
       nutrition: result.nutrition,
       done: result.done,
       pay: result.pay,
+      reviews: sheet,
+      reviewsMissing: result.reviewsAsked && !sheet ? `I don't have any guest reviews of ${unreviewed ? `the ${unreviewed.name.toLowerCase()}` : menu.restaurant.name} yet.` : null,
       ms: result.ms,
     });
   } catch (error) {

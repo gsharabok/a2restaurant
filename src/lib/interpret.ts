@@ -1,5 +1,6 @@
 import type { Menu } from "./menu";
 import { defaultOptions, sanitizeOrder, type Order, type OrderLine } from "./order";
+import { reviewSubjects, type ReviewSubject } from "./reviews";
 import { curateMenu, parseGoals } from "./curate";
 import type { Suggestion } from "./suggest";
 
@@ -28,6 +29,7 @@ const MIN_ASKING = 0.6;
 const MIN_UNAVAILABLE = 0.7;
 /** Between the two, the waiter is unsure the menu lacks it and says so. */
 const MIN_MAYBE_UNAVAILABLE = 0.5;
+const MIN_REVIEWS = 0.7;
 
 export type Interpretation = {
   order: Order;
@@ -42,6 +44,10 @@ export type Interpretation = {
   done: boolean;
   /** The guest asked to pay for the order. */
   pay: boolean;
+  /** The guest asked what other people think of the place or of a dish. */
+  reviews: ReviewSubject | null;
+  /** True when they asked for reviews, even where none are saved for this restaurant. */
+  reviewsAsked: boolean;
   ms: number;
   /** Confidence of every quantity answer that put an item in the order, for tuning. */
   confidences: Record<string, number>;
@@ -142,6 +148,15 @@ function buildQuestions(menu: Menu, before: Order, shownSuggestions: string[], c
       "Examples: \"I want to pay\", \"I'd like to pay\", \"can I pay\", \"let me pay\", \"check out\", \"the bill please\", \"pay with Link\", \"charge me\". " +
       "Asking what something costs, or only saying they are finished ordering, does not count.",
   };
+  {
+    questions.reviews = {
+      type: "noul",
+      instructions:
+        "Is the guest asking what other people think: for reviews, ratings, or whether the place or a dish is any good? " +
+        "Examples: \"what are the reviews like\", \"show me the reviews for the flat white\", \"is the banana bread any good\", \"what do people say about the service\", \"how is this place rated\". " +
+        "Ordering something, or asking what there is to eat, does not count.",
+    };
+  }
   if (combo) {
     questions.accept = {
       type: "choice",
@@ -257,8 +272,30 @@ async function pickSuggestions(input: { menu: Menu; said: string; order: Order; 
   return { topic, itemIds: best(MIN_NEAR), exact: false };
 }
 
+/** Second, smaller question asked only when the guest wants reviews: what are they asking about? */
+async function pickReviewSubject(input: { menu: Menu; restaurantId: string; said: string; apiKey: string; signal?: AbortSignal }): Promise<ReviewSubject> {
+  const subjects = reviewSubjects(input.restaurantId, input.menu);
+  const answers = await ask(
+    {
+      state: { guest_said: input.said },
+      questions: {
+        subject: {
+          type: "choice",
+          instructions: "A coffee shop guest asked the waiter for reviews or opinions. What do they want reviews of? If they name a menu item, choose that item.",
+          criteria: Object.fromEntries(subjects.map((subject) => [subject.key, subject.heard])),
+        },
+      },
+    },
+    input.apiKey,
+    input.signal,
+  );
+  return subjects.find((subject) => subject.key === answers.subject?.choice)?.subject ?? { kind: "restaurant" };
+}
+
 export async function interpret(input: {
   menu: Menu;
+  /** The id used in the URL, which the saved reviews are keyed by. */
+  restaurantId?: string;
   before: Order;
   said: string;
   shownSuggestions?: string[];
@@ -272,8 +309,9 @@ export async function interpret(input: {
   const shown = (input.shownSuggestions ?? []).filter((id) => menu.itemsById.has(id));
   const said = input.said.trim();
   const combo = typeof input.shownCombo === "string" && shown.length > 0;
-  if (!said) return { order: before, suggest: null, curate: null, accepted: null, nutrition: false, done: false, pay: false, ms: 0, confidences: {} };
+  if (!said) return { order: before, suggest: null, curate: null, accepted: null, nutrition: false, done: false, pay: false, reviews: null, reviewsAsked: false, ms: 0, confidences: {} };
 
+  const withReviews = Boolean(input.restaurantId && reviewSubjects(input.restaurantId, menu).length > 0);
   const started = performance.now();
   const answers = await ask(
     {
@@ -327,7 +365,9 @@ export async function interpret(input: {
   // Numbers the meal must add up to are read in code, so only those turns pay for the second call.
   const refining = combo && acceptedSet.length === 0 && (answers.refine?.noul ?? 0) >= MIN_ASKING;
   const curateAsk = refining ? `${input.shownCombo}. ${said}` : said;
-  const goals = acceptedSet.length === 0 ? parseGoals(curateAsk) : null;
+  const reviewsAsked = (answers.reviews?.noul ?? 0) >= MIN_REVIEWS;
+  // A number in a question about reviews ("is the £5 brownie any good?") is not a goal for a meal.
+  const goals = acceptedSet.length === 0 && !reviewsAsked ? parseGoals(curateAsk) : null;
   // A turn that asks for a curated set leaves the order alone: dishes named in it are wishes for the set.
   const order = goals ? before : sanitizeOrder(menu, { lines });
   const nutrition = (answers.nutrition?.noul ?? 0) >= MIN_ASKING && order.lines.length > 0;
@@ -336,13 +376,17 @@ export async function interpret(input: {
   const asking = (answers.asking?.noul ?? 0) >= MIN_ASKING;
   const done = (answers.done?.noul ?? 0) > 0.7;
   const unchanged = JSON.stringify(order) === JSON.stringify(before);
-  const missed = unchanged && !goals && !asking && !done && (answers.wanting?.noul ?? 0) >= MIN_ASKING;
+  const missed = unchanged && !goals && !reviewsAsked && !asking && !done && (answers.wanting?.noul ?? 0) >= MIN_ASKING;
   const lackingScore = answers.unavailable?.noul ?? 0;
   const lacking = lackingScore >= MIN_UNAVAILABLE;
   const unavailable = lackingScore >= MIN_MAYBE_UNAVAILABLE || missed;
+  const reviews =
+    withReviews && reviewsAsked
+      ? await pickReviewSubject({ menu, restaurantId: input.restaurantId!, said, apiKey: input.apiKey, signal: input.signal })
+      : null;
   const curate = goals ? await curateMenu({ menu, ask: curateAsk, goals, order, named: lines.map((line) => line.itemId).filter((id) => !beforeById.has(id)), apiKey: input.apiKey, signal: input.signal }) : null;
   const suggest =
-    !curate && !nutrition && (unavailable || asking)
+    !curate && !nutrition && !reviewsAsked && (unavailable || asking)
       ? { ...(await pickSuggestions({ menu, said, order, unavailable, apiKey: input.apiKey, signal: input.signal })), ...(unavailable ? { exact: lacking } : {}) }
       : null;
 
@@ -354,6 +398,8 @@ export async function interpret(input: {
     nutrition: nutrition && !curate,
     done,
     pay: (answers.pay?.noul ?? 0) > 0.7 && order.lines.length > 0,
+    reviews,
+    reviewsAsked,
     ms: Math.round(performance.now() - started),
     confidences,
   };
