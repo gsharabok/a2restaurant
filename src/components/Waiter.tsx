@@ -6,7 +6,7 @@ import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { ChevronDown, Keyboard, Mic, MicOff, Play, RotateCcw, Square } from "lucide-react";
 import { ItemImage } from "./ItemImage";
 import { OrderCard } from "./OrderCard";
-import { PayButton } from "./PayButton";
+import { PayButton, type PayHandle } from "./PayButton";
 import { useLiveOrder } from "@/hooks/useLiveOrder";
 import { useSpeech } from "@/hooks/useSpeech";
 import { formatPrice } from "@/lib/format";
@@ -21,7 +21,17 @@ const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export function Waiter({ restaurant, restaurants }: Props) {
   const [choosing, setChoosing] = useState(false);
   const resetSpeechTurn = useRef<() => void>(() => {});
-  const order = useLiveOrder(restaurant.id, useCallback(() => resetSpeechTurn.current(), []));
+  const payButton = useRef<PayHandle>(null);
+  const [payAsks, setPayAsks] = useState(0);
+  const order = useLiveOrder(
+    restaurant.id,
+    useCallback(() => resetSpeechTurn.current(), []),
+    useCallback(() => setPayAsks((asks) => asks + 1), []),
+  );
+  // Opened after the screen has drawn the turn, so the checkout charges the order that turn left.
+  useEffect(() => {
+    if (payAsks > 0) payButton.current?.pay();
+  }, [payAsks]);
   const speech = useSpeech(order.hear);
   useEffect(() => {
     resetSpeechTurn.current = speech.resetTurn;
@@ -159,7 +169,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
           <p className="mt-1 h-4 text-xs tabular-nums text-white/40" data-testid="total-nutrition">
             {!empty && `${priced.nutrition.kcal.toLocaleString("en-GB")} kcal · ${priced.nutrition.protein}g protein`}
           </p>
-          {!empty && <PayButton restaurant={restaurant} priced={priced} className="mt-2" />}
+          {!empty && <PayButton ref={payButton} restaurant={restaurant} priced={priced} className="mt-2" />}
         </div>
       </header>
 
