@@ -104,6 +104,7 @@ const cases: Case[] = [
   { name: "curate: vegetarian on a budget", said: "Around 35 grams of protein for under 25 pounds, and I'm vegetarian", expect: [], curate: { minProtein: 32, maxPrice: 25, met: true }, curateNone: ["steak_salad", "eggs_royale", "eggs_benedict", "side_bacon", "side_salmon", "bacon_egg_brioche", "sausage_roll"] },
   { name: "curate: with a named dish", said: "I need 45 grams of protein with a flat white", expect: [], curate: { minProtein: 45, met: true, any: ["flat_white"] } },
   { name: "curate: out of reach is the closest", said: "Two hundred grams of protein please", expect: [], curate: { met: false } },
+  { name: "curate: spoken tens, floor before a ceiling", said: "At least sixty grams of protein and at most nine hundred calories", expect: [], curate: { minProtein: 60, maxKcal: 900, met: true } },
   { name: "curate: accept the set", shown: ["steak_salad", "side_bacon"], combo: "I want 50 grams of protein", said: "Yes, add them", expect: ["1 steak_salad", "1 side_bacon"], accepted: 1, curate: null },
   { name: "curate: refine the set", shown: ["steak_salad", "side_bacon"], combo: "I want 40 grams of protein", said: "Can you make it vegetarian", expect: [], curate: { minProtein: 40, met: true }, curateNone: ["steak_salad", "side_bacon", "side_salmon", "eggs_royale"] },
   { name: "curate: ordering instead leaves the set", shown: ["steak_salad", "side_bacon"], combo: "I want 50 grams of protein", said: "Actually just a flat white", expect: ["1 flat_white"], curate: null },

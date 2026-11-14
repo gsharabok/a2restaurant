@@ -29,7 +29,9 @@ export const MAX_COMBO = 4;
 
 const SMALL = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
 const TENS = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
-const NUMBER_WORD = new RegExp(`\\b(?:(?:${[...SMALL, ...TENS.filter(Boolean), "hundred", "thousand"].join("|")})(?:[\\s-]+(?:and[\\s-]+)?)?)+`, "g");
+// Longest first and whole words only, or "sixty" is read as "six" + "ty".
+const NUMBER_WORDS = [...SMALL, ...TENS.filter(Boolean), "hundred", "thousand"].sort((a, b) => b.length - a.length).join("|");
+const NUMBER_WORD = new RegExp(`\\b(?:(?:${NUMBER_WORDS})\\b(?:[\\s-]+(?:and[\\s-]+)?)?)+`, "g");
 
 /** "six hundred and fifty" -> 650, so typed and spoken numbers read the same. */
 function wordsToNumber(words: string): number | null {
@@ -72,11 +74,13 @@ const PATTERNS: { metric: Metric; pattern: RegExp }[] = [
   { metric: "price", pattern: new RegExp(`[£$€]\\s*${NUM}`, "g") },
   { metric: "price", pattern: new RegExp(`${NUM}\\s*(?:pounds?\\b|quid|£|dollars?|bucks?|euros?)`, "g") },
 ];
-const BEFORE_MAX = /(?:under|below|less than|fewer than|at most|max|maximum|no more than|not more than|up to|within|not over|budget of|only have|i have|i've got|i got|keep (?:it|that|this) to|limit of|cap of|top out at)(?: of)?(?: about| around)?\s*[£$€]?$/;
-const BEFORE_MIN = /(?:at least|over|more than|above|min|minimum|no less than|not less than|north of)(?: of)?(?: about| around)?\s*[£$€]?$/;
+const BEFORE_MAX = /(?:under|below|(?<!\b(?:no|not) )less than|fewer than|at most|max|maximum|no more than|not more than|up to|within|not over|budget of|only have|i have|i've got|i got|keep (?:it|that|this) to|limit of|cap of|top out at)(?: of)?(?: about| around)?\s*[£$€]?$/;
+const BEFORE_MIN = /(?:at least|(?<!\bnot )over|(?<!\b(?:no|not) )more than|above|min|minimum|no less than|not less than|north of)(?: of)?(?: about| around)?\s*[£$€]?$/;
 const BEFORE_ABOUT = /(?:about|around|roughly|approximately|approx|close to|near|nearly|circa|~)\s*[£$€]?$/;
-const AFTER_MAX = /^[\w\s]{0,14}?\b(?:or less|or fewer|or under|or below|max|maximum|tops|at most)\b/;
-const AFTER_MIN = /^[\w\s]{0,14}?\b(?:or more|or over|or above|minimum|at least|plus)\b/;
+const AFTER_MAX = /^[\w\s]{0,14}?\b(?:or less|or fewer|or under|or below|max|maximum|tops)\b/;
+const AFTER_MIN = /^[\w\s]{0,14}?\b(?:or more|or over|or above|minimum|plus)\b/;
+/** Where the words after a number stop being about it: the next clause or the next number. */
+const NEXT_CLAUSE = /[,.;]|\band\b|\bbut\b|\bwith\b|\d/;
 
 /** Reads the numbers the meal has to add up to. Null when the guest named none, which is every ordinary turn. */
 export function parseGoals(said: string): Goals | null {
@@ -85,17 +89,23 @@ export function parseGoals(said: string): Goals | null {
   for (const { metric, pattern } of PATTERNS) {
     for (const match of text.matchAll(pattern)) {
       const value = Number(match[1]);
-      if (!(value > 0)) continue;
       const at = match.index ?? 0;
       const before = text.slice(Math.max(0, at - 40), at).trimEnd();
-      const after = text.slice(at + match[0].length, at + match[0].length + 40);
-      const op: Goal["op"] = BEFORE_MAX.test(before) || AFTER_MAX.test(after)
-        ? "max"
-        : BEFORE_MIN.test(before) || AFTER_MIN.test(after)
-          ? "min"
-          : BEFORE_ABOUT.test(before)
-            ? metric === "price" ? "max" : "about"
-            : metric === "protein" ? "min" : "max";
+      const after = text.slice(at + match[0].length, at + match[0].length + 40).split(NEXT_CLAUSE)[0];
+      // The word in front of the number is the stronger sign; what follows it only counts within the same clause.
+      const op: Goal["op"] = BEFORE_MIN.test(before)
+        ? "min"
+        : BEFORE_MAX.test(before)
+          ? "max"
+          : AFTER_MAX.test(after)
+            ? "max"
+            : AFTER_MIN.test(after)
+              ? "min"
+              : BEFORE_ABOUT.test(before)
+                ? metric === "price" ? "max" : "about"
+                : metric === "protein" ? "min" : "max";
+      // "Zero carbs" is a ceiling; zero of anything else is not a goal.
+      if (!(value > 0) && !(value === 0 && op !== "min" && (metric === "carbs" || metric === "fat"))) continue;
       // Said twice, the later number is the correction.
       const earlier = found.get(metric);
       if (!earlier || at > earlier.at) found.set(metric, { metric, op, value, at });
@@ -170,7 +180,7 @@ export function curate(input: { menu: Menu; order: Order; ask: string; goals: Go
     let score = set.length * 0.08 + totals.price / 200 + totals.kcal / 20000;
     for (const goal of soft) {
       const value = amount(totals, goal.metric);
-      const off = Math.abs(value - goal.value) / goal.value;
+      const off = Math.abs(value - goal.value) / Math.max(goal.value, 1);
       score += isMet(goal, value) ? off : 10 + off * 10;
     }
     if (goals.most) score -= totals[goals.most] / 40;
