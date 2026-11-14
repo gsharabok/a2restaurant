@@ -62,6 +62,7 @@ function readBack(priced: PricedOrder): string {
 }
 
 export function saySuggestion(suggestion: Suggestion): string {
+  if (suggestion.combo) return suggestion.combo.say;
   const names = suggestion.items.map((item) => `the ${spoken(item.name)}`);
   if (names.length === 0) return suggestion.caption;
   if (names.length === 1) return `${suggestion.caption} I'd go for ${names[0]}.`;
