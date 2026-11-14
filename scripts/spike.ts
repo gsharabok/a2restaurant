@@ -5,6 +5,7 @@
 import fs from "node:fs";
 import { interpret } from "../src/lib/interpret";
 import { menus, type Menu } from "../src/lib/menu";
+import type { ReviewSubject } from "../src/lib/reviews";
 import type { Order } from "../src/lib/order";
 
 const key =
@@ -29,6 +30,9 @@ type Case = {
   nutrition?: boolean;
   done?: boolean;
   pay?: boolean;
+  /** The reviews the turn should open, e.g. "item_flat_white"; none when left out. */
+  reviews?: string;
+  reviewsAsked?: boolean;
 };
 
 // Compact line syntax: "2 latte milk=oat temp=iced"
@@ -59,6 +63,12 @@ const cases: Case[] = [
   { name: "pay: the bill", before: ["1 latte", "1 bacon_roll"], at: "starbucks", said: "Okay, I'd like to check out now", expect: ["1 latte", "1 bacon_roll"], pay: true },
   { name: "pay: price question is not paying", before: ["1 flat_white"], said: "How much is that so far?", expect: ["1 flat_white"], pay: false },
   { name: "pay: nothing to pay for", said: "I want to pay", expect: [], pay: false },
+  { name: "reviews: the place", said: "What are the reviews like for this place?", expect: [], reviews: "restaurant" },
+  { name: "reviews: a dish", before: ["1 latte"], said: "Show me the reviews for the flat white", expect: ["1 latte"], reviews: "item_flat_white" },
+  { name: "reviews: is it any good", said: "Is the banana bread any good?", expect: [], reviews: "item_banana_bread" },
+  { name: "reviews: a topic", before: ["1 flat_white"], said: "What do people say about the service?", expect: ["1 flat_white"], reviews: "topic_service" },
+  { name: "reviews: rating", said: "How is this place rated on Google?", expect: [], reviews: "restaurant" },
+  { name: "reviews: none saved for starbucks", at: "starbucks", said: "What are the reviews like?", expect: [], reviewsAsked: true },
   { name: "brief: eggs bacon coffee", said: "I'm gonna have some eggs, maybe a little bit of bacon, and then a coffee", expect: ["1 poached_eggs", "1 side_bacon", "1 flat_white"] },
   { name: "quantities", said: "Two flat whites and three almond croissants please", expect: ["2 flat_white", "3 almond_croissant"] },
   { name: "options in one go", said: "A large oat milk latte with an extra shot and a banana bread", expect: ["1 latte milk=oat shots=extra size=large", "1 banana_bread"] },
@@ -97,12 +107,14 @@ const cases: Case[] = [
   { name: "similar dishes", said: "Eggs royale and an avo smash with a side of smoked salmon", expect: ["1 eggs_royale", "1 avo_smash", "1 side_salmon"] },
 ];
 
+const reviewKey = (subject: ReviewSubject | null) => (!subject ? null : subject.kind === "restaurant" ? "restaurant" : `${subject.kind}_${subject.id}`);
+
 async function main() {
   let passed = 0;
   const times: number[] = [];
   for (const test of cases) {
     const menu = menus[test.at ?? "kaffeine"];
-    const result = await interpret({ menu, before: parse(test.before ?? []), said: test.said, shownSuggestions: test.shown, apiKey: key! });
+    const result = await interpret({ menu, restaurantId: test.at ?? "kaffeine", before: parse(test.before ?? []), said: test.said, shownSuggestions: test.shown, apiKey: key! });
     times.push(result.ms);
     const got = show(menu, result.order);
     const want = show(menu, parse(test.expect));
@@ -114,6 +126,8 @@ async function main() {
       (test.accepted === undefined || result.accepted === test.accepted) &&
       (test.done === undefined || result.done === test.done) &&
       result.pay === (test.pay ?? false) &&
+      reviewKey(result.reviews) === (test.reviews ?? null) &&
+      (test.reviews !== undefined || test.reviewsAsked === undefined || result.reviewsAsked === test.reviewsAsked) &&
       result.nutrition === (test.nutrition ?? false) &&
       (test.suggest !== undefined || test.suggestAny !== undefined || result.suggest === null);
     if (ok) passed++;
@@ -122,7 +136,7 @@ async function main() {
       console.log(`       said: ${test.said}`);
       console.log(`       want: ${want.join(" | ")}  suggest=${test.suggest ?? null} accepted=${test.accepted ?? null} done=${test.done ?? false}`);
       console.log(`       conf: ${Object.entries(result.confidences).map(([id, c]) => `${id}=${c.toFixed(2)}`).join(" ")}`);
-      console.log(`       got:  ${got.join(" | ")}  suggest=${result.suggest ? `${result.suggest.topic}:${result.suggest.itemIds.join(",")}` : null} nutrition=${result.nutrition} accepted=${result.accepted} done=${result.done} pay=${result.pay}`);
+      console.log(`       got:  ${got.join(" | ")}  suggest=${result.suggest ? `${result.suggest.topic}:${result.suggest.itemIds.join(",")}` : null} nutrition=${result.nutrition} accepted=${result.accepted} done=${result.done} pay=${result.pay} reviews=${reviewKey(result.reviews)}`);
     }
   }
   times.sort((a, b) => a - b);

@@ -17,6 +17,8 @@ export type CommittedTurn = {
   done: boolean;
   /** The guest asked to pay, so the checkout has just opened. */
   pay: boolean;
+  /** What the waiter says about the reviews the guest asked for, which have just opened. */
+  reviewsSay: string | null;
 };
 
 /** Asked of the interpreter to pick the one thing the waiter offers on top of the order. */
@@ -77,6 +79,7 @@ export function waiterLine(turn: CommittedTurn): string | null {
     return `All together that's about ${kcal.toLocaleString("en-GB")} calories, with ${protein} grams of protein. The full breakdown is on screen.`;
   }
   if (turn.pay) return "Of course. The checkout is on screen.";
+  if (turn.reviewsSay) return turn.reviewsSay;
   const added = turn.acceptedName ? `Lovely, ${spoken(turn.acceptedName)} added.` : null;
   if (turn.suggestion) return [added, saySuggestion(turn.suggestion)].filter(Boolean).join(" ");
   return added;
@@ -87,6 +90,7 @@ export function mayUpsell(turn: CommittedTurn): boolean {
   return (
     !turn.done &&
     !turn.pay &&
+    !turn.reviewsSay &&
     !turn.nutrition &&
     !turn.suggestion &&
     !turn.acceptedName &&

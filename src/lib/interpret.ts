@@ -1,5 +1,6 @@
 import type { Menu } from "./menu";
 import { defaultOptions, sanitizeOrder, type Order, type OrderLine } from "./order";
+import { reviewSubjects, type ReviewSubject } from "./reviews";
 
 const API_URL = "https://api.typesafe.ai/v1/systemone";
 const QTY_WORDS = ["none", "one", "two", "three", "four"] as const;
@@ -16,6 +17,7 @@ export type SuggestionPick = { topic: SuggestionTopic; itemIds: string[] };
 /** A dish must match the guest's question at least this well to be suggested. */
 const MIN_MATCH = 0.5;
 const MIN_ASKING = 0.6;
+const MIN_REVIEWS = 0.7;
 
 export type Interpretation = {
   order: Order;
@@ -28,6 +30,10 @@ export type Interpretation = {
   done: boolean;
   /** The guest asked to pay for the order. */
   pay: boolean;
+  /** The guest asked what other people think of the place or of a dish. */
+  reviews: ReviewSubject | null;
+  /** True when they asked for reviews, even where none are saved for this restaurant. */
+  reviewsAsked: boolean;
   ms: number;
   /** Confidence of every quantity answer that put an item in the order, for tuning. */
   confidences: Record<string, number>;
@@ -112,6 +118,15 @@ function buildQuestions(menu: Menu, before: Order, shownSuggestions: string[]): 
       "Examples: \"I want to pay\", \"I'd like to pay\", \"can I pay\", \"let me pay\", \"check out\", \"the bill please\", \"pay with Link\", \"charge me\". " +
       "Asking what something costs, or only saying they are finished ordering, does not count.",
   };
+  {
+    questions.reviews = {
+      type: "noul",
+      instructions:
+        "Is the guest asking what other people think: for reviews, ratings, or whether the place or a dish is any good? " +
+        "Examples: \"what are the reviews like\", \"show me the reviews for the flat white\", \"is the banana bread any good\", \"what do people say about the service\", \"how is this place rated\". " +
+        "Ordering something, or asking what there is to eat, does not count.",
+    };
+  }
   if (shownSuggestions.length > 0) {
     const ordinals = ["first", "second", "third"];
     const criteria: Record<string, string> = {
@@ -198,8 +213,30 @@ async function pickSuggestions(input: { menu: Menu; said: string; order: Order; 
   return { topic, itemIds };
 }
 
+/** Second, smaller question asked only when the guest wants reviews: what are they asking about? */
+async function pickReviewSubject(input: { menu: Menu; restaurantId: string; said: string; apiKey: string; signal?: AbortSignal }): Promise<ReviewSubject> {
+  const subjects = reviewSubjects(input.restaurantId, input.menu);
+  const answers = await ask(
+    {
+      state: { guest_said: input.said },
+      questions: {
+        subject: {
+          type: "choice",
+          instructions: "A coffee shop guest asked the waiter for reviews or opinions. What do they want reviews of? If they name a menu item, choose that item.",
+          criteria: Object.fromEntries(subjects.map((subject) => [subject.key, subject.heard])),
+        },
+      },
+    },
+    input.apiKey,
+    input.signal,
+  );
+  return subjects.find((subject) => subject.key === answers.subject?.choice)?.subject ?? { kind: "restaurant" };
+}
+
 export async function interpret(input: {
   menu: Menu;
+  /** The id used in the URL, which the saved reviews are keyed by. */
+  restaurantId?: string;
   before: Order;
   said: string;
   shownSuggestions?: string[];
@@ -210,8 +247,9 @@ export async function interpret(input: {
   const before = sanitizeOrder(menu, input.before);
   const shown = (input.shownSuggestions ?? []).filter((id) => menu.itemsById.has(id));
   const said = input.said.trim();
-  if (!said) return { order: before, suggest: null, accepted: null, nutrition: false, done: false, pay: false, ms: 0, confidences: {} };
+  if (!said) return { order: before, suggest: null, accepted: null, nutrition: false, done: false, pay: false, reviews: null, reviewsAsked: false, ms: 0, confidences: {} };
 
+  const withReviews = Boolean(input.restaurantId && reviewSubjects(input.restaurantId, menu).length > 0);
   const started = performance.now();
   const answers = await ask(
     {
@@ -263,8 +301,13 @@ export async function interpret(input: {
 
   const order = sanitizeOrder(menu, { lines });
   const nutrition = (answers.nutrition?.noul ?? 0) >= MIN_ASKING && order.lines.length > 0;
+  const reviewsAsked = (answers.reviews?.noul ?? 0) >= MIN_REVIEWS;
+  const reviews =
+    withReviews && reviewsAsked
+      ? await pickReviewSubject({ menu, restaurantId: input.restaurantId!, said, apiKey: input.apiKey, signal: input.signal })
+      : null;
   const suggest =
-    !nutrition && (answers.asking?.noul ?? 0) >= MIN_ASKING
+    !nutrition && !reviewsAsked && (answers.asking?.noul ?? 0) >= MIN_ASKING
       ? await pickSuggestions({ menu, said, order, apiKey: input.apiKey, signal: input.signal })
       : null;
 
@@ -275,6 +318,8 @@ export async function interpret(input: {
     nutrition,
     done: (answers.done?.noul ?? 0) > 0.7,
     pay: (answers.pay?.noul ?? 0) > 0.7 && order.lines.length > 0,
+    reviews,
+    reviewsAsked,
     ms: Math.round(performance.now() - started),
     confidences,
   };
