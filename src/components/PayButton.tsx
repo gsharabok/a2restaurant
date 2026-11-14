@@ -1,23 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useImperativeHandle, useState, type Ref } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Check, X, Zap } from "lucide-react";
 import type { PricedOrder } from "@/lib/order";
 import { formatPrice } from "@/lib/format";
 
-type Props = { restaurant: { id: string; name: string }; priced: PricedOrder; className?: string };
+/** Lets the screen open the checkout when the guest asks to pay out loud. */
+export type PayHandle = { pay: () => void };
+
+type Props = { restaurant: { id: string; name: string }; priced: PricedOrder; className?: string; ref?: Ref<PayHandle> };
 
 /** One-click pay. Opens Stripe's checkout when the server has a Stripe key, a demo checkout otherwise. */
-export function PayButton({ restaurant, priced, className = "" }: Props) {
+export function PayButton({ restaurant, priced, className = "", ref }: Props) {
   const [state, setState] = useState<"idle" | "opening" | "demo" | "paid">("idle");
   const [error, setError] = useState<string | null>(null);
 
-  const pay = async () => {
+  /** `clicked` is false when the guest asked by voice: a browser only lets a click open a new tab, so Stripe opens in this one. */
+  const pay = async (clicked: boolean) => {
+    if (state !== "idle") return;
     setState("opening");
     setError(null);
     // Opened before the request so the browser treats it as the guest's click and doesn't block it.
-    const tab = window.open("", "_blank");
+    const tab = clicked ? window.open("", "_blank") : null;
     try {
       const response = await fetch("/api/checkout", {
         method: "POST",
@@ -42,10 +47,12 @@ export function PayButton({ restaurant, priced, className = "" }: Props) {
     }
   };
 
+  useImperativeHandle(ref, () => ({ pay: () => void pay(false) }));
+
   return (
     <>
       <button
-        onClick={pay}
+        onClick={() => pay(true)}
         disabled={state === "opening"}
         title={error ?? "Pay for this order"}
         className={`inline-flex items-center gap-1.5 rounded-full bg-[#00d66f] px-4 py-1.5 text-sm font-semibold text-[#011e0f] transition hover:bg-[#33e08a] disabled:opacity-60 ${className}`}

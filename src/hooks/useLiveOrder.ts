@@ -11,6 +11,7 @@ type InterpretResponse = {
   accepted: number | null;
   nutrition: boolean;
   done: boolean;
+  pay: boolean;
   ms: number;
 };
 
@@ -24,7 +25,7 @@ export type Transcript = { settled: string; unsettled: string; previous: string 
  * stood when the turn began, so revised words correct the screen instead of stacking up.
  * Only the newest answer is ever rendered.
  */
-export function useLiveOrder(restaurantId: string, onTurnCommitted?: () => void) {
+export function useLiveOrder(restaurantId: string, onTurnCommitted?: () => void, onPayAsked?: () => void) {
   const [priced, setPriced] = useState<PricedOrder>(EMPTY_PRICED);
   const [suggestion, setSuggestion] = useState<Suggestion | null>(null);
   const [transcript, setTranscript] = useState<Transcript>({ settled: "", unsettled: "", previous: "" });
@@ -46,9 +47,11 @@ export function useLiveOrder(restaurantId: string, onTurnCommitted?: () => void)
   const pendingCommit = useRef(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const committed = useRef(onTurnCommitted);
+  const payAsked = useRef(onPayAsked);
   useEffect(() => {
     committed.current = onTurnCommitted;
-  }, [onTurnCommitted]);
+    payAsked.current = onPayAsked;
+  }, [onTurnCommitted, onPayAsked]);
 
   const commit = useCallback(() => {
     if (inFlight.current) {
@@ -66,6 +69,8 @@ export function useLiveOrder(restaurantId: string, onTurnCommitted?: () => void)
       shown.current = next;
       setSuggestion(next);
       if (result.done && result.order.lines.length > 0) setDone(true);
+      // Paying waits for the end of the sentence, so a half-heard phrase never opens the checkout.
+      if (result.pay) payAsked.current?.();
     }
     setTranscript({ settled: "", unsettled: "", previous: said.current });
     said.current = "";
