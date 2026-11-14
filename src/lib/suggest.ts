@@ -18,7 +18,11 @@ const CAPTIONS: Record<SuggestionTopic, string> = {
   lunch: "From the lunch menu.",
   drinks: "A few of our drinks.",
   other: "Here are a few ideas.",
+  unavailable: "We don't have that, but these are close.",
 };
+const UNSURE = "I'm not sure we have that. These are the closest.";
+const NEAREST = "Nothing matches that exactly. These come closest.";
+const NOTHING: Partial<Record<SuggestionTopic, string>> = { unavailable: "Sorry, we don't have that, or anything like it." };
 
 const CATEGORY_OF: Partial<Record<SuggestionTopic, string>> = { drinks: "drink", lunch: "lunch" };
 
@@ -31,7 +35,13 @@ export function toSuggestion(menu: Menu, pick: SuggestionPick): Suggestion {
   const kind = CATEGORY_OF[pick.topic];
   const topic = kind && !pick.itemIds.every((id) => menu.itemsById.get(id)?.category === kind) ? "other" : pick.topic;
   return {
-    caption: items.length ? CAPTIONS[topic] : "Sorry, nothing on the menu matches that.",
+    caption: !items.length
+      ? (NOTHING[topic] ?? "Sorry, nothing on the menu matches that.")
+      : pick.exact
+        ? CAPTIONS[topic]
+        : topic === "unavailable"
+          ? UNSURE
+          : NEAREST,
     items,
   };
 }

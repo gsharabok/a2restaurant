@@ -51,6 +51,7 @@ export const CATEGORY_LABELS: Record<string, string> = {
   breakfast: "Breakfast",
   lunch: "Lunch",
   pastry: "Pastries",
+  snack: "Snacks",
   side: "Sides",
 };
 

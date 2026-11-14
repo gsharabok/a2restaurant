@@ -142,7 +142,7 @@
       "price": 2.45,
       "pricePlaceholder": true,
       "description": "Golden pastry with soft, flaky layers and a rich buttery flavour. For any additional condiments, please ask in-store. Please check the label for allergens.",
-      "heard": "Butter Croissant: Golden pastry with soft, flaky layers and a rich buttery flavour. For any additional condiments, please ask in-store. Please check the label for allergens.. Also ordered as 'a croissant', 'plain croissant'. Not the almond croissant and not the ham and cheddar croissant.",
+      "heard": "Butter Croissant: Golden pastry with soft, flaky layers and a rich buttery flavour. For any additional condiments, please ask in-store. Please check the label for allergens. Also ordered as 'a croissant', 'plain croissant'. Not the almond croissant and not the ham and cheddar croissant.",
       "tags": [
         "vegetarian"
       ],
@@ -162,7 +162,7 @@
       "price": 2.95,
       "pricePlaceholder": true,
       "description": "A butter croissant filled with an almond filling, topped with toasted flaked almonds and dusted with powdered sugar.",
-      "heard": "Almond Croissant: A butter croissant filled with an almond filling, topped with toasted flaked almonds and dusted with powdered sugar.. Also ordered as 'an almond croissant'.",
+      "heard": "Almond Croissant: A butter croissant filled with an almond filling, topped with toasted flaked almonds and dusted with powdered sugar. Also ordered as 'an almond croissant'.",
       "tags": [
         "vegetarian"
       ],
@@ -182,7 +182,7 @@
       "price": 2.75,
       "pricePlaceholder": true,
       "description": "Golden pastry made from free range eggs and butter, with a rich dark chocolate filling. For any additional condiments, please ask in-store. Please check the label for allergens.",
-      "heard": "Pain au Chocolat: Golden pastry made from free range eggs and butter, with a rich dark chocolate filling. For any additional condiments, please ask in-store. Please check the label for allergens.. Also ordered as 'pain au chocolat', 'chocolate croissant'.",
+      "heard": "Pain au Chocolat: Golden pastry made from free range eggs and butter, with a rich dark chocolate filling. For any additional condiments, please ask in-store. Please check the label for allergens. Also ordered as 'pain au chocolat', 'chocolate croissant'.",
       "tags": [
         "vegetarian"
       ],
@@ -202,7 +202,7 @@
       "price": 3.25,
       "pricePlaceholder": true,
       "description": "Sweet dough with cinnamon filling and topped with an orange infused cream cheese icing.",
-      "heard": "Cinnamon Bun: Sweet dough with cinnamon filling and topped with an orange infused cream cheese icing.. Also ordered as 'a cinnamon bun', 'cinnamon roll', 'cinnamon swirl'.",
+      "heard": "Cinnamon Bun: Sweet dough with cinnamon filling and topped with an orange infused cream cheese icing. Also ordered as 'a cinnamon bun', 'cinnamon roll', 'cinnamon swirl'.",
       "tags": [],
       "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Cinnamon-Bun_1.jpeg",
       "nutrition": {
@@ -238,7 +238,7 @@
       "price": 2.95,
       "pricePlaceholder": true,
       "description": "A moist lemon loaf cake topped with a lemon icing glaze and lemon zest.",
-      "heard": "Lemon Loaf Cake: A moist lemon loaf cake topped with a lemon icing glaze and lemon zest.. Also ordered as 'lemon loaf', 'lemon cake', 'lemon drizzle'.",
+      "heard": "Lemon Loaf Cake: A moist lemon loaf cake topped with a lemon icing glaze and lemon zest. Also ordered as 'lemon loaf', 'lemon cake', 'lemon drizzle'.",
       "tags": [
         "vegetarian"
       ],
@@ -258,7 +258,7 @@
       "price": 3.15,
       "pricePlaceholder": true,
       "description": "Belgian milk, dark and white chocolate brownie",
-      "heard": "Triple Chocolate Brownie: Belgian milk, dark and white chocolate brownie. Also ordered as 'a brownie', 'chocolate brownie'.",
+      "heard": "Triple Chocolate Brownie: Belgian milk, dark and white chocolate brownie. Also ordered as 'a brownie', 'chocolate brownie'. This is the plain, regular brownie.",
       "tags": [],
       "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Triple-Chocolate-Brownie_2.jpeg",
       "nutrition": {
@@ -276,7 +276,7 @@
       "price": 2.75,
       "pricePlaceholder": true,
       "description": "Thick and chunky cookie, filled with dark chocolate chunks and a milk and dark chocolate centre.",
-      "heard": "Double Chocolate Chunk Cookie: Thick and chunky cookie, filled with dark chocolate chunks and a milk and dark chocolate centre.. Also ordered as 'a cookie', 'chocolate chip cookie', 'chocolate chunk cookie'.",
+      "heard": "Double Chocolate Chunk Cookie: Thick and chunky cookie, filled with dark chocolate chunks and a milk and dark chocolate centre. Also ordered as 'a cookie', 'chocolate chip cookie', 'chocolate chunk cookie'.",
       "tags": [
         "vegetarian"
       ],
@@ -296,7 +296,7 @@
       "price": 2.25,
       "pricePlaceholder": true,
       "description": "Bite-sized vanilla cake mixed with vanilla buttercream, dipped in strawberry flavoured chocolate and topped with pink sprinkles.",
-      "heard": "Birthday Cake Pop: Bite-sized vanilla cake mixed with vanilla buttercream, dipped in strawberry flavoured chocolate and topped with pink sprinkles.. Also ordered as 'a cake pop', 'birthday cake pop'.",
+      "heard": "Birthday Cake Pop: Bite-sized vanilla cake mixed with vanilla buttercream, dipped in strawberry flavoured chocolate and topped with pink sprinkles. Also ordered as 'a cake pop', 'birthday cake pop'.",
       "tags": [
         "vegetarian"
       ],
@@ -310,13 +310,412 @@
       }
     },
     {
+      "id": "chocolate_muffin",
+      "name": "Chocolate Muffin",
+      "category": "pastry",
+      "price": 2.95,
+      "pricePlaceholder": true,
+      "description": "A chocolate muffin with dark chocolate chunks",
+      "heard": "Chocolate Muffin: A chocolate muffin with dark chocolate chunks. Also ordered as 'a chocolate muffin', 'double chocolate muffin'.",
+      "tags": [],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Chocolate-Muffin_4.jpeg",
+      "nutrition": {
+        "kcal": 572,
+        "protein": 8,
+        "carbs": 68,
+        "fat": 29,
+        "richIn": []
+      }
+    },
+    {
+      "id": "christmas_brownie",
+      "name": "Christmas Tree Brownie",
+      "category": "pastry",
+      "price": 3.25,
+      "pricePlaceholder": true,
+      "description": "A fudgy, chocolate brownie generously packed with chunks of milk and white chocolate. Topped with a dark chocolate ganache and decorated with a chocolate drizzle, chocolate covered toffee,  chocolate sprinkles and a chocolate star.",
+      "heard": "Christmas Tree Brownie: A fudgy, chocolate brownie generously packed with chunks of milk and white chocolate. Topped with a dark chocolate ganache and decorated with a chocolate drizzle, chocolate covered toffee,  chocolate sprinkles and a chocolate star. Also ordered as 'the Christmas brownie', 'Christmas tree brownie', 'festive brownie'.",
+      "tags": [
+        "festive"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Christmas-Tree-Brownie_2.jpeg",
+      "nutrition": {
+        "kcal": 433,
+        "protein": 6,
+        "carbs": 37,
+        "fat": 28,
+        "richIn": []
+      }
+    },
+    {
+      "id": "hazelnut_cookie",
+      "name": "Triple Chocolate & Hazelnut Cookie",
+      "category": "pastry",
+      "price": 2.95,
+      "pricePlaceholder": true,
+      "description": "Thick and chunky chocolate cookie, filled with white, milk and dark chocolate chunks and a hazelnut cream centre.",
+      "heard": "Triple Chocolate & Hazelnut Cookie: Thick and chunky chocolate cookie, filled with white, milk and dark chocolate chunks and a hazelnut cream centre. Also ordered as 'the hazelnut cookie', 'triple chocolate cookie'.",
+      "tags": [],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-BAU-and-FF6-Triple-Chocolate-%26-Hazelnut-Cookie-Cut.jpeg",
+      "nutrition": {
+        "kcal": 458,
+        "protein": 7,
+        "carbs": 57,
+        "fat": 22,
+        "richIn": []
+      }
+    },
+    {
+      "id": "caramel_shortbread",
+      "name": "Belgian Chocolate Caramel Shortbread",
+      "category": "pastry",
+      "price": 3.15,
+      "pricePlaceholder": true,
+      "description": "An all butter shortbread base, topped with a luxurious and smooth caramel and finished with a Belgian chocolate topping.",
+      "heard": "Belgian Chocolate Caramel Shortbread: An all butter shortbread base, topped with a luxurious and smooth caramel and finished with a Belgian chocolate topping. Also ordered as 'caramel shortbread', 'millionaire shortbread', 'caramel slice'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Belgian-Chocolate-Caramel-Shortbread.jpeg",
+      "nutrition": {
+        "kcal": 406,
+        "protein": 5,
+        "carbs": 51,
+        "fat": 20,
+        "richIn": []
+      }
+    },
+    {
+      "id": "banana_loaf",
+      "name": "Banana Nut Loaf Cake",
+      "category": "pastry",
+      "price": 2.95,
+      "pricePlaceholder": true,
+      "description": "A moist banana and nut loaf cake topped with crunchy banana coins, walnuts and pecans",
+      "heard": "Banana Nut Loaf Cake: A moist banana and nut loaf cake topped with crunchy banana coins, walnuts and pecans. Also ordered as 'banana bread', 'banana loaf', 'banana cake'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Banana-Nut-Loaf-Cake.jpeg",
+      "nutrition": {
+        "kcal": 368,
+        "protein": 5,
+        "carbs": 41,
+        "fat": 20,
+        "richIn": []
+      }
+    },
+    {
+      "id": "carrot_cake",
+      "name": "Carrot Cake",
+      "category": "pastry",
+      "price": 3.75,
+      "pricePlaceholder": true,
+      "description": "A moist carrot cake with sultanas and walnuts topped with a Belgian white chocolate buttercream, decorated with nibbed walnuts",
+      "heard": "Carrot Cake: A moist carrot cake with sultanas and walnuts topped with a Belgian white chocolate buttercream, decorated with nibbed walnuts. Also ordered as 'carrot cake', 'a slice of carrot cake'.",
+      "tags": [],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Carrot-Cake_4.jpeg",
+      "nutrition": {
+        "kcal": 505,
+        "protein": 6,
+        "carbs": 55,
+        "fat": 28,
+        "richIn": []
+      }
+    },
+    {
+      "id": "sticky_toffee_cake",
+      "name": "Sticky Toffee Pecan Cake",
+      "category": "pastry",
+      "price": 3.95,
+      "pricePlaceholder": true,
+      "description": "Toffee cake topped with a vanilla buttercream, chopped pecans and finished with a sticky toffee sauce.",
+      "heard": "Sticky Toffee Pecan Cake: Toffee cake topped with a vanilla buttercream, chopped pecans and finished with a sticky toffee sauce. Also ordered as 'sticky toffee cake', 'the pecan cake', 'toffee cake'.",
+      "tags": [
+        "festive",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Sticky-Toffee-Pecan-Cake.jpeg",
+      "nutrition": {
+        "kcal": 604,
+        "protein": 11,
+        "carbs": 46,
+        "fat": 41,
+        "richIn": []
+      }
+    },
+    {
+      "id": "chocolate_orange_cube",
+      "name": "Chocolate Orange Cake Cube",
+      "category": "pastry",
+      "price": 3.75,
+      "pricePlaceholder": true,
+      "description": "Chocolate cake filled with a chocolate orange filling, finished with chocolate orange frosting and orange curd, decorated with flaked milk chocolate. Decorated with an orange segment-shaped chocolate.",
+      "heard": "Chocolate Orange Cake Cube: Chocolate cake filled with a chocolate orange filling, finished with chocolate orange frosting and orange curd, decorated with flaked milk chocolate. Decorated with an orange segment-shaped chocolate. Also ordered as 'chocolate orange cake', 'the cake cube'.",
+      "tags": [
+        "festive",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Chocolate-Orange-Cake-Cube.jpeg",
+      "nutrition": {
+        "kcal": 540,
+        "protein": 8,
+        "carbs": 51,
+        "fat": 33,
+        "richIn": []
+      }
+    },
+    {
+      "id": "red_velvet_scroll",
+      "name": "Red Velvet Scroll",
+      "category": "pastry",
+      "price": 3.45,
+      "pricePlaceholder": true,
+      "description": "Plain and red coloured croissant dough, filled with a red velvet chocolate custard filling, decorated with white chocolate and a red velvet crumb.",
+      "heard": "Red Velvet Scroll: Plain and red coloured croissant dough, filled with a red velvet chocolate custard filling, decorated with white chocolate and a red velvet crumb. Also ordered as 'red velvet scroll', 'red velvet bun', 'red velvet'.",
+      "tags": [
+        "festive",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Red-Velvet-Scroll.jpeg",
+      "nutrition": {
+        "kcal": 437,
+        "protein": 7,
+        "carbs": 45,
+        "fat": 25,
+        "richIn": []
+      }
+    },
+    {
+      "id": "reindeer_cake_pop",
+      "name": "Reindeer Cake Pop",
+      "category": "pastry",
+      "price": 2.45,
+      "pricePlaceholder": true,
+      "description": "Bitesize chocolate flavour cake made with a cookies and cream crumb and chocolate buttercream, enrobed in milk chocolate and finished with crunchy chocolate peppermint antlers, chocolate ears, icing eyes and a red sugarpaste nose.",
+      "heard": "Reindeer Cake Pop: Bitesize chocolate flavour cake made with a cookies and cream crumb and chocolate buttercream, enrobed in milk chocolate and finished with crunchy chocolate peppermint antlers, chocolate ears, icing eyes and a red sugarpaste nose. Also ordered as 'the reindeer cake pop', 'Christmas cake pop'.",
+      "tags": [
+        "festive",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Reindeer-Cake-Pop.jpeg",
+      "nutrition": {
+        "kcal": 191,
+        "protein": 2,
+        "carbs": 20,
+        "fat": 11,
+        "richIn": []
+      }
+    },
+    {
+      "id": "shortbread_biscuits",
+      "name": "All Butter Shortbread Biscuits",
+      "category": "snack",
+      "price": 1.95,
+      "pricePlaceholder": true,
+      "description": "Pack of two perfectly crumbly, all-butter shortbread biscuits.",
+      "heard": "All Butter Shortbread Biscuits: Pack of two perfectly crumbly, all-butter shortbread biscuits. Also ordered as 'shortbread', 'shortbread biscuits', 'butter biscuits'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-All-Butter-Shortbread-Biscuits.jpeg",
+      "nutrition": {
+        "kcal": 271,
+        "protein": 3,
+        "carbs": 29,
+        "fat": 16,
+        "richIn": []
+      }
+    },
+    {
+      "id": "ginger_biscuits",
+      "name": "Ginger Biscuits",
+      "category": "snack",
+      "price": 1.95,
+      "pricePlaceholder": true,
+      "description": "Two moreish, fiery stem ginger biscuits – because as you’ll soon see, one just isn’t enough",
+      "heard": "Ginger Biscuits: Two moreish, fiery stem ginger biscuits – because as you’ll soon see, one just isn’t enough. Also ordered as 'ginger biscuits', 'ginger snaps', 'ginger nuts'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Ginger-Biscuits.jpeg",
+      "nutrition": {
+        "kcal": 229,
+        "protein": 2,
+        "carbs": 35,
+        "fat": 8,
+        "richIn": []
+      }
+    },
+    {
+      "id": "gingerbread_cookie",
+      "name": "Gingerbread Cookie",
+      "category": "snack",
+      "price": 2.45,
+      "pricePlaceholder": true,
+      "description": "A spiced gingerbread Starbucks Bearista® cookie, hand iced with a green apron and black icing eyes",
+      "heard": "Gingerbread Cookie: A spiced gingerbread Starbucks Bearista® cookie, hand iced with a green apron and black icing eyes. Also ordered as 'a gingerbread cookie', 'gingerbread man', 'gingerbread biscuit'.",
+      "tags": [],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Starbucks-Bearista%E2%94%AC%C2%AB-Gingerbread-Cookie.jpeg",
+      "nutrition": {
+        "kcal": 183,
+        "protein": 2,
+        "carbs": 34,
+        "fat": 4,
+        "richIn": []
+      }
+    },
+    {
+      "id": "caramel_waffles",
+      "name": "Caramel Waffles",
+      "category": "snack",
+      "price": 2.25,
+      "pricePlaceholder": true,
+      "description": "Pack of two buttery waffles with a sweet, creamy caramel filling.",
+      "heard": "Caramel Waffles: Pack of two buttery waffles with a sweet, creamy caramel filling. Also ordered as 'a caramel waffle', 'stroopwafel', 'waffle'.",
+      "tags": [],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Large-Caramel-Waffles.jpeg",
+      "nutrition": {
+        "kcal": 352,
+        "protein": 2,
+        "carbs": 48,
+        "fat": 16,
+        "richIn": []
+      }
+    },
+    {
+      "id": "granola_bar",
+      "name": "Granola Bar",
+      "category": "snack",
+      "price": 2.25,
+      "pricePlaceholder": true,
+      "description": "Gluten‑free oats with juicy dried fruits, toasted nuts, seeds and a hint of orange.",
+      "heard": "Granola Bar: Gluten‑free oats with juicy dried fruits, toasted nuts, seeds and a hint of orange. Also ordered as 'a granola bar', 'cereal bar', 'oat bar', 'flapjack'.",
+      "tags": [
+        "gluten-free",
+        "vegan",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Granola-Bar.jpeg",
+      "nutrition": {
+        "kcal": 258,
+        "protein": 4,
+        "carbs": 35,
+        "fat": 11,
+        "richIn": []
+      }
+    },
+    {
+      "id": "panettone",
+      "name": "Mini Chocolate Chip Panettone",
+      "category": "snack",
+      "price": 2.95,
+      "pricePlaceholder": true,
+      "description": "An enriched sweetened dough with dark chocolate chips.",
+      "heard": "Mini Chocolate Chip Panettone: An enriched sweetened dough with dark chocolate chips. Also ordered as 'panettone', 'mini panettone'.",
+      "tags": [
+        "festive",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Mini-Chocolate-Chip-Panettone.jpeg",
+      "nutrition": {
+        "kcal": 421,
+        "protein": 9,
+        "carbs": 49,
+        "fat": 20,
+        "richIn": []
+      }
+    },
+    {
+      "id": "chocolate_bar",
+      "name": "Caramelised Biscuit Chocolate Bar",
+      "category": "snack",
+      "price": 2.45,
+      "pricePlaceholder": true,
+      "description": "Caramelised biscuit crunch with sultanas, finished with milk, dark and golden chocolate.",
+      "heard": "Caramelised Biscuit Chocolate Bar: Caramelised biscuit crunch with sultanas, finished with milk, dark and golden chocolate. Also ordered as 'a chocolate bar', 'biscuit chocolate bar', 'some chocolate'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Caramelised-Biscuit-Chocolate-Bar.jpeg",
+      "nutrition": {
+        "kcal": 323,
+        "protein": 3,
+        "carbs": 32,
+        "fat": 20,
+        "richIn": []
+      }
+    },
+    {
+      "id": "popcorn",
+      "name": "Sweet & Salty Popcorn",
+      "category": "snack",
+      "price": 1.75,
+      "pricePlaceholder": true,
+      "description": "Caramelised popcorn seasoned with sea salt.",
+      "heard": "Sweet & Salty Popcorn: Caramelised popcorn seasoned with sea salt. Also ordered as 'popcorn', 'sweet and salty popcorn'.",
+      "tags": [
+        "vegan",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Sweet-%26-Salty-Popcorn.jpeg",
+      "nutrition": {
+        "kcal": 139,
+        "protein": 2,
+        "carbs": 17,
+        "fat": 6,
+        "richIn": []
+      }
+    },
+    {
+      "id": "crisps",
+      "name": "Lightly Salted Crisps",
+      "category": "snack",
+      "price": 1.65,
+      "pricePlaceholder": true,
+      "description": "Lightly Salted Kettle Chips.",
+      "heard": "Lightly Salted Crisps: Lightly Salted Kettle Chips. Also ordered as 'crisps', 'a bag of crisps', 'chips', 'salted crisps'.",
+      "tags": [
+        "vegan",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Lightly-Salted-Crisps.jpeg",
+      "nutrition": {
+        "kcal": 206,
+        "protein": 2,
+        "carbs": 21,
+        "fat": 12,
+        "richIn": []
+      }
+    },
+    {
+      "id": "snacking_cheese",
+      "name": "Snacking Cheese",
+      "category": "snack",
+      "price": 1.95,
+      "pricePlaceholder": true,
+      "description": "Pure cheese baked to a crunch.",
+      "heard": "Snacking Cheese: Pure cheese baked to a crunch. Also ordered as 'snacking cheese', 'a cheese snack', 'cheese'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Snacking-Cheese_0.jpeg",
+      "nutrition": {
+        "kcal": 134,
+        "protein": 11,
+        "carbs": 0,
+        "fat": 10,
+        "richIn": []
+      }
+    },
+    {
       "id": "bacon_roll",
       "name": "Smoked Bacon Roll",
       "category": "breakfast",
       "price": 4.25,
       "pricePlaceholder": true,
       "description": "Hickory smoked back and streaky bacon in a buttered white bread roll.",
-      "heard": "Smoked Bacon Roll: Hickory smoked back and streaky bacon in a buttered white bread roll.. Also ordered as 'a bacon roll', 'bacon sandwich', 'bacon bap', 'bacon butty'.",
+      "heard": "Smoked Bacon Roll: Hickory smoked back and streaky bacon in a buttered white bread roll. Also ordered as 'a bacon roll', 'bacon sandwich', 'bacon bap', 'bacon butty'.",
       "tags": [],
       "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Smoked-Bacon-Roll_0.jpeg",
       "nutrition": {
@@ -354,7 +753,7 @@
       "price": 4.75,
       "pricePlaceholder": true,
       "description": "Scrambled egg, tomato relish, hickory smoked streaky bacon, Red Leicester cheese and béchamel sauce in a plain bagel.",
-      "heard": "All-Day Breakfast Bagel: Scrambled egg, tomato relish, hickory smoked streaky bacon, Red Leicester cheese and béchamel sauce in a plain bagel.. Also ordered as 'the breakfast bagel', 'egg and bacon bagel', 'a bagel'.",
+      "heard": "All-Day Breakfast Bagel: Scrambled egg, tomato relish, hickory smoked streaky bacon, Red Leicester cheese and béchamel sauce in a plain bagel. Also ordered as 'the breakfast bagel', 'egg and bacon bagel', 'a bagel'.",
       "tags": [],
       "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-DEL-1200x800-All-Day-Breakfast-Bagel.jpeg",
       "nutrition": {
@@ -373,7 +772,7 @@
       "price": 4.75,
       "pricePlaceholder": true,
       "description": "Halloumi cheese with a hot honey and tomato mix, avocado and spinach in a white breakfast muffin.",
-      "heard": "Hot Honey Halloumi & Avocado Muffin: Halloumi cheese with a hot honey and tomato mix, avocado and spinach in a white breakfast muffin.. Also ordered as 'the halloumi muffin', 'halloumi and avocado', 'hot honey halloumi'.",
+      "heard": "Hot Honey Halloumi & Avocado Muffin: Halloumi cheese with a hot honey and tomato mix, avocado and spinach in a white breakfast muffin. Also ordered as 'the halloumi muffin', 'halloumi and avocado', 'hot honey halloumi'.",
       "tags": [
         "vegetarian"
       ],
@@ -394,7 +793,7 @@
       "price": 4.75,
       "pricePlaceholder": true,
       "description": "Beyond Meat® pea protein sausage plant-based patty, coconut oil alternative to cheese, tofu with turmeric, tomato relish and Sheese® coconut oil alternative to cream cheese in a breakfast roll.",
-      "heard": "Beyond Meat® Breakfast Sandwich: Beyond Meat® pea protein sausage plant-based patty, coconut oil alternative to cheese, tofu with turmeric, tomato relish and Sheese® coconut oil alternative to cream cheese in a breakfast roll.. Also ordered as 'the Beyond Meat sandwich', 'vegan breakfast sandwich', 'plant-based sausage sandwich'.",
+      "heard": "Beyond Meat® Breakfast Sandwich: Beyond Meat® pea protein sausage plant-based patty, coconut oil alternative to cheese, tofu with turmeric, tomato relish and Sheese® coconut oil alternative to cream cheese in a breakfast roll. Also ordered as 'the Beyond Meat sandwich', 'vegan breakfast sandwich', 'plant-based sausage sandwich'.",
       "tags": [
         "plant-based",
         "vegan",
@@ -417,7 +816,7 @@
       "price": 4.45,
       "pricePlaceholder": true,
       "description": "Free-range pasteurised egg, combined with low fat soft cheese, Gouda full fat hard cheese, mature Cheddar cheese and formed ham.",
-      "heard": "Egg Bites with Three Cheese & Ham: Free-range pasteurised egg, combined with low fat soft cheese, Gouda full fat hard cheese, mature Cheddar cheese and formed ham.. Also ordered as 'egg bites', 'the egg bites with ham'.",
+      "heard": "Egg Bites with Three Cheese & Ham: Free-range pasteurised egg, combined with low fat soft cheese, Gouda full fat hard cheese, mature Cheddar cheese and formed ham. Also ordered as 'egg bites', 'the egg bites with ham'.",
       "tags": [
         "gluten-free",
         "high-protein",
@@ -440,7 +839,7 @@
       "price": 3.45,
       "pricePlaceholder": true,
       "description": "Gluten free oat porridge with semi-skimmed milk and single cream.",
-      "heard": "Classic Porridge: Gluten free oat porridge with semi-skimmed milk and single cream.. Also ordered as 'porridge', 'oatmeal', 'oats'. Hot, not the overnight oats.",
+      "heard": "Classic Porridge: Gluten free oat porridge with semi-skimmed milk and single cream. Also ordered as 'porridge', 'oatmeal', 'oats'. Hot, not the overnight oats.",
       "tags": [
         "gluten-free",
         "healthy",
@@ -463,7 +862,7 @@
       "price": 3.95,
       "pricePlaceholder": true,
       "description": "Natural coconut milk yogurt alternative with mango and passionfruit compote, rolled oats, shredded apple, concentrated apple juice and coconut flakes.",
-      "heard": "Mango & Passionfruit Overnight Oats: Natural coconut milk yogurt alternative with mango and passionfruit compote, rolled oats, shredded apple, concentrated apple juice and coconut flakes.. Also ordered as 'overnight oats', 'mango oats'.",
+      "heard": "Mango & Passionfruit Overnight Oats: Natural coconut milk yogurt alternative with mango and passionfruit compote, rolled oats, shredded apple, concentrated apple juice and coconut flakes. Also ordered as 'overnight oats', 'mango oats'.",
       "tags": [
         "healthy",
         "vegan",
@@ -485,7 +884,7 @@
       "price": 3.75,
       "pricePlaceholder": true,
       "description": "Reduced fat Greek style Yogurt with mixed berry compote, roasted pumpkin seed granola topped with dried sweetened cranberries, pumpkin seeds and dried apricots.",
-      "heard": "Greek Style Yogurt with Berries & Granola: Reduced fat Greek style Yogurt with mixed berry compote, roasted pumpkin seed granola topped with dried sweetened cranberries, pumpkin seeds and dried apricots.. Also ordered as 'yogurt', 'yogurt and granola', 'granola pot', 'berry yogurt'.",
+      "heard": "Greek Style Yogurt with Berries & Granola: Reduced fat Greek style Yogurt with mixed berry compote, roasted pumpkin seed granola topped with dried sweetened cranberries, pumpkin seeds and dried apricots. Also ordered as 'yogurt', 'yogurt and granola', 'granola pot', 'berry yogurt'.",
       "tags": [
         "healthy",
         "vegetarian"
@@ -523,13 +922,99 @@
       }
     },
     {
+      "id": "pigs_blanket_roll",
+      "name": "Pigs Under Blanket Roll",
+      "category": "breakfast",
+      "price": 4.95,
+      "pricePlaceholder": true,
+      "description": "Pork Sausage, Hickory-Smoked Maple Bacon, Sage & Onion Stuffing, Cranberry Sauce, Cheddar Cheese",
+      "heard": "Pigs Under Blanket Roll: Pork Sausage, Hickory-Smoked Maple Bacon, Sage & Onion Stuffing, Cranberry Sauce, Cheddar Cheese. Also ordered as 'pigs in blankets roll', 'the pigs under blanket roll', 'festive sausage roll'.",
+      "tags": [
+        "festive",
+        "high-protein"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Pigs-Under-Blanket-Roll.jpeg",
+      "nutrition": {
+        "kcal": 549,
+        "protein": 24,
+        "carbs": 53,
+        "fat": 27,
+        "richIn": []
+      },
+      "serve": "hot"
+    },
+    {
+      "id": "egg_white_bites",
+      "name": "Egg White Bites with Three Cheese & Red Pepper",
+      "category": "breakfast",
+      "price": 4.45,
+      "pricePlaceholder": true,
+      "description": "Free-range sous vide egg white bites with three cheese, red peppers and spinach.",
+      "heard": "Egg White Bites with Three Cheese & Red Pepper: Free-range sous vide egg white bites with three cheese, red peppers and spinach. Also ordered as 'egg white bites', 'the vegetarian egg bites', 'red pepper egg bites'.",
+      "tags": [
+        "low-carb"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Egg-White-Bites-with-Three-Cheese-%26-Red-Pepper.jpeg",
+      "nutrition": {
+        "kcal": 162,
+        "protein": 13,
+        "carbs": 6,
+        "fat": 10,
+        "richIn": []
+      },
+      "serve": "hot"
+    },
+    {
+      "id": "fruit_toast",
+      "name": "Luxury Fruit Toast",
+      "category": "breakfast",
+      "price": 2.95,
+      "pricePlaceholder": true,
+      "description": "Two slices of luxury fruit toast. Made with dried cranberries, raisins and lemon zest.",
+      "heard": "Luxury Fruit Toast: Two slices of luxury fruit toast. Made with dried cranberries, raisins and lemon zest. Also ordered as 'fruit toast', 'toast', 'raisin toast', 'fruit bread'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Luxury-Fruit-Toast.jpeg",
+      "nutrition": {
+        "kcal": 491,
+        "protein": 12,
+        "carbs": 84,
+        "fat": 11,
+        "richIn": []
+      },
+      "serve": "hot"
+    },
+    {
+      "id": "egg_spinach_pot",
+      "name": "Egg & Spinach Protein Pot",
+      "category": "breakfast",
+      "price": 2.95,
+      "pricePlaceholder": true,
+      "description": "Hard boiled egg and spinach.",
+      "heard": "Egg & Spinach Protein Pot: Hard boiled egg and spinach. Also ordered as 'the protein pot', 'egg and spinach pot', 'boiled eggs'.",
+      "tags": [
+        "healthy",
+        "low-carb",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Egg-%26-Spinach-Protein-Pot.jpeg",
+      "nutrition": {
+        "kcal": 106,
+        "protein": 11,
+        "carbs": 3,
+        "fat": 6,
+        "richIn": []
+      }
+    },
+    {
       "id": "ham_cheese_toastie",
       "name": "Smoked Ham & Cheese Toastie",
       "category": "lunch",
       "price": 5.75,
       "pricePlaceholder": true,
       "description": "Béchamel sauce with a mix of mozzarella, Cheddar and mature Cheddar cheese and Monterey Jack cheese with Dijon and American style mustard in a cheese topped Starbucks signature sourdough.",
-      "heard": "Smoked Ham & Cheese Toastie: Béchamel sauce with a mix of mozzarella, Cheddar and mature Cheddar cheese and Monterey Jack cheese with Dijon and American style mustard in a cheese topped Starbucks signature sourdough.. Also ordered as 'ham and cheese toastie', 'ham toastie', 'ham and cheese sandwich'.",
+      "heard": "Smoked Ham & Cheese Toastie: Béchamel sauce with a mix of mozzarella, Cheddar and mature Cheddar cheese and Monterey Jack cheese with Dijon and American style mustard in a cheese topped Starbucks signature sourdough. Also ordered as 'ham and cheese toastie', 'ham toastie', 'ham and cheese sandwich'.",
       "tags": [],
       "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Signature-Ham-%26-Cheese-Toastie.jpeg",
       "nutrition": {
@@ -548,7 +1033,7 @@
       "price": 5.45,
       "pricePlaceholder": true,
       "description": "Béchamel sauce with a mix of mozzarella, Cheddar and mature Cheddar cheese and Monterey Jack cheese with Dijon and American style mustard in a cheese topped Starbucks signature sourdough.",
-      "heard": "Grilled Cheese Toastie: Béchamel sauce with a mix of mozzarella, Cheddar and mature Cheddar cheese and Monterey Jack cheese with Dijon and American style mustard in a cheese topped Starbucks signature sourdough.. Also ordered as 'a grilled cheese', 'cheese toastie', 'cheese sandwich'.",
+      "heard": "Grilled Cheese Toastie: Béchamel sauce with a mix of mozzarella, Cheddar and mature Cheddar cheese and Monterey Jack cheese with Dijon and American style mustard in a cheese topped Starbucks signature sourdough. Also ordered as 'a grilled cheese', 'cheese toastie', 'cheese sandwich'.",
       "tags": [
         "vegetarian"
       ],
@@ -569,7 +1054,7 @@
       "price": 5.75,
       "pricePlaceholder": true,
       "description": "Tuna with béchamel sauce, mature Cheddar cheese, pickled red onion, red onion, spinach and parsley in a schiacciata romana.",
-      "heard": "Tuna Melt Panini: Tuna with béchamel sauce, mature Cheddar cheese, pickled red onion, red onion, spinach and parsley in a schiacciata romana.. Also ordered as 'a tuna melt', 'tuna panini', 'tuna sandwich'.",
+      "heard": "Tuna Melt Panini: Tuna with béchamel sauce, mature Cheddar cheese, pickled red onion, red onion, spinach and parsley in a schiacciata romana. Also ordered as 'a tuna melt', 'tuna panini', 'tuna sandwich'.",
       "tags": [],
       "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Tuna-Melt-Romana.jpeg",
       "nutrition": {
@@ -588,7 +1073,7 @@
       "price": 5.75,
       "pricePlaceholder": true,
       "description": "Mozzarella cheese, tomato and herb dressing, green pesto with roasted garlic, rocket and slow roasted tomatoes in a schiacciata romana.",
-      "heard": "Tomato, Mozzarella & Pesto Panini: Mozzarella cheese, tomato and herb dressing, green pesto with roasted garlic, rocket and slow roasted tomatoes in a schiacciata romana.. Also ordered as 'tomato and mozzarella panini', 'the pesto panini', 'caprese'.",
+      "heard": "Tomato, Mozzarella & Pesto Panini: Mozzarella cheese, tomato and herb dressing, green pesto with roasted garlic, rocket and slow roasted tomatoes in a schiacciata romana. Also ordered as 'tomato and mozzarella panini', 'the pesto panini', 'caprese'.",
       "tags": [
         "vegetarian"
       ],
@@ -652,7 +1137,7 @@
       "price": 3.95,
       "pricePlaceholder": true,
       "description": "Free-range egg, mustard mayonnaise and salad cream with rocket in malted bread.",
-      "heard": "Egg Mayonnaise Sandwich: Free-range egg, mustard mayonnaise and salad cream with rocket in malted bread.. Also ordered as 'egg mayo', 'egg sandwich', 'egg mayonnaise sandwich'.",
+      "heard": "Egg Mayonnaise Sandwich: Free-range egg, mustard mayonnaise and salad cream with rocket in malted bread. Also ordered as 'egg mayo', 'egg sandwich', 'egg mayonnaise sandwich'.",
       "tags": [
         "vegetarian"
       ],
@@ -664,6 +1149,88 @@
         "fat": 19,
         "richIn": []
       }
+    },
+    {
+      "id": "ham_cheddar_croissant",
+      "name": "Ham & Cheddar Croissant",
+      "category": "lunch",
+      "price": 4.45,
+      "pricePlaceholder": true,
+      "description": "Cured shredded ham, mature Cheddar cheese sauce, mozzarella full fat soft cheese and mature Cheddar in a croissant.",
+      "heard": "Ham & Cheddar Croissant: Cured shredded ham, mature Cheddar cheese sauce, mozzarella full fat soft cheese and mature Cheddar in a croissant. Also ordered as 'ham and cheese croissant', 'ham croissant', 'savoury croissant'.",
+      "tags": [],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Ham-%26-Cheese-Croissant_0.jpeg",
+      "nutrition": {
+        "kcal": 360,
+        "protein": 19,
+        "carbs": 34,
+        "fat": 17,
+        "richIn": []
+      },
+      "serve": "hot"
+    },
+    {
+      "id": "mac_cheese",
+      "name": "Mac & Cheese",
+      "category": "lunch",
+      "price": 5.95,
+      "pricePlaceholder": true,
+      "description": "Cooked pasta with bechamel and cheese sauce, mozzarella cheese, Red Leicester cheese, Cheddar cheese and crispy fried onions.",
+      "heard": "Mac & Cheese: Cooked pasta with bechamel and cheese sauce, mozzarella cheese, Red Leicester cheese, Cheddar cheese and crispy fried onions. Also ordered as 'mac and cheese', 'macaroni cheese', 'pasta'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Mac-%26-Cheese.jpeg",
+      "nutrition": {
+        "kcal": 581,
+        "protein": 24,
+        "carbs": 59,
+        "fat": 27,
+        "richIn": []
+      },
+      "serve": "hot"
+    },
+    {
+      "id": "marmite_ciabatta",
+      "name": "Cheese & Marmite Mini Ciabatta",
+      "category": "lunch",
+      "price": 3.95,
+      "pricePlaceholder": true,
+      "description": "Mature Cheddar cheese and Marmite® yeast extract in a ciabatta roll.",
+      "heard": "Cheese & Marmite Mini Ciabatta: Mature Cheddar cheese and Marmite® yeast extract in a ciabatta roll. Also ordered as 'cheese and marmite', 'the marmite ciabatta', 'mini ciabatta'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Cheese-%26-Marmite-Ciabatta.jpeg",
+      "nutrition": {
+        "kcal": 352,
+        "protein": 19,
+        "carbs": 41,
+        "fat": 12,
+        "richIn": []
+      },
+      "serve": "hot"
+    },
+    {
+      "id": "festive_flatbread",
+      "name": "Festive Deli Flatbread",
+      "category": "lunch",
+      "price": 5.95,
+      "pricePlaceholder": true,
+      "description": "Turkey Slices, Hickory-Smoked Maple Bacon, Sage & Onion Stuffing, Cranberry Sauce, Gravy Mayonnaise",
+      "heard": "Festive Deli Flatbread: Turkey Slices, Hickory-Smoked Maple Bacon, Sage & Onion Stuffing, Cranberry Sauce, Gravy Mayonnaise. Also ordered as 'the festive flatbread', 'Christmas flatbread', 'turkey flatbread'.",
+      "tags": [
+        "festive"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Festive-Deli-Flatbread.jpeg",
+      "nutrition": {
+        "kcal": 529,
+        "protein": 22,
+        "carbs": 65,
+        "fat": 19,
+        "richIn": []
+      },
+      "serve": "hot"
     },
     {
       "id": "latte",
@@ -2228,6 +2795,1472 @@
             "protein": 0,
             "carbs": 23,
             "fat": 0,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "cold"
+    },
+    {
+      "id": "cortado",
+      "name": "Cortado",
+      "category": "drink",
+      "price": 3.75,
+      "pricePlaceholder": true,
+      "description": "Two ristretto shots topped with warm, silky milk served in a 6oz cup that gives you the needed coffee kick for your day.",
+      "heard": "Cortado: Two ristretto shots topped with warm, silky milk served in a 6oz cup that gives you the needed coffee kick for your day. Also ordered as 'a cortado'.",
+      "tags": [],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Cortado.jpeg",
+      "options": [
+        "milk",
+        "shots"
+      ],
+      "nutrition": {
+        "kcal": 69,
+        "protein": 4,
+        "carbs": 6,
+        "fat": 4,
+        "richIn": []
+      },
+      "serve": "hot"
+    },
+    {
+      "id": "latte_macchiato",
+      "name": "Latte Macchiato",
+      "category": "drink",
+      "price": 4.35,
+      "pricePlaceholder": true,
+      "description": "This espresso classic has espresso shots slowly poured over lightly aerated milk for a bold and roasty new way to sip. Deliciously good with any of our dairy alternative options.",
+      "heard": "Latte Macchiato: This espresso classic has espresso shots slowly poured over lightly aerated milk for a bold and roasty new way to sip. Deliciously good with any of our dairy alternative options. Also ordered as 'a latte macchiato'. Not the caramel macchiato and not the espresso macchiato.",
+      "tags": [],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Latte-Macchiato_0.jpeg",
+      "options": [
+        "size",
+        "milk",
+        "shots"
+      ],
+      "nutrition": {
+        "kcal": 147,
+        "protein": 11,
+        "carbs": 15,
+        "fat": 5,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 113,
+            "protein": 8,
+            "carbs": 11,
+            "fat": 4,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 147,
+            "protein": 11,
+            "carbs": 15,
+            "fat": 5,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 194,
+            "protein": 14,
+            "carbs": 19,
+            "fat": 7,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "hot"
+    },
+    {
+      "id": "espresso_macchiato",
+      "name": "Espresso Macchiato",
+      "category": "drink",
+      "price": 2.75,
+      "pricePlaceholder": true,
+      "description": "A caramelly-sweet shot of espresso marked with a small amount of foam.",
+      "heard": "Espresso Macchiato: A caramelly-sweet shot of espresso marked with a small amount of foam. Also ordered as 'an espresso macchiato', 'a macchiato' with no other detail.",
+      "tags": [],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Espresso-Macchiato_0.jpeg",
+      "nutrition": {
+        "kcal": 15,
+        "protein": 1,
+        "carbs": 2,
+        "fat": 0,
+        "richIn": []
+      },
+      "serve": "hot"
+    },
+    {
+      "id": "peppermint_mocha",
+      "name": "Peppermint Mocha",
+      "category": "drink",
+      "price": 4.95,
+      "pricePlaceholder": true,
+      "description": "Signature espresso and steamed milk is mixed with peppermint flavour syrup and mocha sauce, topped with whipped cream and finished with crunchy peppermint sugar sprinkles.",
+      "heard": "Peppermint Mocha: Signature espresso and steamed milk is mixed with peppermint flavour syrup and mocha sauce, topped with whipped cream and finished with crunchy peppermint sugar sprinkles. Also ordered as 'a peppermint mocha', 'mint mocha'. A festive drink. Can be hot or iced.",
+      "tags": [
+        "festive"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Peppermint-Mocha-with-Whip.jpeg",
+      "options": [
+        "temp",
+        "size",
+        "milk",
+        "shots"
+      ],
+      "nutrition": {
+        "kcal": 330,
+        "protein": 10,
+        "carbs": 46,
+        "fat": 11,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall",
+            "temp": "hot"
+          },
+          "nutrition": {
+            "kcal": 253,
+            "protein": 7,
+            "carbs": 34,
+            "fat": 9,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande",
+            "temp": "hot"
+          },
+          "nutrition": {
+            "kcal": 330,
+            "protein": 10,
+            "carbs": 46,
+            "fat": 11,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti",
+            "temp": "hot"
+          },
+          "nutrition": {
+            "kcal": 415,
+            "protein": 14,
+            "carbs": 58,
+            "fat": 13,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "tall",
+            "temp": "iced"
+          },
+          "nutrition": {
+            "kcal": 284,
+            "protein": 7,
+            "carbs": 34,
+            "fat": 13,
+            "richIn": []
+          },
+          "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Iced-Peppermint-Mocha_1.jpeg"
+        },
+        {
+          "when": {
+            "size": "grande",
+            "temp": "iced"
+          },
+          "nutrition": {
+            "kcal": 375,
+            "protein": 9,
+            "carbs": 45,
+            "fat": 17,
+            "richIn": []
+          },
+          "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Iced-Peppermint-Mocha_1.jpeg"
+        },
+        {
+          "when": {
+            "size": "venti",
+            "temp": "iced"
+          },
+          "nutrition": {
+            "kcal": 416,
+            "protein": 9,
+            "carbs": 54,
+            "fat": 17,
+            "richIn": []
+          },
+          "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Iced-Peppermint-Mocha_1.jpeg"
+        }
+      ]
+    },
+    {
+      "id": "eggnog_latte",
+      "name": "Eggnog Latte",
+      "category": "drink",
+      "price": 4.95,
+      "pricePlaceholder": true,
+      "description": "A classic Holiday flavour, featuring our signature espresso and eggnog, delicately topped with a seasonal sprinkling of nutmeg.",
+      "heard": "Eggnog Latte: A classic Holiday flavour, featuring our signature espresso and eggnog, delicately topped with a seasonal sprinkling of nutmeg. Also ordered as 'an eggnog latte'. A festive drink. Can be hot or iced.",
+      "tags": [
+        "festive"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Eggnog-Latte.jpeg",
+      "options": [
+        "temp",
+        "size",
+        "shots"
+      ],
+      "nutrition": {
+        "kcal": 354,
+        "protein": 11,
+        "carbs": 43,
+        "fat": 15,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall",
+            "temp": "hot"
+          },
+          "nutrition": {
+            "kcal": 276,
+            "protein": 8,
+            "carbs": 34,
+            "fat": 12,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande",
+            "temp": "hot"
+          },
+          "nutrition": {
+            "kcal": 354,
+            "protein": 11,
+            "carbs": 43,
+            "fat": 15,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti",
+            "temp": "hot"
+          },
+          "nutrition": {
+            "kcal": 455,
+            "protein": 14,
+            "carbs": 56,
+            "fat": 19,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "tall",
+            "temp": "iced"
+          },
+          "nutrition": {
+            "kcal": 197,
+            "protein": 6,
+            "carbs": 24,
+            "fat": 8,
+            "richIn": []
+          },
+          "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Iced-Eggnog-Latte.jpeg"
+        },
+        {
+          "when": {
+            "size": "grande",
+            "temp": "iced"
+          },
+          "nutrition": {
+            "kcal": 245,
+            "protein": 8,
+            "carbs": 30,
+            "fat": 10,
+            "richIn": []
+          },
+          "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Iced-Eggnog-Latte.jpeg"
+        },
+        {
+          "when": {
+            "size": "venti",
+            "temp": "iced"
+          },
+          "nutrition": {
+            "kcal": 343,
+            "protein": 10,
+            "carbs": 42,
+            "fat": 14,
+            "richIn": []
+          },
+          "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Iced-Eggnog-Latte.jpeg"
+        }
+      ]
+    },
+    {
+      "id": "peppermint_hot_chocolate",
+      "name": "Peppermint Hot Chocolate",
+      "category": "drink",
+      "price": 4.45,
+      "pricePlaceholder": true,
+      "description": "Steamed milk is mixed with peppermint flavour syrup and mocha sauce, topped with whipped cream and finished with crunchy peppermint sugar sprinkles.",
+      "heard": "Peppermint Hot Chocolate: Steamed milk is mixed with peppermint flavour syrup and mocha sauce, topped with whipped cream and finished with crunchy peppermint sugar sprinkles. Also ordered as 'a peppermint hot chocolate', 'mint hot chocolate'. A festive drink. Can be hot or iced.",
+      "tags": [
+        "festive"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Peppermint-Chocolate---with-whipped-cream_0.jpeg",
+      "options": [
+        "temp",
+        "size",
+        "milk"
+      ],
+      "nutrition": {
+        "kcal": 332,
+        "protein": 10,
+        "carbs": 46,
+        "fat": 11,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall",
+            "temp": "hot"
+          },
+          "nutrition": {
+            "kcal": 255,
+            "protein": 7,
+            "carbs": 34,
+            "fat": 9,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande",
+            "temp": "hot"
+          },
+          "nutrition": {
+            "kcal": 332,
+            "protein": 10,
+            "carbs": 46,
+            "fat": 11,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti",
+            "temp": "hot"
+          },
+          "nutrition": {
+            "kcal": 428,
+            "protein": 15,
+            "carbs": 59,
+            "fat": 14,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "tall",
+            "temp": "iced"
+          },
+          "nutrition": {
+            "kcal": 299,
+            "protein": 8,
+            "carbs": 36,
+            "fat": 13,
+            "richIn": []
+          },
+          "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Iced-Peppermint-Hot-Chocolate.jpeg"
+        },
+        {
+          "when": {
+            "size": "grande",
+            "temp": "iced"
+          },
+          "nutrition": {
+            "kcal": 394,
+            "protein": 10,
+            "carbs": 47,
+            "fat": 18,
+            "richIn": []
+          },
+          "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Iced-Peppermint-Hot-Chocolate.jpeg"
+        },
+        {
+          "when": {
+            "size": "venti",
+            "temp": "iced"
+          },
+          "nutrition": {
+            "kcal": 441,
+            "protein": 11,
+            "carbs": 56,
+            "fat": 18,
+            "richIn": []
+          },
+          "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Iced-Peppermint-Hot-Chocolate.jpeg"
+        }
+      ]
+    },
+    {
+      "id": "protein_americano",
+      "name": "Caramel Protein Americano",
+      "category": "drink",
+      "price": 4.65,
+      "pricePlaceholder": true,
+      "description": "Signature espresso mixed with hot water and sugar-free caramel flavour syrup, topped with sugar-free caramel flavour protein cold foam.",
+      "heard": "Caramel Protein Americano: Signature espresso mixed with hot water and sugar-free caramel flavour syrup, topped with sugar-free caramel flavour protein cold foam. Also ordered as 'a protein americano', 'protein coffee'. Can be hot or iced.",
+      "tags": [
+        "high-protein"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Caramel-Protein-Americano.jpeg",
+      "options": [
+        "temp",
+        "size",
+        "shots"
+      ],
+      "nutrition": {
+        "kcal": 102,
+        "protein": 16,
+        "carbs": 7,
+        "fat": 1,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall",
+            "temp": "hot"
+          },
+          "nutrition": {
+            "kcal": 98,
+            "protein": 16,
+            "carbs": 6,
+            "fat": 1,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande",
+            "temp": "hot"
+          },
+          "nutrition": {
+            "kcal": 102,
+            "protein": 16,
+            "carbs": 7,
+            "fat": 1,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti",
+            "temp": "hot"
+          },
+          "nutrition": {
+            "kcal": 106,
+            "protein": 17,
+            "carbs": 8,
+            "fat": 1,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "tall",
+            "temp": "iced"
+          },
+          "nutrition": {
+            "kcal": 98,
+            "protein": 16,
+            "carbs": 6,
+            "fat": 1,
+            "richIn": []
+          },
+          "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Caramel-Protein-Iced-Americano.jpeg"
+        },
+        {
+          "when": {
+            "size": "grande",
+            "temp": "iced"
+          },
+          "nutrition": {
+            "kcal": 102,
+            "protein": 16,
+            "carbs": 7,
+            "fat": 1,
+            "richIn": []
+          },
+          "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Caramel-Protein-Iced-Americano.jpeg"
+        },
+        {
+          "when": {
+            "size": "venti",
+            "temp": "iced"
+          },
+          "nutrition": {
+            "kcal": 106,
+            "protein": 17,
+            "carbs": 8,
+            "fat": 1,
+            "richIn": []
+          },
+          "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Caramel-Protein-Iced-Americano.jpeg"
+        }
+      ]
+    },
+    {
+      "id": "protein_matcha",
+      "name": "Vanilla Protein Matcha Latte",
+      "category": "drink",
+      "price": 5.35,
+      "pricePlaceholder": true,
+      "description": "Matcha green tea is steamed together with milk, then combined with sugar-free vanilla flavour syrup. Topped with sugar-free vanilla flavour protein cold foam.",
+      "heard": "Vanilla Protein Matcha Latte: Matcha green tea is steamed together with milk, then combined with sugar-free vanilla flavour syrup. Topped with sugar-free vanilla flavour protein cold foam. Also ordered as 'a protein matcha', 'vanilla protein matcha'.",
+      "tags": [
+        "high-protein"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Vanilla-Protein-Matcha-Latte.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 215,
+        "protein": 25,
+        "carbs": 17,
+        "fat": 5,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 171,
+            "protein": 22,
+            "carbs": 13,
+            "fat": 3,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 215,
+            "protein": 25,
+            "carbs": 17,
+            "fat": 5,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 271,
+            "protein": 29,
+            "carbs": 23,
+            "fat": 7,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "hot"
+    },
+    {
+      "id": "earl_grey",
+      "name": "Earl Grey Tea",
+      "category": "drink",
+      "price": 2.95,
+      "pricePlaceholder": true,
+      "description": "A bright blend of black tea, fragrant bergamot and soft lavender.",
+      "heard": "Earl Grey Tea: A bright blend of black tea, fragrant bergamot and soft lavender. Also ordered as 'earl grey', 'an earl grey tea'.",
+      "tags": [
+        "vegan"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Earl-Grey_0.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 4,
+        "protein": 1,
+        "carbs": 0,
+        "fat": 0,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 4,
+            "protein": 1,
+            "carbs": 0,
+            "fat": 0,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 4,
+            "protein": 1,
+            "carbs": 0,
+            "fat": 0,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 8,
+            "protein": 1,
+            "carbs": 0,
+            "fat": 0,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "hot"
+    },
+    {
+      "id": "mint_tea",
+      "name": "Mint Tea",
+      "category": "drink",
+      "price": 2.95,
+      "pricePlaceholder": true,
+      "description": "Spearmint, peppermint & a touch of lemon verbena.",
+      "heard": "Mint Tea: Spearmint, peppermint & a touch of lemon verbena. Also ordered as 'mint tea', 'peppermint tea', 'herbal tea'. Caffeine free.",
+      "tags": [
+        "vegan"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Mint-Blend_0.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 4,
+        "protein": 0,
+        "carbs": 1,
+        "fat": 0,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 4,
+            "protein": 0,
+            "carbs": 1,
+            "fat": 0,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 4,
+            "protein": 0,
+            "carbs": 1,
+            "fat": 0,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 9,
+            "protein": 0,
+            "carbs": 1,
+            "fat": 0,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "hot"
+    },
+    {
+      "id": "hibiscus_tea",
+      "name": "Hibiscus Tea",
+      "category": "drink",
+      "price": 2.95,
+      "pricePlaceholder": true,
+      "description": "Bright tropical notes of papaya & mango with hibiscus, lemongrass & a hint of cinnamon.",
+      "heard": "Hibiscus Tea: Bright tropical notes of papaya & mango with hibiscus, lemongrass & a hint of cinnamon. Also ordered as 'hibiscus tea', 'fruit tea', 'berry tea'. Caffeine free.",
+      "tags": [
+        "vegan"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/Hibiscus-Blend.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 6,
+        "protein": 0,
+        "carbs": 1,
+        "fat": 0,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 6,
+            "protein": 0,
+            "carbs": 1,
+            "fat": 0,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 6,
+            "protein": 0,
+            "carbs": 1,
+            "fat": 0,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 12,
+            "protein": 0,
+            "carbs": 2,
+            "fat": 0,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "hot"
+    },
+    {
+      "id": "green_tea",
+      "name": "Green Tea",
+      "category": "drink",
+      "price": 2.95,
+      "pricePlaceholder": true,
+      "description": "A single-origin pure green tea with light, toasty-sweet notes.",
+      "heard": "Green Tea: A single-origin pure green tea with light, toasty-sweet notes. Also ordered as 'green tea', 'a hot green tea'.",
+      "tags": [
+        "vegan"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Emperor%27s-Clouds-%26-Mist_0.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 4,
+        "protein": 1,
+        "carbs": 0,
+        "fat": 0,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 4,
+            "protein": 1,
+            "carbs": 0,
+            "fat": 0,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 4,
+            "protein": 1,
+            "carbs": 0,
+            "fat": 0,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 7,
+            "protein": 1,
+            "carbs": 0,
+            "fat": 0,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "hot"
+    },
+    {
+      "id": "cold_brew_latte",
+      "name": "Cold Brew Latte",
+      "category": "drink",
+      "price": 4.35,
+      "pricePlaceholder": true,
+      "description": "Try our Cold Brew coffee just the way you like it. With milk for a smoother flavour or choose one of our many dairy free options.",
+      "heard": "Cold Brew Latte: Try our Cold Brew coffee just the way you like it. With milk for a smoother flavour or choose one of our many dairy free options. Also ordered as 'a cold brew latte', 'cold brew with milk'. Always served cold over ice.",
+      "tags": [],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/Cold-Brew-Latte_1.jpeg",
+      "options": [
+        "size",
+        "milk"
+      ],
+      "nutrition": {
+        "kcal": 123,
+        "protein": 9,
+        "carbs": 12,
+        "fat": 4,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 88,
+            "protein": 6,
+            "carbs": 9,
+            "fat": 3,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 123,
+            "protein": 9,
+            "carbs": 12,
+            "fat": 4,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 142,
+            "protein": 10,
+            "carbs": 14,
+            "fat": 5,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "cold"
+    },
+    {
+      "id": "iced_green_tea",
+      "name": "Iced Green Tea",
+      "category": "drink",
+      "price": 3.55,
+      "pricePlaceholder": true,
+      "description": "Delicious green tea and ice.",
+      "heard": "Iced Green Tea: Delicious green tea and ice. Also ordered as 'iced green tea'. Always served cold over ice.",
+      "tags": [
+        "vegan"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/Iced-Green-Tea_0.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 0,
+        "protein": 0,
+        "carbs": 0,
+        "fat": 0,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 0,
+            "protein": 0,
+            "carbs": 0,
+            "fat": 0,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 0,
+            "protein": 0,
+            "carbs": 0,
+            "fat": 0,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 0,
+            "protein": 0,
+            "carbs": 0,
+            "fat": 0,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "cold"
+    },
+    {
+      "id": "cool_lime",
+      "name": "Cool Lime Refresha",
+      "category": "drink",
+      "price": 4.25,
+      "pricePlaceholder": true,
+      "description": "Cool Lime is a delicious zesty blend of lime and citrus flavours, shaken with dried lime slices.",
+      "heard": "Cool Lime Refresha: Cool Lime is a delicious zesty blend of lime and citrus flavours, shaken with dried lime slices. Also ordered as 'cool lime', 'the lime refresher', 'lime refresha'. Always served cold over ice.",
+      "tags": [
+        "vegan"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Cool-Lime-Refresha_0.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 69,
+        "protein": 0,
+        "carbs": 16,
+        "fat": 0,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 53,
+            "protein": 0,
+            "carbs": 12,
+            "fat": 0,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 69,
+            "protein": 0,
+            "carbs": 16,
+            "fat": 0,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 86,
+            "protein": 0,
+            "carbs": 20,
+            "fat": 0,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "cold"
+    },
+    {
+      "id": "caramel_frappuccino",
+      "name": "Caramel Frappuccino",
+      "category": "drink",
+      "price": 4.95,
+      "pricePlaceholder": true,
+      "description": "Coffee blended with caramel syrup, milk and ice. Topped with whipped cream and caramel sauce.",
+      "heard": "Caramel Frappuccino: Coffee blended with caramel syrup, milk and ice. Topped with whipped cream and caramel sauce. Also ordered as 'a caramel frappuccino', 'caramel frappe', or just 'a frappuccino'. Always served cold over ice.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Caramel-Frappuccino_0.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 362,
+        "protein": 5,
+        "carbs": 45,
+        "fat": 18,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 282,
+            "protein": 4,
+            "carbs": 35,
+            "fat": 14,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 362,
+            "protein": 5,
+            "carbs": 45,
+            "fat": 18,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 403,
+            "protein": 5,
+            "carbs": 55,
+            "fat": 18,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "cold"
+    },
+    {
+      "id": "mocha_frappuccino",
+      "name": "Mocha Frappuccino",
+      "category": "drink",
+      "price": 4.95,
+      "pricePlaceholder": true,
+      "description": "Mocha sauce, Frappuccino® roast coffee, milk and ice all come together for a mocha flavour that'll leave you wanting more.",
+      "heard": "Mocha Frappuccino: Mocha sauce, Frappuccino® roast coffee, milk and ice all come together for a mocha flavour that'll leave you wanting more. Also ordered as 'a mocha frappuccino', 'chocolate coffee frappuccino'. Always served cold over ice.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Mocha-Frappuccino_0.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 330,
+        "protein": 6,
+        "carbs": 39,
+        "fat": 16,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 251,
+            "protein": 4,
+            "carbs": 30,
+            "fat": 13,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 330,
+            "protein": 6,
+            "carbs": 39,
+            "fat": 16,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 377,
+            "protein": 6,
+            "carbs": 49,
+            "fat": 17,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "cold"
+    },
+    {
+      "id": "coffee_frappuccino",
+      "name": "Coffee Frappuccino",
+      "category": "drink",
+      "price": 4.65,
+      "pricePlaceholder": true,
+      "description": "Coffee meets milk and ice in a blender for a rumble and tumble topped with a swirl of whipped cream and together they create one of our original Frappuccino beverages.",
+      "heard": "Coffee Frappuccino: Coffee meets milk and ice in a blender for a rumble and tumble topped with a swirl of whipped cream and together they create one of our original Frappuccino beverages. Also ordered as 'a coffee frappuccino', 'plain frappuccino'. Always served cold over ice.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Coffee-Frappuccino_0.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 299,
+        "protein": 5,
+        "carbs": 34,
+        "fat": 16,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 225,
+            "protein": 4,
+            "carbs": 25,
+            "fat": 12,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 299,
+            "protein": 5,
+            "carbs": 34,
+            "fat": 16,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 328,
+            "protein": 5,
+            "carbs": 41,
+            "fat": 16,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "cold"
+    },
+    {
+      "id": "strawberry_frappuccino",
+      "name": "Strawberries & Cream Frappuccino",
+      "category": "drink",
+      "price": 4.95,
+      "pricePlaceholder": true,
+      "description": "Frappuccino® crème syrup blended with milk, strawberry sauce and ice. Topped with whipped cream.",
+      "heard": "Strawberries & Cream Frappuccino: Frappuccino® crème syrup blended with milk, strawberry sauce and ice. Topped with whipped cream. Also ordered as 'a strawberry frappuccino', 'strawberries and cream'. No coffee in it. Always served cold over ice.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Strawberries-and-Cream-Frappuccino_0.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 331,
+        "protein": 6,
+        "carbs": 39,
+        "fat": 17,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 245,
+            "protein": 4,
+            "carbs": 28,
+            "fat": 13,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 331,
+            "protein": 6,
+            "carbs": 39,
+            "fat": 17,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 364,
+            "protein": 6,
+            "carbs": 46,
+            "fat": 17,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "cold"
+    },
+    {
+      "id": "chocolate_frappuccino",
+      "name": "Chocolate Cream Frappuccino",
+      "category": "drink",
+      "price": 4.95,
+      "pricePlaceholder": true,
+      "description": "What makes this cool beverage doubly delicious? The flavour of chocolate and more chocolate – something we just can't get enough of. There's the rich, creamy taste of mocha-flavoured sauce blended with milk.",
+      "heard": "Chocolate Cream Frappuccino: What makes this cool beverage doubly delicious? The flavour of chocolate and more chocolate – something we just can't get enough of. There's the rich, creamy taste of mocha-flavoured sauce blended with milk. Also ordered as 'a chocolate frappuccino', 'chocolate cream frappuccino'. No coffee in it. Always served cold over ice.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Chocolate-Cream-Frappuccino_0.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 346,
+        "protein": 7,
+        "carbs": 38,
+        "fat": 18,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 253,
+            "protein": 5,
+            "carbs": 27,
+            "fat": 14,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 346,
+            "protein": 7,
+            "carbs": 38,
+            "fat": 18,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 384,
+            "protein": 8,
+            "carbs": 46,
+            "fat": 19,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "cold"
+    },
+    {
+      "id": "cookies_cream_frappuccino",
+      "name": "Cookies & Cream Frappuccino",
+      "category": "drink",
+      "price": 5.15,
+      "pricePlaceholder": true,
+      "description": "A mix of cookies, milk and ice are blended to make a perfect icy creamy cookie texture then finished with a delicious cookies & cream topping.",
+      "heard": "Cookies & Cream Frappuccino: A mix of cookies, milk and ice are blended to make a perfect icy creamy cookie texture then finished with a delicious cookies & cream topping. Also ordered as 'cookies and cream frappuccino', 'the oreo one'. No coffee in it. Always served cold over ice.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Cookies-and-Cream-Frappuccino_0.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 387,
+        "protein": 7,
+        "carbs": 43,
+        "fat": 21,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 289,
+            "protein": 5,
+            "carbs": 32,
+            "fat": 16,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 387,
+            "protein": 7,
+            "carbs": 43,
+            "fat": 21,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 446,
+            "protein": 8,
+            "carbs": 53,
+            "fat": 22,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "cold"
+    },
+    {
+      "id": "matcha_frappuccino",
+      "name": "Matcha Green Tea Cream Frappuccino",
+      "category": "drink",
+      "price": 5.15,
+      "pricePlaceholder": true,
+      "description": "Try your favourite Matcha in a cream Frappuccino - Matcha is combined with milk and vanilla and topped with whipped cream for a deliciously cold treat.",
+      "heard": "Matcha Green Tea Cream Frappuccino: Try your favourite Matcha in a cream Frappuccino - Matcha is combined with milk and vanilla and topped with whipped cream for a deliciously cold treat. Also ordered as 'a matcha frappuccino', 'green tea frappuccino'. Always served cold over ice.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Matcha-Cream-Frappuccino_0.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 320,
+        "protein": 6,
+        "carbs": 35,
+        "fat": 17,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 238,
+            "protein": 5,
+            "carbs": 25,
+            "fat": 13,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 320,
+            "protein": 6,
+            "carbs": 35,
+            "fat": 17,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 353,
+            "protein": 7,
+            "carbs": 41,
+            "fat": 18,
             "richIn": []
           }
         }
