@@ -303,10 +303,11 @@ export function Waiter({ restaurant, restaurants }: Props) {
             className="relative z-10 mx-auto mb-4 w-full max-w-5xl px-6 max-sm:mb-2 max-sm:px-4"
             data-testid="suggestions"
           >
+            {/* The caption stops the waiter: on a phone the spoken-line bubble is hidden while suggestions show. */}
             <p
-              className={`mb-2 text-center text-sm text-amber-200/90 ${voice.line === suggestion.caption ? "cursor-pointer" : ""}`}
-              title={voice.line === suggestion.caption ? "Click to stop the waiter" : undefined}
-              onClick={voice.line === suggestion.caption ? voice.stop : undefined}
+              className={`mb-2 text-center text-sm text-amber-200/90 ${voice.line ? "cursor-pointer" : ""}`}
+              title={voice.line ? "Click to stop the waiter" : undefined}
+              onClick={voice.line ? voice.stop : undefined}
             >
               {suggestion.caption}
             </p>
