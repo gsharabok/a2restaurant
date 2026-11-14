@@ -4,9 +4,11 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { ChevronDown, Headphones, Keyboard, Mic, MicOff, Play, RotateCcw, Square, Volume2, VolumeX } from "lucide-react";
+import { CuratedSet } from "./CuratedSet";
 import { ItemImage } from "./ItemImage";
 import { OrderCard } from "./OrderCard";
 import { PayButton, type PayHandle } from "./PayButton";
+import { ReviewsPanel } from "./ReviewsPanel";
 import { useLiveOrder } from "@/hooks/useLiveOrder";
 import { useSpeech, type SpeechText } from "@/hooks/useSpeech";
 import { useWaiterVoice } from "@/hooks/useWaiterVoice";
@@ -122,7 +124,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
     }
   };
 
-  const { priced, suggestion, nutritionAsked, transcript, done } = order;
+  const { priced, suggestion, nutritionAsked, reviews, closeReviews, transcript, done } = order;
   const empty = priced.lines.length === 0;
   // On a phone the order is a scrolling list, so a new item is brought into view rather than left below the fold.
   const cards = useRef<HTMLElement>(null);
@@ -135,7 +137,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
   const words = `${transcript.settled} ${transcript.unsettled}`.trim();
   const problem = order.error ?? speech.error ?? voice.error;
   const showNutrition = nutritionAsked && !empty && !done;
-  const showSuggestions = Boolean(suggestion && suggestion.items.length > 0 && !done && !showNutrition);
+  const showSuggestions = Boolean(suggestion && (suggestion.items.length > 0 || suggestion.combo) && !done && !showNutrition);
   // Cards shrink when they would not fit: past four the order wraps to a second row, and a panel below takes their height.
   const cardSize = priced.lines.length > 4 ? "compact" : showNutrition || showSuggestions ? "snug" : "full";
   const macros = [
@@ -250,6 +252,8 @@ export function Waiter({ restaurant, restaurants }: Props) {
         </AnimatePresence>
       </section>
 
+      <ReviewsPanel sheet={reviews} onClose={closeReviews} />
+
       <AnimatePresence>
         {showNutrition && (
           <motion.aside
@@ -308,7 +312,19 @@ export function Waiter({ restaurant, restaurants }: Props) {
             >
               {suggestion.caption}
             </p>
-            <div className="flex justify-center gap-3 max-sm:flex-col max-sm:gap-1.5">
+            {suggestion.combo && (
+              <CuratedSet
+                suggestion={suggestion}
+                note={restaurant.nutritionNote}
+                onAccept={() => {
+                  guestTyped();
+                  hear({ settled: "Yes, add them", unsettled: "" }, { endOnSilence: false });
+                  endTurn();
+                  setTyped("");
+                }}
+              />
+            )}
+            <div className={`flex justify-center gap-3 max-sm:flex-col max-sm:gap-1.5 ${suggestion.combo ? "hidden" : ""}`}>
               {suggestion.items.map((item, index) => (
                 <div
                   key={item.id}
@@ -328,7 +344,8 @@ export function Waiter({ restaurant, restaurants }: Props) {
         )}
       </AnimatePresence>
 
-      <footer className="relative z-10 px-6 pb-6 max-sm:px-3 max-sm:pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+      {/* Above the reviews sheet, so the guest can keep talking or typing while it is open. */}
+      <footer className="relative z-40 px-6 pb-6 max-sm:px-3 max-sm:pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <AnimatePresence>
           {voice.line && voice.line !== suggestion?.caption && (
             <motion.button
@@ -337,7 +354,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
               exit={{ opacity: 0, y: 8 }}
               onClick={voice.stop}
               title="Click to stop the waiter"
-              className={`${showSuggestions ? "max-sm:hidden" : ""} mx-auto mb-3 flex max-w-3xl items-center gap-3 rounded-2xl max-sm:mb-2 border border-amber-200/20 bg-amber-200/[0.07] px-4 py-2 text-left text-sm text-amber-100/90 backdrop-blur`}
+              className={`${reviews ? "hidden" : showSuggestions ? "max-sm:hidden" : ""} mx-auto mb-3 flex max-w-3xl items-center gap-3 rounded-2xl max-sm:mb-2 border border-amber-200/20 bg-amber-200/[0.07] px-4 py-2 text-left text-sm text-amber-100/90 backdrop-blur`}
               data-testid="waiter-line"
               data-speaking={voice.speaking}
             >

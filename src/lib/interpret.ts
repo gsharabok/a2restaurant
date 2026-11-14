@@ -1,5 +1,8 @@
 import type { Menu } from "./menu";
 import { defaultOptions, sanitizeOrder, type Order, type OrderLine } from "./order";
+import { reviewSubjects, type ReviewSubject } from "./reviews";
+import { curateMenu, parseGoals } from "./curate";
+import type { Suggestion } from "./suggest";
 
 const API_URL = "https://api.typesafe.ai/v1/systemone";
 const QTY_WORDS = ["none", "one", "two", "three", "four"] as const;
@@ -16,11 +19,14 @@ export type SuggestionPick = { topic: SuggestionTopic; itemIds: string[] };
 /** A dish must match the guest's question at least this well to be suggested. */
 const MIN_MATCH = 0.5;
 const MIN_ASKING = 0.6;
+const MIN_REVIEWS = 0.7;
 
 export type Interpretation = {
   order: Order;
   /** Set when the guest is asking what there is or for a recommendation, rather than ordering. */
   suggest: SuggestionPick | null;
+  /** Set when the guest gave numbers for the meal to add up to: a set of dishes that meets them together. */
+  curate: Suggestion | null;
   /** 1-based index of a shown suggestion the guest accepted ("add the first one"). */
   accepted: number | null;
   /** The guest asked about the nutrition of what they are ordering. */
@@ -28,12 +34,16 @@ export type Interpretation = {
   done: boolean;
   /** The guest asked to pay for the order. */
   pay: boolean;
+  /** The guest asked what other people think of the place or of a dish. */
+  reviews: ReviewSubject | null;
+  /** True when they asked for reviews, even where none are saved for this restaurant. */
+  reviewsAsked: boolean;
   ms: number;
   /** Confidence of every quantity answer that put an item in the order, for tuning. */
   confidences: Record<string, number>;
 };
 
-type Question =
+export type Question =
   | { type: "choice"; instructions: string; criteria: Record<string, string> }
   | { type: "noul"; instructions: string };
 type Answer = { type: string; choice?: string; confidence?: number | null; noul?: number };
@@ -46,7 +56,7 @@ const describeLine = (menu: Menu, line: OrderLine) => {
   return `${line.qty} x ${item.name}${options ? ` (${options})` : ""}`;
 };
 
-function buildQuestions(menu: Menu, before: Order, shownSuggestions: string[]): Record<string, Question> {
+function buildQuestions(menu: Menu, before: Order, shownSuggestions: string[], combo = false): Record<string, Question> {
   const questions: Record<string, Question> = {};
   const beforeById = new Map(before.lines.map((line) => [line.itemId, line]));
 
@@ -112,7 +122,34 @@ function buildQuestions(menu: Menu, before: Order, shownSuggestions: string[]): 
       "Examples: \"I want to pay\", \"I'd like to pay\", \"can I pay\", \"let me pay\", \"check out\", \"the bill please\", \"pay with Link\", \"charge me\". " +
       "Asking what something costs, or only saying they are finished ordering, does not count.",
   };
-  if (shownSuggestions.length > 0) {
+  {
+    questions.reviews = {
+      type: "noul",
+      instructions:
+        "Is the guest asking what other people think: for reviews, ratings, or whether the place or a dish is any good? " +
+        "Examples: \"what are the reviews like\", \"show me the reviews for the flat white\", \"is the banana bread any good\", \"what do people say about the service\", \"how is this place rated\". " +
+        "Ordering something, or asking what there is to eat, does not count.",
+    };
+  }
+  if (combo) {
+    questions.accept = {
+      type: "choice",
+      instructions:
+        "`combination_on_screen` is a set of dishes the waiter has proposed together to meet the guest's goal. Has the guest accepted the whole set?",
+      criteria: {
+        none: "The guest has not accepted the set: they said something else, asked for a change to it, or declined it.",
+        all: "The guest accepts the whole set, for example \"yes\", \"yes please\", \"add them\", \"add all of that\", \"sounds good\", \"perfect\", \"I'll take that\" or \"go with that\".",
+      },
+    };
+    questions.refine = {
+      type: "noul",
+      instructions:
+        "`combination_on_screen` is a set of dishes the waiter has proposed together to meet the guest's goal. " +
+        "Is the guest asking the waiter to change that proposal or propose a different set, rather than accepting it or ordering something? " +
+        "Examples: \"make it vegetarian\", \"without the salmon\", \"something cheaper\", \"fewer calories\", \"no dairy\", \"can it include a coffee\", \"swap the salad\", \"anything else?\". " +
+        "Simply ordering a dish by name, such as \"just a flat white\", does not count.",
+    };
+  } else if (shownSuggestions.length > 0) {
     const ordinals = ["first", "second", "third"];
     const criteria: Record<string, string> = {
       none: "The guest has not accepted any of the suggestions shown on screen.",
@@ -130,7 +167,7 @@ function buildQuestions(menu: Menu, before: Order, shownSuggestions: string[]): 
   return questions;
 }
 
-async function ask(body: object, apiKey: string, signal?: AbortSignal): Promise<Record<string, Answer>> {
+export async function ask(body: object, apiKey: string, signal?: AbortSignal): Promise<Record<string, Answer>> {
   const response = await fetch(API_URL, {
     method: "POST",
     headers: { "content-type": "application/json", authorization: `Bearer ${apiKey}` },
@@ -198,11 +235,35 @@ async function pickSuggestions(input: { menu: Menu; said: string; order: Order; 
   return { topic, itemIds };
 }
 
+/** Second, smaller question asked only when the guest wants reviews: what are they asking about? */
+async function pickReviewSubject(input: { menu: Menu; restaurantId: string; said: string; apiKey: string; signal?: AbortSignal }): Promise<ReviewSubject> {
+  const subjects = reviewSubjects(input.restaurantId, input.menu);
+  const answers = await ask(
+    {
+      state: { guest_said: input.said },
+      questions: {
+        subject: {
+          type: "choice",
+          instructions: "A coffee shop guest asked the waiter for reviews or opinions. What do they want reviews of? If they name a menu item, choose that item.",
+          criteria: Object.fromEntries(subjects.map((subject) => [subject.key, subject.heard])),
+        },
+      },
+    },
+    input.apiKey,
+    input.signal,
+  );
+  return subjects.find((subject) => subject.key === answers.subject?.choice)?.subject ?? { kind: "restaurant" };
+}
+
 export async function interpret(input: {
   menu: Menu;
+  /** The id used in the URL, which the saved reviews are keyed by. */
+  restaurantId?: string;
   before: Order;
   said: string;
   shownSuggestions?: string[];
+  /** The request behind the curated set on screen, when `shownSuggestions` is one. */
+  shownCombo?: string;
   apiKey: string;
   signal?: AbortSignal;
 }): Promise<Interpretation> {
@@ -210,17 +271,19 @@ export async function interpret(input: {
   const before = sanitizeOrder(menu, input.before);
   const shown = (input.shownSuggestions ?? []).filter((id) => menu.itemsById.has(id));
   const said = input.said.trim();
-  if (!said) return { order: before, suggest: null, accepted: null, nutrition: false, done: false, pay: false, ms: 0, confidences: {} };
+  const combo = typeof input.shownCombo === "string" && shown.length > 0;
+  if (!said) return { order: before, suggest: null, curate: null, accepted: null, nutrition: false, done: false, pay: false, reviews: null, reviewsAsked: false, ms: 0, confidences: {} };
 
+  const withReviews = Boolean(input.restaurantId && reviewSubjects(input.restaurantId, menu).length > 0);
   const started = performance.now();
   const answers = await ask(
     {
       state: {
         order_before_this_turn: before.lines.length ? before.lines.map((line) => describeLine(menu, line)) : "empty",
-        ...(shown.length ? { suggestions_on_screen: shown.map((id) => menu.itemsById.get(id)!.name) } : {}),
+        ...(shown.length ? { [combo ? "combination_on_screen" : "suggestions_on_screen"]: shown.map((id) => menu.itemsById.get(id)!.name) } : {}),
         guest_said_this_turn: said,
       },
-      questions: buildQuestions(menu, before, shown),
+      questions: buildQuestions(menu, before, shown, combo),
     },
     input.apiKey,
     input.signal,
@@ -233,6 +296,7 @@ export async function interpret(input: {
 
   const ordinal = ["first", "second", "third"].indexOf(answers.accept?.choice ?? "");
   const acceptedId = ordinal >= 0 && sure(answers.accept) ? shown[ordinal] : undefined;
+  const acceptedSet = combo && answers.accept?.choice === "all" && sure(answers.accept) ? shown : [];
 
   for (const item of menu.items) {
     const had = beforeById.get(item.id);
@@ -242,7 +306,7 @@ export async function interpret(input: {
       const heard = QTY_WORDS.indexOf(answer.choice as (typeof QTY_WORDS)[number]);
       if (had || heard === 0 || (answer.confidence ?? 1) >= MIN_CONFIDENCE_TO_ADD) qty = heard;
     }
-    if (item.id === acceptedId && qty === 0) qty = 1;
+    if ((item.id === acceptedId || acceptedSet.includes(item.id)) && qty === 0) qty = 1;
     if (qty <= 0) continue;
     confidences[item.id] = answer?.confidence ?? 1;
 
@@ -261,20 +325,35 @@ export async function interpret(input: {
   };
   lines.sort((a, b) => position(a) - position(b));
 
-  const order = sanitizeOrder(menu, { lines });
+  // Numbers the meal must add up to are read in code, so only those turns pay for the second call.
+  const refining = combo && acceptedSet.length === 0 && (answers.refine?.noul ?? 0) >= MIN_ASKING;
+  const curateAsk = refining ? `${input.shownCombo}. ${said}` : said;
+  const reviewsAsked = (answers.reviews?.noul ?? 0) >= MIN_REVIEWS;
+  // A number in a question about reviews ("is the £5 brownie any good?") is not a goal for a meal.
+  const goals = acceptedSet.length === 0 && !reviewsAsked ? parseGoals(curateAsk) : null;
+  // A turn that asks for a curated set leaves the order alone: dishes named in it are wishes for the set.
+  const order = goals ? before : sanitizeOrder(menu, { lines });
   const nutrition = (answers.nutrition?.noul ?? 0) >= MIN_ASKING && order.lines.length > 0;
+  const reviews =
+    withReviews && reviewsAsked
+      ? await pickReviewSubject({ menu, restaurantId: input.restaurantId!, said, apiKey: input.apiKey, signal: input.signal })
+      : null;
+  const curate = goals ? await curateMenu({ menu, ask: curateAsk, goals, order, named: lines.map((line) => line.itemId).filter((id) => !beforeById.has(id)), apiKey: input.apiKey, signal: input.signal }) : null;
   const suggest =
-    !nutrition && (answers.asking?.noul ?? 0) >= MIN_ASKING
+    !curate && !nutrition && !reviewsAsked && (answers.asking?.noul ?? 0) >= MIN_ASKING
       ? await pickSuggestions({ menu, said, order, apiKey: input.apiKey, signal: input.signal })
       : null;
 
   return {
     order,
     suggest,
-    accepted: acceptedId ? ordinal + 1 : null,
-    nutrition,
+    curate,
+    accepted: acceptedId ? ordinal + 1 : acceptedSet.length ? 1 : null,
+    nutrition: nutrition && !curate,
     done: (answers.done?.noul ?? 0) > 0.7,
     pay: (answers.pay?.noul ?? 0) > 0.7 && order.lines.length > 0,
+    reviews,
+    reviewsAsked,
     ms: Math.round(performance.now() - started),
     confidences,
   };
