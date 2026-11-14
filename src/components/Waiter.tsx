@@ -3,13 +3,16 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
-import { ChevronDown, Keyboard, Mic, MicOff, Play, RotateCcw, Square } from "lucide-react";
+import { ChevronDown, Headphones, Keyboard, Mic, MicOff, Play, RotateCcw, Square, Volume2, VolumeX } from "lucide-react";
 import { ItemImage } from "./ItemImage";
 import { OrderCard } from "./OrderCard";
 import { PayButton, type PayHandle } from "./PayButton";
 import { useLiveOrder } from "@/hooks/useLiveOrder";
-import { useSpeech } from "@/hooks/useSpeech";
+import { useSpeech, type SpeechText } from "@/hooks/useSpeech";
+import { useWaiterVoice } from "@/hooks/useWaiterVoice";
 import { formatPrice } from "@/lib/format";
+import type { Suggestion } from "@/lib/suggest";
+import { saySuggestion, type CommittedTurn } from "@/lib/waiterSay";
 
 type Props = {
   restaurant: { id: string; name: string; tagline: string; nutritionNote: string; hints: string[]; demoTurns: string[] };
@@ -23,19 +26,41 @@ export function Waiter({ restaurant, restaurants }: Props) {
   const resetSpeechTurn = useRef<() => void>(() => {});
   const payButton = useRef<PayHandle>(null);
   const [payAsks, setPayAsks] = useState(0);
+  const offerRef = useRef<(suggestion: Suggestion) => void>(() => {});
+  const voice = useWaiterVoice({
+    restaurantId: restaurant.id,
+    offer: useCallback((suggestion: Suggestion) => offerRef.current(suggestion), []),
+    onMicResume: useCallback(() => resetSpeechTurn.current(), []),
+  });
+  const { onTurn, micHeard, guestTyped } = voice;
   const order = useLiveOrder(
     restaurant.id,
-    useCallback(() => resetSpeechTurn.current(), []),
+    useCallback(
+      (turn: CommittedTurn | null) => {
+        resetSpeechTurn.current();
+        onTurn(turn);
+      },
+      [onTurn],
+    ),
     useCallback(() => setPayAsks((asks) => asks + 1), []),
   );
   // Opened after the screen has drawn the turn, so the checkout charges the order that turn left.
   useEffect(() => {
     if (payAsks > 0) payButton.current?.pay();
   }, [payAsks]);
-  const speech = useSpeech(order.hear);
+  const orderHear = order.hear;
+  // While the waiter is talking through the speakers, the microphone hears the waiter, not the guest.
+  const hearMic = useCallback(
+    (text: SpeechText) => {
+      if (!micHeard(Boolean(text.settled || text.unsettled))) orderHear(text);
+    },
+    [micHeard, orderHear],
+  );
+  const speech = useSpeech(hearMic);
   useEffect(() => {
     resetSpeechTurn.current = speech.resetTurn;
-  }, [speech.resetTurn]);
+    offerRef.current = order.offer;
+  }, [speech.resetTurn, order.offer]);
 
   const [typing, setTyping] = useState(false);
   const [typed, setTyped] = useState("");
@@ -54,12 +79,14 @@ export function Waiter({ restaurant, restaurants }: Props) {
     setTyping(false);
     setTyped("");
     reset();
+    voice.reset();
     setPlaying(true);
     await wait(500);
     for (const turn of restaurant.demoTurns) {
       const words = turn.split(" ");
       for (let i = 1; i <= words.length; i++) {
         if (token !== playToken.current) return;
+        voice.guestTyped();
         hear({ settled: "", unsettled: words.slice(0, i).join(" ") });
         await wait(230);
       }
@@ -69,15 +96,17 @@ export function Waiter({ restaurant, restaurants }: Props) {
       if (token !== playToken.current) return;
       endTurn();
       await wait(900);
+      await voice.idle(); // let the waiter finish before the next line is typed
     }
     if (token === playToken.current) setPlaying(false);
-  }, [endTurn, hear, reset, speech, restaurant.demoTurns]);
+  }, [endTurn, hear, reset, speech, voice, restaurant.demoTurns]);
 
   const startOver = () => {
     stopDemo();
     speech.stop();
     speech.clearError();
     reset();
+    voice.reset();
     setTyped("");
   };
 
@@ -91,10 +120,16 @@ export function Waiter({ restaurant, restaurants }: Props) {
   };
 
   const { priced, suggestion, nutritionAsked, transcript, done } = order;
+  // An answer that shows up mid-sentence is voiced ahead of time, during the guest's closing pause.
+  const answering = Boolean(transcript.settled || transcript.unsettled) && suggestion;
+  const { prepare } = voice;
+  useEffect(() => {
+    if (answering) prepare(saySuggestion(answering));
+  }, [answering, prepare]);
   const empty = priced.lines.length === 0;
 
   const words = `${transcript.settled} ${transcript.unsettled}`.trim();
-  const problem = order.error ?? speech.error;
+  const problem = order.error ?? speech.error ?? voice.error;
   const showNutrition = nutritionAsked && !empty && !done;
   const showSuggestions = Boolean(suggestion && suggestion.items.length > 0 && !done && !showNutrition);
   // Cards shrink when they would not fit: past four the order wraps to a second row, and a panel below takes their height.
@@ -261,7 +296,13 @@ export function Waiter({ restaurant, restaurants }: Props) {
             className="relative z-10 mx-auto mb-4 w-full max-w-5xl px-6"
             data-testid="suggestions"
           >
-            <p className="mb-2 text-center text-sm text-amber-200/90">{suggestion.caption}</p>
+            <p
+              className={`mb-2 text-center text-sm text-amber-200/90 ${voice.line === suggestion.caption ? "cursor-pointer" : ""}`}
+              title={voice.line === suggestion.caption ? "Click to stop the waiter" : undefined}
+              onClick={voice.line === suggestion.caption ? voice.stop : undefined}
+            >
+              {suggestion.caption}
+            </p>
             <div className="flex justify-center gap-3">
               {suggestion.items.map((item, index) => (
                 <div
@@ -272,7 +313,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-semibold">{item.name}</p>
                     <p className="text-[11px] text-white/45 tabular-nums">{item.kcal} kcal · {item.protein}g protein</p>
-                    <p className="text-[11px] text-amber-200/70">say “add the {["first", "second", "third"][index]} one”</p>
+                    <p className="text-[11px] text-amber-200/70">say “{suggestion.items.length === 1 ? "yes please" : `add the ${["first", "second", "third"][index]} one`}”</p>
                   </div>
                   <p className="shrink-0 text-sm font-semibold tabular-nums">{formatPrice(item.price)}</p>
                 </div>
@@ -283,6 +324,32 @@ export function Waiter({ restaurant, restaurants }: Props) {
       </AnimatePresence>
 
       <footer className="relative z-10 px-6 pb-6">
+        <AnimatePresence>
+          {voice.line && voice.line !== suggestion?.caption && (
+            <motion.button
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              onClick={voice.stop}
+              title="Click to stop the waiter"
+              className="mx-auto mb-3 flex max-w-3xl items-center gap-3 rounded-2xl border border-amber-200/20 bg-amber-200/[0.07] px-4 py-2 text-left text-sm text-amber-100/90 backdrop-blur"
+              data-testid="waiter-line"
+              data-speaking={voice.speaking}
+            >
+              <span className="flex h-4 shrink-0 items-end gap-0.5" aria-hidden>
+                {[0, 1, 2, 3].map((bar) => (
+                  <motion.span
+                    key={bar}
+                    className="w-0.5 rounded-full bg-amber-200"
+                    animate={{ height: voice.speaking ? ["30%", "100%", "45%", "80%", "30%"] : "30%" }}
+                    transition={{ duration: 0.9, repeat: Infinity, delay: bar * 0.12 }}
+                  />
+                ))}
+              </span>
+              <span>{voice.line}</span>
+            </motion.button>
+          )}
+        </AnimatePresence>
         <div className="mx-auto flex max-w-4xl items-center gap-4 rounded-full border border-white/10 bg-white/[0.06] py-2.5 pl-2.5 pr-5 backdrop-blur">
           <button
             onClick={toggleMic}
@@ -303,6 +370,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
                 value={typed}
                 onChange={(event) => {
                   setTyped(event.target.value);
+                  guestTyped();
                   hear({ settled: "", unsettled: event.target.value }, { endOnSilence: false });
                 }}
                 onKeyDown={(event) => {
@@ -335,6 +403,18 @@ export function Waiter({ restaurant, restaurants }: Props) {
             </span>
           )}
           <div className="flex shrink-0 items-center gap-1 text-white/45">
+            <IconButton label={voice.enabled ? "Mute the waiter" : "Let the waiter speak"} active={voice.enabled} onClick={() => voice.setEnabled(!voice.enabled)}>
+              {voice.enabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+            </IconButton>
+            {voice.enabled && (
+              <IconButton
+                label={voice.headphones ? "Headphones on: speak to interrupt the waiter" : "On headphones? Turn on to interrupt the waiter by speaking"}
+                active={voice.headphones}
+                onClick={() => voice.setHeadphones(!voice.headphones)}
+              >
+                <Headphones className="h-4 w-4" />
+              </IconButton>
+            )}
             <IconButton label={typing ? "Hide keyboard" : "Type instead"} active={typing} onClick={() => { stopDemo(); speech.stop(); setTyping((value) => !value); }}>
               <Keyboard className="h-4 w-4" />
             </IconButton>
