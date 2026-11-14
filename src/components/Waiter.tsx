@@ -1,22 +1,26 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
-import { Keyboard, Mic, MicOff, Play, RotateCcw, Square } from "lucide-react";
+import { ChevronDown, Keyboard, Mic, MicOff, Play, RotateCcw, Square } from "lucide-react";
+import { ItemImage } from "./ItemImage";
 import { OrderCard } from "./OrderCard";
 import { useLiveOrder } from "@/hooks/useLiveOrder";
 import { useSpeech } from "@/hooks/useSpeech";
-import { DEMO_TURNS } from "@/lib/demoScript";
 import { formatPrice } from "@/lib/format";
 
-type Props = { restaurant: { name: string; tagline: string; address: string; nutritionNote: string } };
+type Props = {
+  restaurant: { id: string; name: string; tagline: string; nutritionNote: string; hints: string[]; demoTurns: string[] };
+  restaurants: { id: string; name: string }[];
+};
 
-const HINTS = ["“Poached eggs and a flat white”", "“Make that an oat latte”", "“Anything with eggs?”", "“How many calories is that?”"];
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export function Waiter({ restaurant }: Props) {
+export function Waiter({ restaurant, restaurants }: Props) {
+  const [choosing, setChoosing] = useState(false);
   const resetSpeechTurn = useRef<() => void>(() => {});
-  const order = useLiveOrder(useCallback(() => resetSpeechTurn.current(), []));
+  const order = useLiveOrder(restaurant.id, useCallback(() => resetSpeechTurn.current(), []));
   const speech = useSpeech(order.hear);
   useEffect(() => {
     resetSpeechTurn.current = speech.resetTurn;
@@ -41,7 +45,7 @@ export function Waiter({ restaurant }: Props) {
     reset();
     setPlaying(true);
     await wait(500);
-    for (const turn of DEMO_TURNS) {
+    for (const turn of restaurant.demoTurns) {
       const words = turn.split(" ");
       for (let i = 1; i <= words.length; i++) {
         if (token !== playToken.current) return;
@@ -56,7 +60,7 @@ export function Waiter({ restaurant }: Props) {
       await wait(900);
     }
     if (token === playToken.current) setPlaying(false);
-  }, [endTurn, hear, reset, speech]);
+  }, [endTurn, hear, reset, speech, restaurant.demoTurns]);
 
   const startOver = () => {
     stopDemo();
@@ -93,10 +97,48 @@ export function Waiter({ restaurant }: Props) {
     <main className="relative flex h-dvh flex-col overflow-hidden bg-[#0b0a09] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_40rem_at_50%_-10%,rgba(251,191,36,0.10),transparent_60%)]" />
 
-      <header className="relative z-10 flex items-start justify-between px-10 pt-8">
-        <div>
-          <p className="text-2xl font-semibold tracking-tight">{restaurant.name}</p>
+      <header className="relative z-20 flex items-start justify-between px-10 pt-8">
+        <div className="relative">
+          <button
+            onClick={() => setChoosing((open) => !open)}
+            aria-haspopup="listbox"
+            aria-expanded={choosing}
+            className="-ml-3 flex items-center gap-2 rounded-xl px-3 py-1 text-2xl font-semibold tracking-tight transition hover:bg-white/[0.06]"
+            data-testid="restaurant-picker"
+          >
+            {restaurant.name}
+            <ChevronDown className={`h-5 w-5 text-white/40 transition-transform ${choosing ? "rotate-180" : ""}`} />
+          </button>
           <p className="text-sm text-white/40">{restaurant.tagline}</p>
+          <AnimatePresence>
+            {choosing && (
+              <motion.ul
+                role="listbox"
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                className="absolute -left-3 top-11 z-30 w-56 overflow-hidden rounded-2xl border border-white/10 bg-[#171512] p-1.5 shadow-2xl"
+              >
+                {restaurants.map((option) => (
+                  <li key={option.id} role="option" aria-selected={option.id === restaurant.id}>
+                    <Link
+                      href={`/${option.id}`}
+                      onClick={() => {
+                        setChoosing(false);
+                        // The screen being left stays mounted in the background, so stop its mic and clear its order.
+                        if (option.id !== restaurant.id) startOver();
+                      }}
+                      className={`block rounded-xl px-3 py-2 text-base transition hover:bg-white/10 ${
+                        option.id === restaurant.id ? "font-semibold text-amber-200" : "text-white/75"
+                      }`}
+                    >
+                      {option.name}
+                    </Link>
+                  </li>
+                ))}
+              </motion.ul>
+            )}
+          </AnimatePresence>
         </div>
         <div className="text-right">
           <p className="text-xs uppercase tracking-[0.2em] text-white/35">
@@ -132,7 +174,7 @@ export function Waiter({ restaurant }: Props) {
                 {speech.listening ? "I'm listening. Just say your order." : "Tap the microphone and say your order."}
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-2">
-                {HINTS.map((hint) => (
+                {restaurant.hints.map((hint) => (
                   <span key={hint} className="rounded-full border border-white/10 px-4 py-1.5 text-sm text-white/50">
                     {hint}
                   </span>
@@ -176,6 +218,7 @@ export function Waiter({ restaurant }: Props) {
                   </div>
                 ))}
               </div>
+              {priced.nutrition.richIn.length > 0 && (
               <div className="min-w-0 flex-1 border-l border-white/10 pl-6">
                 <p className="text-[10px] uppercase tracking-wider text-white/40">Good source of</p>
                 <div className="mt-1 flex flex-wrap gap-1.5">
@@ -185,11 +228,10 @@ export function Waiter({ restaurant }: Props) {
                         {name}
                       </span>
                     ))
-                  ) : (
-                    <span className="text-xs text-white/40">Nothing notable</span>
-                  )}
+                  ) : null}
                 </div>
               </div>
+              )}
             </div>
             <p className="mt-1.5 text-center text-[11px] text-white/30">For your whole order. {restaurant.nutritionNote}</p>
           </motion.aside>
@@ -212,8 +254,7 @@ export function Waiter({ restaurant }: Props) {
                   key={item.id}
                   className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl border border-amber-200/25 bg-amber-200/[0.06] px-4 py-3"
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element -- small local SVGs */}
-                  <img src={item.image} alt="" className="h-10 w-10 shrink-0" />
+                  <ItemImage src={item.image} size={48} className="h-12 w-12 shrink-0" />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-semibold">{item.name}</p>
                     <p className="text-[11px] text-white/45 tabular-nums">{item.kcal} kcal · {item.protein}g protein</p>

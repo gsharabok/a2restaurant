@@ -3,9 +3,15 @@
 import { AnimatePresence, motion } from "motion/react";
 import type { PricedLine } from "@/lib/order";
 import { formatPrice } from "@/lib/format";
+import { ItemImage } from "./ItemImage";
+
+/** A long option list shows only the first few choices plus the one picked, so the card stays narrow. */
+const visibleValues = (row: PricedLine["optionRows"][number]) =>
+  row.values.length <= 4 ? row.values : row.values.filter((value, index) => index < 3 || value.id === row.value);
 
 export function OrderCard({ line, compact = false, detailed = false }: { line: PricedLine; compact?: boolean; detailed?: boolean }) {
   const { kcal, protein, carbs, fat } = line.nutrition;
+  const photo = line.image.startsWith("http");
   return (
     <motion.article
       layout
@@ -17,8 +23,11 @@ export function OrderCard({ line, compact = false, detailed = false }: { line: P
       data-testid={`card-${line.itemId}`}
     >
       <div className="flex items-start justify-between">
-        {/* eslint-disable-next-line @next/next/no-img-element -- small local SVGs, no optimisation needed */}
-        <img src={line.image} alt="" className={`${compact ? "h-14 w-14" : "h-20 w-20"} drop-shadow-[0_10px_18px_rgba(0,0,0,0.55)] transition-all`} />
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.div key={line.image} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}>
+            <ItemImage src={line.image} size={photo ? 112 : 80} className={`${compact ? "h-14 w-14" : photo ? "h-28 w-28" : "h-20 w-20"} transition-all`} />
+          </motion.div>
+        </AnimatePresence>
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
             key={line.qty}
@@ -60,7 +69,7 @@ export function OrderCard({ line, compact = false, detailed = false }: { line: P
             <div key={row.group} className="flex items-center gap-2">
               <span className={`w-10 shrink-0 text-[10px] uppercase tracking-wider text-white/35 ${compact ? "hidden" : ""}`}>{row.label}</span>
               <div className="flex gap-0.5">
-                {row.values.map((value) => {
+                {visibleValues(row).map((value) => {
                   const active = value.id === row.value;
                   return (
                     <span

@@ -1,4 +1,4 @@
-import { itemsById } from "./menu";
+import type { Menu } from "./menu";
 import type { SuggestionPick, SuggestionTopic } from "./interpret";
 
 export type Suggestion = {
@@ -10,7 +10,7 @@ export type Suggestion = {
 const CAPTIONS: Record<SuggestionTopic, string> = {
   healthy: "On the lighter side, these are fresh and filling.",
   protein: "The most protein on the menu.",
-  popular: "These are what most tables order here.",
+  popular: "These are what most people order here.",
   vegetarian: "All meat-free.",
   vegan: "These are vegan.",
   sweet: "Something sweet to go with your coffee.",
@@ -20,9 +20,9 @@ const CAPTIONS: Record<SuggestionTopic, string> = {
   other: "Here's what we have.",
 };
 
-export function toSuggestion(pick: SuggestionPick): Suggestion {
+export function toSuggestion(menu: Menu, pick: SuggestionPick): Suggestion {
   const items = pick.itemIds
-    .map((id) => itemsById.get(id))
+    .map((id) => menu.itemsById.get(id))
     .filter((item) => item !== undefined)
     .map(({ id, name, image, description, price, nutrition }) => ({ id, name, image, description, price, kcal: nutrition.kcal, protein: nutrition.protein }));
   return {

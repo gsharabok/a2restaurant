@@ -8,7 +8,20 @@
     "menuSource": "https://kaffeine.co.uk/location/66-great-titchfield-street/",
     "menuDate": "2026-11-09",
     "priceNote": "Food prices are from Kaffeine's published menu. Drink and side prices are placeholders: the published menu does not list them.",
-    "nutritionNote": "Nutrition figures are estimates from typical recipes, not published by Kaffeine."
+    "nutritionNote": "Nutrition figures are estimates from typical recipes, not published by Kaffeine.",
+    "hints": [
+      "“Poached eggs and a flat white”",
+      "“Make that an oat latte”",
+      "“Anything with eggs?”",
+      "“How many calories is that?”"
+    ],
+    "demoTurns": [
+      "Can I get the poached eggs with a side of bacon, an almond croissant, and a flat white",
+      "Actually make that an iced latte with oat milk. And no bacon, add avocado",
+      "I want something healthy too",
+      "Add the first one",
+      "That's it, thanks"
+    ]
   },
   "optionGroups": {
     "milk": {
