@@ -87,6 +87,7 @@ export function useLiveOrder(
         suggestionsShown: Boolean(next?.items.length),
         nutrition: result.nutrition,
         done,
+        pay: result.pay,
       };
       // Paying waits for the end of the sentence, so a half-heard phrase never opens the checkout.
       if (result.pay) payAsked.current?.();
