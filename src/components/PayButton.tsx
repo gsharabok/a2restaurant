@@ -1,6 +1,7 @@
 "use client";
 
 import { useImperativeHandle, useState, type Ref } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { Check, X, Zap } from "lucide-react";
 import type { PricedOrder } from "@/lib/order";
@@ -62,13 +63,15 @@ export function PayButton({ restaurant, priced, className = "", ref }: Props) {
         {error ? "Try again" : state === "opening" ? "Opening…" : "Pay with Link"}
       </button>
 
+      {/* On the page body, so it sits above the order summary whichever button opened it. */}
+      {createPortal(
       <AnimatePresence>
         {(state === "demo" || state === "paid") && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 grid place-items-center bg-black/70 text-left backdrop-blur-md"
+            className="fixed inset-0 z-50 grid place-items-center bg-black/70 text-left backdrop-blur-md"
             onClick={() => setState("idle")}
             data-testid="checkout"
           >
@@ -115,7 +118,9 @@ export function PayButton({ restaurant, priced, className = "", ref }: Props) {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body,
+      )}
     </>
   );
 }
