@@ -1,6 +1,6 @@
 import { interpret } from "@/lib/interpret";
 import { priceOrder, sanitizeOrder } from "@/lib/order";
-import { suggestionsFor } from "@/lib/suggest";
+import { toSuggestion } from "@/lib/suggest";
 
 export async function POST(request: Request) {
   const apiKey = process.env.TYPESAFE_API_KEY;
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     return Response.json({
       order: result.order,
       priced: priceOrder(result.order),
-      suggestion: result.suggest ? suggestionsFor(result.suggest, result.order) : null,
+      suggestion: result.suggest ? toSuggestion(result.suggest) : null,
       accepted: result.accepted,
       done: result.done,
       ms: result.ms,

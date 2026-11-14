@@ -9,13 +9,18 @@ const MIN_CONFIDENCE = 0.6;
 /** Putting a new item on the order needs more certainty than editing one, so look-alike dishes don't appear uninvited. */
 const MIN_CONFIDENCE_TO_ADD = 0.78;
 
-export const SUGGESTION_KINDS = ["healthy", "popular", "vegetarian", "sweet"] as const;
-export type SuggestionKind = (typeof SUGGESTION_KINDS)[number];
+export const SUGGESTION_TOPICS = ["healthy", "popular", "vegetarian", "vegan", "sweet", "breakfast", "lunch", "drinks", "other"] as const;
+export type SuggestionTopic = (typeof SUGGESTION_TOPICS)[number];
+/** Dishes that answer a question such as "anything with eggs?", best match first. */
+export type SuggestionPick = { topic: SuggestionTopic; itemIds: string[] };
+/** A dish must match the guest's question at least this well to be suggested. */
+const MIN_MATCH = 0.5;
+const MIN_ASKING = 0.6;
 
 export type Interpretation = {
   order: Order;
-  /** Set when the guest is asking for a recommendation rather than ordering. */
-  suggest: SuggestionKind | null;
+  /** Set when the guest is asking what there is or for a recommendation, rather than ordering. */
+  suggest: SuggestionPick | null;
   /** 1-based index of a shown suggestion the guest accepted ("add the first one"). */
   accepted: number | null;
   done: boolean;
@@ -77,17 +82,11 @@ function buildQuestions(before: Order, shownSuggestions: string[]): Record<strin
     }
   }
 
-  questions.suggest = {
-    type: "choice",
+  questions.asking = {
+    type: "noul",
     instructions:
-      "Is the guest asking the waiter to recommend or suggest something, rather than naming what they want?",
-    criteria: {
-      none: "The guest is ordering, changing the order, or has not asked for a recommendation.",
-      healthy: "The guest asks for something healthy, light, fresh or low-calorie.",
-      popular: "The guest asks what is popular, the best, the favourite, or what the waiter recommends in general.",
-      vegetarian: "The guest asks for vegetarian, vegan or meat-free suggestions.",
-      sweet: "The guest asks for something sweet, a pastry, a treat or a dessert.",
-    },
+      "Is the guest asking the waiter a question about the menu or asking for a suggestion, rather than only stating what they want? " +
+      "Examples: \"what do you have for breakfast\", \"do you have anything with eggs\", \"what's popular\", \"I want something healthy\", \"what do you recommend\", \"any vegan options\".",
   };
   questions.done = {
     type: "noul",
@@ -112,6 +111,65 @@ function buildQuestions(before: Order, shownSuggestions: string[]): Record<strin
   return questions;
 }
 
+async function ask(body: object, apiKey: string, signal?: AbortSignal): Promise<Record<string, Answer>> {
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: { "content-type": "application/json", authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify({ model: process.env.TYPESAFE_MODEL ?? "jev-latest", ...body }),
+    signal,
+  });
+  if (!response.ok) throw new Error(`TypeSafe ${response.status}: ${(await response.text()).slice(0, 300)}`);
+  return ((await response.json()) as { answers: Record<string, Answer> }).answers;
+}
+
+/** Scores every dish against the guest's question and returns the best three not already ordered. */
+async function pickSuggestions(input: { said: string; order: Order; apiKey: string; signal?: AbortSignal }): Promise<SuggestionPick> {
+  const ordered = new Set(input.order.lines.map((line) => line.itemId));
+  const candidates = menu.items.filter((item) => !ordered.has(item.id));
+  const questions: Record<string, Question> = {
+    topic: {
+      type: "choice",
+      instructions: "A cafe guest asked the waiter a question or for a suggestion. What are they asking for?",
+      criteria: {
+        healthy: "Something healthy, light, fresh or low-calorie.",
+        popular: "What is popular, the best, a favourite, or a general recommendation with no specific kind of food named.",
+        vegan: "Vegan or dairy-free and egg-free food.",
+        vegetarian: "Vegetarian or meat-free food.",
+        sweet: "Something sweet, a pastry, a treat or a dessert.",
+        breakfast: "What there is for breakfast or brunch in general.",
+        lunch: "What there is for lunch in general.",
+        drinks: "What drinks, coffees or teas there are.",
+        other: "A specific ingredient, dish or anything else, for example dishes with eggs, with salmon, or something savoury.",
+      },
+    },
+  };
+  for (const item of candidates) {
+    questions[`match_${item.id}`] = {
+      type: "noul",
+      instructions:
+        `A cafe guest asked the waiter a question or for a suggestion. \`guest_already_ordered\` is what they have so far. ` +
+        `Would "${item.name}" be a good dish to show them in answer? If they ask what goes with something they already have, ` +
+        `a good answer complements it (food with a drink, a drink with food) and is not another item of the same kind. ` +
+        `${item.name}: ${item.description}. Menu section: ${item.category}. Tags: ${item.tags.join(", ") || "none"}.`,
+    };
+  }
+  const state = {
+    guest_already_ordered: input.order.lines.length ? input.order.lines.map(describeLine) : "nothing yet",
+    guest_said: input.said,
+  };
+  const answers = await ask({ state, questions }, input.apiKey, input.signal);
+  const topic = (SUGGESTION_TOPICS as readonly string[]).includes(answers.topic?.choice ?? "")
+    ? (answers.topic!.choice as SuggestionTopic)
+    : "other";
+  const score = (id: string) => answers[`match_${id}`]?.noul ?? 0;
+  const itemIds = candidates
+    .filter((item) => score(item.id) >= MIN_MATCH)
+    .sort((a, b) => score(b.id) - score(a.id))
+    .slice(0, 3)
+    .map((item) => item.id);
+  return { topic, itemIds };
+}
+
 export async function interpret(input: {
   before: Order;
   said: string;
@@ -125,23 +183,18 @@ export async function interpret(input: {
   if (!said) return { order: before, suggest: null, accepted: null, done: false, ms: 0, confidences: {} };
 
   const started = performance.now();
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: { "content-type": "application/json", authorization: `Bearer ${input.apiKey}` },
-    body: JSON.stringify({
-      model: process.env.TYPESAFE_MODEL ?? "jev-latest",
+  const answers = await ask(
+    {
       state: {
         order_before_this_turn: before.lines.length ? before.lines.map(describeLine) : "empty",
         ...(shown.length ? { suggestions_on_screen: shown.map((id) => itemsById.get(id)!.name) } : {}),
         guest_said_this_turn: said,
       },
       questions: buildQuestions(before, shown),
-    }),
-    signal: input.signal,
-  });
-  if (!response.ok) throw new Error(`TypeSafe ${response.status}: ${(await response.text()).slice(0, 300)}`);
-  const answers = ((await response.json()) as { answers: Record<string, Answer> }).answers;
-  const ms = Math.round(performance.now() - started);
+    },
+    input.apiKey,
+    input.signal,
+  );
 
   const sure = (answer: Answer | undefined) => (answer?.confidence ?? 1) >= MIN_CONFIDENCE;
   const beforeById = new Map(before.lines.map((line) => [line.itemId, line]));
@@ -178,16 +231,18 @@ export async function interpret(input: {
   };
   lines.sort((a, b) => position(a) - position(b));
 
-  const suggestChoice = answers.suggest?.choice;
+  const order = sanitizeOrder({ lines });
   const suggest =
-    suggestChoice && suggestChoice !== "none" && sure(answers.suggest) ? (suggestChoice as SuggestionKind) : null;
+    (answers.asking?.noul ?? 0) >= MIN_ASKING
+      ? await pickSuggestions({ said, order, apiKey: input.apiKey, signal: input.signal })
+      : null;
 
   return {
-    order: sanitizeOrder({ lines }),
+    order,
     suggest,
     accepted: acceptedId ? ordinal + 1 : null,
     done: (answers.done?.noul ?? 0) > 0.7,
-    ms,
+    ms: Math.round(performance.now() - started),
     confidences,
   };
 }

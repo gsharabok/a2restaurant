@@ -18,6 +18,8 @@ type Case = {
   shown?: string[];
   expect: string[];
   suggest?: string | null;
+  /** At least one of these must be among the suggested dishes. */
+  suggestAny?: string[];
   accepted?: number | null;
   done?: boolean;
 };
@@ -60,6 +62,15 @@ const cases: Case[] = [
   { name: "decaf with almond milk", before: ["1 cappuccino"], said: "Make the cappuccino decaf with almond milk", expect: ["1 cappuccino milk=almond shots=decaf"] },
   { name: "chit-chat adds nothing", before: ["1 flat_white"], said: "Hmm, let me think for a second", expect: ["1 flat_white"] },
   { name: "ask what's popular", said: "What's the most popular thing here?", expect: [], suggest: "popular" },
+  { name: "open: breakfast", said: "Hey, what do you have for breakfast?", expect: [], suggest: "breakfast" },
+  { name: "open: anything with eggs", said: "Do you have anything with eggs?", expect: [], suggestAny: ["poached_eggs", "eggs_benedict", "eggs_florentine", "eggs_royale"] },
+  { name: "open: breakfast with eggs", said: "Hey, what do you have for breakfast, do you have anything with eggs?", expect: [], suggestAny: ["poached_eggs", "eggs_benedict", "eggs_florentine", "eggs_royale", "bacon_egg_brioche", "veggie_egg_brioche"] },
+  { name: "open: give me some options", said: "Can you give me some options?", expect: [], suggestAny: ["eggs_benedict", "espresso_pancakes", "bacon_egg_brioche", "avo_smash", "poached_eggs", "almond_croissant", "flat_white"] },
+  { name: "open: what do you recommend", before: ["1 flat_white"], said: "What would you recommend with my coffee?", expect: ["1 flat_white"], suggestAny: ["almond_croissant", "croissant", "pain_au_chocolat", "banana_bread", "brownie", "portuguese_tart"] },
+  { name: "open: vegan", said: "Any vegan options?", expect: [], suggest: "vegan", suggestAny: ["fruit_salad", "side_avocado", "orange_juice"] },
+  { name: "open: salmon", said: "Is there something with salmon?", expect: [], suggestAny: ["eggs_royale", "side_salmon"] },
+  { name: "open: order plus question", said: "I'll have a latte, and what pastries do you have?", expect: ["1 latte"], suggestAny: ["croissant", "almond_croissant", "pain_au_chocolat"] },
+  { name: "open: accept by name", before: ["1 flat_white"], shown: ["eggs_benedict", "eggs_royale", "poached_eggs"], said: "I'll go with the eggs royale", expect: ["1 flat_white", "1 eggs_royale"] },
   { name: "not on menu", said: "Can I get some hash browns", expect: [] },
   { name: "similar dishes", said: "Eggs royale and an avo smash with a side of smoked salmon", expect: ["1 eggs_royale", "1 avo_smash", "1 side_salmon"] },
 ];
@@ -74,17 +85,18 @@ async function main() {
     const want = show(parse(test.expect));
     const ok =
       JSON.stringify(got) === JSON.stringify(want) &&
-      (test.suggest === undefined || result.suggest === test.suggest) &&
+      (test.suggest === undefined || (result.suggest?.topic ?? null) === test.suggest) &&
+      (test.suggestAny === undefined || test.suggestAny.some((id) => result.suggest?.itemIds.includes(id))) &&
       (test.accepted === undefined || result.accepted === test.accepted) &&
       (test.done === undefined || result.done === test.done) &&
-      (test.suggest !== undefined || result.suggest === null);
+      (test.suggest !== undefined || test.suggestAny !== undefined || result.suggest === null);
     if (ok) passed++;
     console.log(`${ok ? "PASS" : "FAIL"} ${String(result.ms).padStart(4)}ms  ${test.name}`);
     if (!ok) {
       console.log(`       said: ${test.said}`);
       console.log(`       want: ${want.join(" | ")}  suggest=${test.suggest ?? null} accepted=${test.accepted ?? null} done=${test.done ?? false}`);
       console.log(`       conf: ${Object.entries(result.confidences).map(([id, c]) => `${id}=${c.toFixed(2)}`).join(" ")}`);
-      console.log(`       got:  ${got.join(" | ")}  suggest=${result.suggest} accepted=${result.accepted} done=${result.done}`);
+      console.log(`       got:  ${got.join(" | ")}  suggest=${result.suggest ? `${result.suggest.topic}:${result.suggest.itemIds.join(",")}` : null} accepted=${result.accepted} done=${result.done}`);
     }
   }
   times.sort((a, b) => a - b);
