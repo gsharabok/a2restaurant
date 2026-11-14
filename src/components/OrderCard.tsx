@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import type { PricedLine } from "@/lib/order";
 import { formatPrice } from "@/lib/format";
 
-export function OrderCard({ line }: { line: PricedLine }) {
+export function OrderCard({ line, compact = false }: { line: PricedLine; compact?: boolean }) {
   return (
     <motion.article
       layout
@@ -12,12 +12,12 @@ export function OrderCard({ line }: { line: PricedLine }) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, scale: 0.85, filter: "blur(6px)" }}
       transition={{ type: "spring", stiffness: 420, damping: 32 }}
-      className="relative flex w-[16.5rem] flex-col rounded-3xl border border-white/10 bg-white/[0.045] p-5 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur"
+      className={`relative flex flex-col rounded-3xl border border-white/10 bg-white/[0.045] ${compact ? "w-[13rem] p-4" : "w-[16.5rem] p-5"} shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur`}
       data-testid={`card-${line.itemId}`}
     >
       <div className="flex items-start justify-between">
         {/* eslint-disable-next-line @next/next/no-img-element -- small local SVGs, no optimisation needed */}
-        <img src={line.image} alt="" className="h-20 w-20 drop-shadow-[0_10px_18px_rgba(0,0,0,0.55)]" />
+        <img src={line.image} alt="" className={`${compact ? "h-14 w-14" : "h-20 w-20"} drop-shadow-[0_10px_18px_rgba(0,0,0,0.55)] transition-all`} />
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
             key={line.qty}
@@ -35,13 +35,13 @@ export function OrderCard({ line }: { line: PricedLine }) {
       </div>
 
       <h3 className="mt-3 text-lg font-semibold leading-tight text-white">{line.name}</h3>
-      <p className="mt-1 line-clamp-2 text-[13px] leading-snug text-white/45">{line.description}</p>
+      {!compact && <p className="mt-1 line-clamp-2 text-[13px] leading-snug text-white/45">{line.description}</p>}
 
       {line.optionRows.length > 0 && (
         <div className="mt-3 space-y-2 border-t border-white/10 pt-3">
           {line.optionRows.map((row) => (
             <div key={row.group} className="flex items-center gap-2">
-              <span className="w-10 shrink-0 text-[10px] uppercase tracking-wider text-white/35">{row.label}</span>
+              <span className={`w-10 shrink-0 text-[10px] uppercase tracking-wider text-white/35 ${compact ? "hidden" : ""}`}>{row.label}</span>
               <div className="flex gap-0.5">
                 {row.values.map((value) => {
                   const active = value.id === row.value;
