@@ -4,7 +4,8 @@ import { AnimatePresence, motion } from "motion/react";
 import type { PricedLine } from "@/lib/order";
 import { formatPrice } from "@/lib/format";
 
-export function OrderCard({ line, compact = false }: { line: PricedLine; compact?: boolean }) {
+export function OrderCard({ line, compact = false, detailed = false }: { line: PricedLine; compact?: boolean; detailed?: boolean }) {
+  const { kcal, protein, carbs, fat } = line.nutrition;
   return (
     <motion.article
       layout
@@ -36,6 +37,22 @@ export function OrderCard({ line, compact = false }: { line: PricedLine; compact
 
       <h3 className="mt-3 text-lg font-semibold leading-tight text-white">{line.name}</h3>
       {!compact && <p className="mt-1 line-clamp-2 text-[13px] leading-snug text-white/45">{line.description}</p>}
+
+      <p className="mt-2 text-xs tabular-nums text-white/40" data-testid="nutrition-line">
+        <span className="text-white/60">{kcal} kcal</span> · {protein}g protein
+        <AnimatePresence initial={false}>
+          {detailed && (
+            <motion.span
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="block overflow-hidden text-amber-200/80"
+            >
+              {carbs}g carbs · {fat}g fat
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </p>
 
       {line.optionRows.length > 0 && (
         <div className="mt-3 space-y-2 border-t border-white/10 pt-3">

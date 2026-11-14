@@ -28,6 +28,7 @@ export async function POST(request: Request) {
       priced: priceOrder(result.order),
       suggestion: result.suggest ? toSuggestion(result.suggest) : null,
       accepted: result.accepted,
+      nutrition: result.nutrition,
       done: result.done,
       ms: result.ms,
     });

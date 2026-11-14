@@ -9,9 +9,9 @@ import { useSpeech } from "@/hooks/useSpeech";
 import { DEMO_TURNS } from "@/lib/demoScript";
 import { formatPrice } from "@/lib/format";
 
-type Props = { restaurant: { name: string; tagline: string; address: string } };
+type Props = { restaurant: { name: string; tagline: string; address: string; nutritionNote: string } };
 
-const HINTS = ["“Poached eggs and a flat white”", "“Make that an oat latte”", "“Something healthy?”"];
+const HINTS = ["“Poached eggs and a flat white”", "“Make that an oat latte”", "“Anything with eggs?”", "“How many calories is that?”"];
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export function Waiter({ restaurant }: Props) {
@@ -75,12 +75,19 @@ export function Waiter({ restaurant }: Props) {
     }
   };
 
-  const { priced, suggestion, transcript, done } = order;
+  const { priced, suggestion, nutritionAsked, transcript, done } = order;
   const empty = priced.lines.length === 0;
   // Past four cards the order wraps to a second row, so cards shrink to keep everything on screen.
   const compact = priced.lines.length > 4;
   const words = `${transcript.settled} ${transcript.unsettled}`.trim();
   const problem = order.error ?? speech.error;
+  const showNutrition = nutritionAsked && !empty && !done;
+  const macros = [
+    { label: "Calories", value: priced.nutrition.kcal.toLocaleString("en-GB"), unit: "kcal" },
+    { label: "Protein", value: priced.nutrition.protein, unit: "g" },
+    { label: "Carbs", value: priced.nutrition.carbs, unit: "g" },
+    { label: "Fat", value: priced.nutrition.fat, unit: "g" },
+  ];
 
   return (
     <main className="relative flex h-dvh flex-col overflow-hidden bg-[#0b0a09] text-white">
@@ -104,6 +111,9 @@ export function Waiter({ restaurant }: Props) {
           >
             {formatPrice(priced.total)}
           </motion.p>
+          <p className="mt-1 h-4 text-xs tabular-nums text-white/40" data-testid="total-nutrition">
+            {!empty && `${priced.nutrition.kcal.toLocaleString("en-GB")} kcal · ${priced.nutrition.protein}g protein`}
+          </p>
         </div>
       </header>
 
@@ -135,7 +145,7 @@ export function Waiter({ restaurant }: Props) {
                 <motion.div layout className="mx-auto flex max-w-[86rem] flex-wrap items-stretch justify-center gap-4">
                   <AnimatePresence mode="popLayout">
                     {priced.lines.map((line) => (
-                      <OrderCard key={line.itemId} line={line} compact={compact} />
+                      <OrderCard key={line.itemId} line={line} compact={compact} detailed={showNutrition} />
                     ))}
                   </AnimatePresence>
                 </motion.div>
@@ -146,7 +156,48 @@ export function Waiter({ restaurant }: Props) {
       </section>
 
       <AnimatePresence>
-        {suggestion && suggestion.items.length > 0 && !done && (
+        {showNutrition && (
+          <motion.aside
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 24 }}
+            className="relative z-10 mx-auto mb-4 w-full max-w-3xl px-6"
+            data-testid="nutrition"
+          >
+            <div className="flex items-center gap-6 rounded-2xl border border-white/10 bg-white/[0.05] px-6 py-4 backdrop-blur">
+              <div className="flex gap-6">
+                {macros.map((macro) => (
+                  <div key={macro.label}>
+                    <p className="text-[10px] uppercase tracking-wider text-white/40">{macro.label}</p>
+                    <p className="text-xl font-semibold tabular-nums">
+                      {macro.value}
+                      <span className="ml-0.5 text-xs font-normal text-white/45">{macro.unit}</span>
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <div className="min-w-0 flex-1 border-l border-white/10 pl-6">
+                <p className="text-[10px] uppercase tracking-wider text-white/40">Good source of</p>
+                <div className="mt-1 flex flex-wrap gap-1.5">
+                  {priced.nutrition.richIn.length > 0 ? (
+                    priced.nutrition.richIn.map((name) => (
+                      <span key={name} className="rounded-full bg-amber-200/10 px-2.5 py-0.5 text-xs text-amber-200/90">
+                        {name}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-xs text-white/40">Nothing notable</span>
+                  )}
+                </div>
+              </div>
+            </div>
+            <p className="mt-1.5 text-center text-[11px] text-white/30">For your whole order. {restaurant.nutritionNote}</p>
+          </motion.aside>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {suggestion && suggestion.items.length > 0 && !done && !showNutrition && (
           <motion.aside
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -165,6 +216,7 @@ export function Waiter({ restaurant }: Props) {
                   <img src={item.image} alt="" className="h-10 w-10 shrink-0" />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-semibold">{item.name}</p>
+                    <p className="text-[11px] text-white/45 tabular-nums">{item.kcal} kcal · {item.protein}g protein</p>
                     <p className="text-[11px] text-amber-200/70">say “add the {["first", "second", "third"][index]} one”</p>
                   </div>
                   <p className="shrink-0 text-sm font-semibold tabular-nums">{formatPrice(item.price)}</p>
@@ -276,7 +328,12 @@ export function Waiter({ restaurant }: Props) {
                 })}
               </ul>
               <div className="mt-6 flex items-baseline justify-between border-t border-white/10 pt-4">
-                <span className="text-white/50">Total</span>
+                <span className="text-white/50">
+                  Total
+                  <span className="block text-xs tabular-nums text-white/35">
+                    about {priced.nutrition.kcal.toLocaleString("en-GB")} kcal · {priced.nutrition.protein}g protein
+                  </span>
+                </span>
                 <span className="text-3xl font-semibold tabular-nums">{formatPrice(priced.total)}</span>
               </div>
               <button

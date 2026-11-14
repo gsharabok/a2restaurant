@@ -9,7 +9,7 @@ const MIN_CONFIDENCE = 0.6;
 /** Putting a new item on the order needs more certainty than editing one, so look-alike dishes don't appear uninvited. */
 const MIN_CONFIDENCE_TO_ADD = 0.78;
 
-export const SUGGESTION_TOPICS = ["healthy", "popular", "vegetarian", "vegan", "sweet", "breakfast", "lunch", "drinks", "other"] as const;
+export const SUGGESTION_TOPICS = ["healthy", "protein", "popular", "vegetarian", "vegan", "sweet", "breakfast", "lunch", "drinks", "other"] as const;
 export type SuggestionTopic = (typeof SUGGESTION_TOPICS)[number];
 /** Dishes that answer a question such as "anything with eggs?", best match first. */
 export type SuggestionPick = { topic: SuggestionTopic; itemIds: string[] };
@@ -23,6 +23,8 @@ export type Interpretation = {
   suggest: SuggestionPick | null;
   /** 1-based index of a shown suggestion the guest accepted ("add the first one"). */
   accepted: number | null;
+  /** The guest asked about the nutrition of what they are ordering. */
+  nutrition: boolean;
   done: boolean;
   ms: number;
   /** Confidence of every quantity answer that put an item in the order, for tuning. */
@@ -86,7 +88,15 @@ function buildQuestions(before: Order, shownSuggestions: string[]): Record<strin
     type: "noul",
     instructions:
       "Is the guest asking the waiter a question about the menu or asking for a suggestion, rather than only stating what they want? " +
-      "Examples: \"what do you have for breakfast\", \"do you have anything with eggs\", \"what's popular\", \"I want something healthy\", \"what do you recommend\", \"any vegan options\".",
+      "Examples: \"what do you have for breakfast\", \"do you have anything with eggs\", \"what's popular\", \"I want something healthy\", \"what do you recommend\", \"any vegan options\", \"what's high in protein\". " +
+      "Asking only for the nutrition of what is already ordered does not count.",
+  };
+  questions.nutrition = {
+    type: "noul",
+    instructions:
+      "Is the guest asking to see nutrition details for what they have ordered or are ordering? " +
+      "Examples: \"how many calories is that\", \"show me the nutrition\", \"how much protein is in my order\", \"what about carbs and fat\", \"what vitamins does that have\", \"show me the macros\". " +
+      "Asking for a different dish, such as \"something high in protein\" or \"something healthy\", does not count.",
   };
   questions.done = {
     type: "noul",
@@ -132,6 +142,7 @@ async function pickSuggestions(input: { said: string; order: Order; apiKey: stri
       instructions: "A cafe guest asked the waiter a question or for a suggestion. What are they asking for?",
       criteria: {
         healthy: "Something healthy, light, fresh or low-calorie.",
+        protein: "Something high in protein or filling after exercise.",
         popular: "What is popular, the best, a favourite, or a general recommendation with no specific kind of food named.",
         vegan: "Vegan or dairy-free and egg-free food.",
         vegetarian: "Vegetarian or meat-free food.",
@@ -150,7 +161,8 @@ async function pickSuggestions(input: { said: string; order: Order; apiKey: stri
         `A cafe guest asked the waiter a question or for a suggestion. \`guest_already_ordered\` is what they have so far. ` +
         `Would "${item.name}" be a good dish to show them in answer? If they ask what goes with something they already have, ` +
         `a good answer complements it (food with a drink, a drink with food) and is not another item of the same kind. ` +
-        `${item.name}: ${item.description}. Menu section: ${item.category}. Tags: ${item.tags.join(", ") || "none"}.`,
+        `${item.name}: ${item.description}. Menu section: ${item.category}. Tags: ${item.tags.join(", ") || "none"}. ` +
+        `Per serving about ${item.nutrition.kcal} kcal, ${item.nutrition.protein} g protein, ${item.nutrition.carbs} g carbs, ${item.nutrition.fat} g fat.`,
     };
   }
   const state = {
@@ -161,6 +173,11 @@ async function pickSuggestions(input: { said: string; order: Order; apiKey: stri
   const topic = (SUGGESTION_TOPICS as readonly string[]).includes(answers.topic?.choice ?? "")
     ? (answers.topic!.choice as SuggestionTopic)
     : "other";
+  // A question about a number is answered from the menu's numbers, not from the model's judgement.
+  if (topic === "protein") {
+    const byProtein = [...candidates].sort((a, b) => b.nutrition.protein - a.nutrition.protein);
+    return { topic, itemIds: byProtein.slice(0, 3).map((item) => item.id) };
+  }
   const score = (id: string) => answers[`match_${id}`]?.noul ?? 0;
   const itemIds = candidates
     .filter((item) => score(item.id) >= MIN_MATCH)
@@ -180,7 +197,7 @@ export async function interpret(input: {
   const before = sanitizeOrder(input.before);
   const shown = (input.shownSuggestions ?? []).filter((id) => itemsById.has(id));
   const said = input.said.trim();
-  if (!said) return { order: before, suggest: null, accepted: null, done: false, ms: 0, confidences: {} };
+  if (!said) return { order: before, suggest: null, accepted: null, nutrition: false, done: false, ms: 0, confidences: {} };
 
   const started = performance.now();
   const answers = await ask(
@@ -232,8 +249,9 @@ export async function interpret(input: {
   lines.sort((a, b) => position(a) - position(b));
 
   const order = sanitizeOrder({ lines });
+  const nutrition = (answers.nutrition?.noul ?? 0) >= MIN_ASKING && order.lines.length > 0;
   const suggest =
-    (answers.asking?.noul ?? 0) >= MIN_ASKING
+    !nutrition && (answers.asking?.noul ?? 0) >= MIN_ASKING
       ? await pickSuggestions({ said, order, apiKey: input.apiKey, signal: input.signal })
       : null;
 
@@ -241,6 +259,7 @@ export async function interpret(input: {
     order,
     suggest,
     accepted: acceptedId ? ordinal + 1 : null,
+    nutrition,
     done: (answers.done?.noul ?? 0) > 0.7,
     ms: Math.round(performance.now() - started),
     confidences,

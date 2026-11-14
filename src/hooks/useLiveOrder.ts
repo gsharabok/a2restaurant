@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Order, PricedOrder } from "@/lib/order";
+import { EMPTY_PRICED, type Order, type PricedOrder } from "@/lib/order";
 import type { Suggestion } from "@/lib/suggest";
 
 type InterpretResponse = {
@@ -9,11 +9,11 @@ type InterpretResponse = {
   priced: PricedOrder;
   suggestion: Suggestion | null;
   accepted: number | null;
+  nutrition: boolean;
   done: boolean;
   ms: number;
 };
 
-const EMPTY_PRICED: PricedOrder = { lines: [], total: 0, count: 0 };
 /** Silence after which the words so far are treated as a finished turn. */
 const TURN_GAP_MS = 1500;
 
@@ -29,6 +29,8 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
   const [suggestion, setSuggestion] = useState<Suggestion | null>(null);
   const [transcript, setTranscript] = useState<Transcript>({ settled: "", unsettled: "", previous: "" });
   const [done, setDone] = useState(false);
+  /** True while the guest's latest words ask for the nutrition breakdown. */
+  const [nutritionAsked, setNutritionAsked] = useState(false);
   const [latency, setLatency] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -88,6 +90,7 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
         shownPriced.current = basePriced.current;
         setPriced(basePriced.current);
         setSuggestion(shown.current);
+        setNutritionAsked(false);
         return;
       }
       if (options?.endOnSilence !== false) timer.current = setTimeout(commit, TURN_GAP_MS);
@@ -126,6 +129,7 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
           shownPriced.current = { ...result.priced, lines };
           setPriced(shownPriced.current);
           setSuggestion(result.suggestion ?? (result.accepted ? null : shown.current));
+          setNutritionAsked(result.nutrition);
           setLatency(Math.round(performance.now() - sent));
           setError(null);
         })
@@ -165,6 +169,7 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
     setSuggestion(null);
     setTranscript({ settled: "", unsettled: "", previous: "" });
     setDone(false);
+    setNutritionAsked(false);
     setLatency(null);
     setError(null);
   }, []);
@@ -174,5 +179,5 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
     inFlight.current?.abort();
   }, []);
 
-  return { priced, suggestion, transcript, done, latency, error, hear, endTurn, reset };
+  return { priced, suggestion, nutritionAsked, transcript, done, latency, error, hear, endTurn, reset };
 }

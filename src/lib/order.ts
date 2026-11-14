@@ -1,4 +1,4 @@
-import { itemsById, menu, type MenuItem } from "./menu";
+import { itemsById, menu, type MenuItem, type Nutrition } from "./menu";
 
 export const MAX_QTY = 4;
 
@@ -15,8 +15,12 @@ export type PricedLine = OrderLine & {
   lineTotal: number;
   pricePlaceholder: boolean;
   optionRows: PricedOption[];
+  /** For one unit, with the chosen options applied. */
+  nutrition: Nutrition;
 };
-export type PricedOrder = { lines: PricedLine[]; total: number; count: number };
+export type PricedOrder = { lines: PricedLine[]; total: number; count: number; nutrition: Nutrition };
+
+export const EMPTY_PRICED: PricedOrder = { lines: [], total: 0, count: 0, nutrition: { kcal: 0, protein: 0, carbs: 0, fat: 0, richIn: [] } };
 
 export const emptyOrder: Order = { lines: [] };
 
@@ -49,10 +53,12 @@ export function priceOrder(order: Order): PricedOrder {
   const lines = sanitizeOrder(order).lines.map((line) => {
     const item = itemsById.get(line.itemId)!;
     let unitPrice = item.price;
+    let scale = 1;
     const optionRows = Object.entries(line.options).map(([group, value]) => {
       const def = menu.optionGroups[group];
       const chosen = def.values.find((v) => v.id === value)!;
       unitPrice += chosen.price ?? 0;
+      scale *= chosen.nutritionScale ?? 1;
       return {
         group,
         label: def.label,
@@ -73,8 +79,25 @@ export function priceOrder(order: Order): PricedOrder {
       lineTotal: Math.round(unitPrice * line.qty * 100) / 100,
       pricePlaceholder: Boolean(item.pricePlaceholder),
       optionRows,
+      nutrition: {
+        kcal: Math.round((item.nutrition.kcal * scale) / 5) * 5,
+        protein: Math.round(item.nutrition.protein * scale),
+        carbs: Math.round(item.nutrition.carbs * scale),
+        fat: Math.round(item.nutrition.fat * scale),
+        richIn: item.nutrition.richIn,
+      },
     };
   });
   const total = Math.round(lines.reduce((sum, line) => sum + line.lineTotal, 0) * 100) / 100;
-  return { lines, total, count: lines.reduce((sum, line) => sum + line.qty, 0) };
+  const sum = (pick: (n: Nutrition) => number) => lines.reduce((all, line) => all + pick(line.nutrition) * line.qty, 0);
+  // Nutrients named by the most dishes come first.
+  const mentions = new Map<string, number>();
+  for (const line of lines) for (const name of line.nutrition.richIn) mentions.set(name, (mentions.get(name) ?? 0) + 1);
+  const richIn = [...mentions.entries()].sort((a, b) => b[1] - a[1]).map(([name]) => name).slice(0, 5);
+  return {
+    lines,
+    total,
+    count: lines.reduce((all, line) => all + line.qty, 0),
+    nutrition: { kcal: sum((n) => n.kcal), protein: sum((n) => n.protein), carbs: sum((n) => n.carbs), fat: sum((n) => n.fat), richIn },
+  };
 }

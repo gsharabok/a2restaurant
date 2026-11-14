@@ -1,6 +1,9 @@
 import data from "@/data/kaffeine.json";
 
-export type OptionValue = { id: string; label: string; heard: string; price?: number };
+/** `nutritionScale` multiplies the item's estimated nutrition, e.g. a large size or a lighter milk. */
+export type OptionValue = { id: string; label: string; heard: string; price?: number; nutritionScale?: number };
+/** Per serving: kcal, then grams. All figures are estimates. */
+export type Nutrition = { kcal: number; protein: number; carbs: number; fat: number; richIn: string[] };
 export type OptionGroup = { label: string; default: string; values: OptionValue[] };
 export type MenuItem = {
   id: string;
@@ -13,6 +16,7 @@ export type MenuItem = {
   heard: string;
   tags: string[];
   options?: string[];
+  nutrition: Nutrition;
 };
 export type Menu = {
   restaurant: {
@@ -24,6 +28,7 @@ export type Menu = {
     menuSource: string;
     menuDate: string;
     priceNote: string;
+    nutritionNote: string;
   };
   optionGroups: Record<string, OptionGroup>;
   items: MenuItem[];

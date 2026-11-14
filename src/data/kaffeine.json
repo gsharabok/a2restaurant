@@ -7,7 +7,8 @@
     "currency": "GBP",
     "menuSource": "https://kaffeine.co.uk/location/66-great-titchfield-street/",
     "menuDate": "2026-11-09",
-    "priceNote": "Food prices are from Kaffeine's published menu. Drink and side prices are placeholders: the published menu does not list them."
+    "priceNote": "Food prices are from Kaffeine's published menu. Drink and side prices are placeholders: the published menu does not list them.",
+    "nutritionNote": "Nutrition figures are estimates from typical recipes, not published by Kaffeine."
   },
   "optionGroups": {
     "milk": {
@@ -23,18 +24,21 @@
           "id": "oat",
           "label": "Oat",
           "price": 0.5,
-          "heard": "oat milk"
+          "heard": "oat milk",
+          "nutritionScale": 0.9
         },
         {
           "id": "almond",
           "label": "Almond",
           "price": 0.5,
-          "heard": "almond milk"
+          "heard": "almond milk",
+          "nutritionScale": 0.65
         },
         {
           "id": "skimmed",
           "label": "Skim",
-          "heard": "skimmed, skinny or low-fat milk"
+          "heard": "skimmed, skinny or low-fat milk",
+          "nutritionScale": 0.65
         }
       ]
     },
@@ -67,7 +71,8 @@
           "id": "large",
           "label": "Large",
           "price": 0.6,
-          "heard": "large or big size"
+          "heard": "large or big size",
+          "nutritionScale": 1.35
         }
       ]
     },
@@ -106,7 +111,8 @@
           "id": "large",
           "label": "Large",
           "price": 2.0,
-          "heard": "large or big portion"
+          "heard": "large or big portion",
+          "nutritionScale": 1.4
         }
       ]
     }
@@ -122,7 +128,18 @@
       "tags": [
         "vegetarian"
       ],
-      "image": "/items/1f373.svg"
+      "image": "/items/1f373.svg",
+      "nutrition": {
+        "kcal": 520,
+        "protein": 24,
+        "carbs": 34,
+        "fat": 32,
+        "richIn": [
+          "Vitamin B12",
+          "Vitamin D",
+          "Choline"
+        ]
+      }
     },
     {
       "id": "avo_smash",
@@ -135,7 +152,18 @@
         "vegetarian",
         "healthy"
       ],
-      "image": "/items/1f951.svg"
+      "image": "/items/1f951.svg",
+      "nutrition": {
+        "kcal": 560,
+        "protein": 16,
+        "carbs": 42,
+        "fat": 36,
+        "richIn": [
+          "Vitamin E",
+          "Vitamin K",
+          "Folate"
+        ]
+      }
     },
     {
       "id": "eggs_florentine",
@@ -147,7 +175,19 @@
       "tags": [
         "vegetarian"
       ],
-      "image": "/items/1f373.svg"
+      "image": "/items/1f373.svg",
+      "nutrition": {
+        "kcal": 540,
+        "protein": 25,
+        "carbs": 32,
+        "fat": 34,
+        "richIn": [
+          "Vitamin A",
+          "Vitamin K",
+          "Folate",
+          "Vitamin B12"
+        ]
+      }
     },
     {
       "id": "eggs_benedict",
@@ -159,7 +199,18 @@
       "tags": [
         "popular"
       ],
-      "image": "/items/1f373.svg"
+      "image": "/items/1f373.svg",
+      "nutrition": {
+        "kcal": 610,
+        "protein": 32,
+        "carbs": 36,
+        "fat": 36,
+        "richIn": [
+          "Vitamin B12",
+          "Vitamin D",
+          "Vitamin B1"
+        ]
+      }
     },
     {
       "id": "eggs_royale",
@@ -169,7 +220,18 @@
       "description": "Poached eggs, smoked salmon, hollandaise, toasted English muffins",
       "heard": "Eggs Royale: poached eggs with smoked salmon on English muffins.",
       "tags": [],
-      "image": "/items/1f373.svg"
+      "image": "/items/1f373.svg",
+      "nutrition": {
+        "kcal": 620,
+        "protein": 34,
+        "carbs": 32,
+        "fat": 38,
+        "richIn": [
+          "Vitamin D",
+          "Vitamin B12",
+          "Omega-3"
+        ]
+      }
     },
     {
       "id": "drunken_mushrooms",
@@ -181,7 +243,18 @@
       "tags": [
         "vegetarian"
       ],
-      "image": "/items/1f344.svg"
+      "image": "/items/1f344.svg",
+      "nutrition": {
+        "kcal": 480,
+        "protein": 14,
+        "carbs": 40,
+        "fat": 28,
+        "richIn": [
+          "Vitamin D",
+          "Vitamin B2",
+          "Vitamin B3"
+        ]
+      }
     },
     {
       "id": "espresso_pancakes",
@@ -194,7 +267,18 @@
         "vegetarian",
         "popular"
       ],
-      "image": "/items/1f95e.svg"
+      "image": "/items/1f95e.svg",
+      "nutrition": {
+        "kcal": 640,
+        "protein": 12,
+        "carbs": 82,
+        "fat": 28,
+        "richIn": [
+          "Vitamin C",
+          "Vitamin B2",
+          "Calcium"
+        ]
+      }
     },
     {
       "id": "bacon_egg_brioche",
@@ -206,7 +290,18 @@
       "tags": [
         "popular"
       ],
-      "image": "/items/1f96a.svg"
+      "image": "/items/1f96a.svg",
+      "nutrition": {
+        "kcal": 590,
+        "protein": 26,
+        "carbs": 38,
+        "fat": 36,
+        "richIn": [
+          "Vitamin B12",
+          "Vitamin D",
+          "Vitamin E"
+        ]
+      }
     },
     {
       "id": "veggie_egg_brioche",
@@ -218,7 +313,18 @@
       "tags": [
         "vegetarian"
       ],
-      "image": "/items/1f96f.svg"
+      "image": "/items/1f96f.svg",
+      "nutrition": {
+        "kcal": 540,
+        "protein": 20,
+        "carbs": 38,
+        "fat": 33,
+        "richIn": [
+          "Vitamin A",
+          "Vitamin B12",
+          "Vitamin K"
+        ]
+      }
     },
     {
       "id": "granola",
@@ -231,7 +337,18 @@
         "vegetarian",
         "healthy"
       ],
-      "image": "/items/1f963.svg"
+      "image": "/items/1f963.svg",
+      "nutrition": {
+        "kcal": 420,
+        "protein": 18,
+        "carbs": 28,
+        "fat": 26,
+        "richIn": [
+          "Vitamin E",
+          "Vitamin B12",
+          "Calcium"
+        ]
+      }
     },
     {
       "id": "fruit_salad",
@@ -244,7 +361,18 @@
         "vegan",
         "healthy"
       ],
-      "image": "/items/1f353.svg"
+      "image": "/items/1f353.svg",
+      "nutrition": {
+        "kcal": 160,
+        "protein": 2,
+        "carbs": 38,
+        "fat": 1,
+        "richIn": [
+          "Vitamin C",
+          "Vitamin A",
+          "Folate"
+        ]
+      }
     },
     {
       "id": "sourdough_toast",
@@ -256,7 +384,17 @@
       "tags": [
         "vegetarian"
       ],
-      "image": "/items/1f35e.svg"
+      "image": "/items/1f35e.svg",
+      "nutrition": {
+        "kcal": 310,
+        "protein": 8,
+        "carbs": 44,
+        "fat": 11,
+        "richIn": [
+          "Vitamin B1",
+          "Folate"
+        ]
+      }
     },
     {
       "id": "goats_curd_salad",
@@ -272,7 +410,18 @@
       "options": [
         "portion"
       ],
-      "image": "/items/1f957.svg"
+      "image": "/items/1f957.svg",
+      "nutrition": {
+        "kcal": 380,
+        "protein": 14,
+        "carbs": 24,
+        "fat": 26,
+        "richIn": [
+          "Vitamin K",
+          "Vitamin C",
+          "Folate"
+        ]
+      }
     },
     {
       "id": "steak_salad",
@@ -287,7 +436,19 @@
       "options": [
         "portion"
       ],
-      "image": "/items/1f969.svg"
+      "image": "/items/1f969.svg",
+      "nutrition": {
+        "kcal": 520,
+        "protein": 38,
+        "carbs": 18,
+        "fat": 32,
+        "richIn": [
+          "Vitamin B12",
+          "Vitamin B6",
+          "Vitamin C",
+          "Iron"
+        ]
+      }
     },
     {
       "id": "sausage_roll",
@@ -297,7 +458,17 @@
       "description": "Pork belly, onion, garlic, chilli, apple",
       "heard": "Pork belly sausage roll. Also ordered as 'sausage roll'.",
       "tags": [],
-      "image": "/items/1f956.svg"
+      "image": "/items/1f956.svg",
+      "nutrition": {
+        "kcal": 450,
+        "protein": 16,
+        "carbs": 30,
+        "fat": 29,
+        "richIn": [
+          "Vitamin B1",
+          "Vitamin B12"
+        ]
+      }
     },
     {
       "id": "croissant",
@@ -309,7 +480,16 @@
       "tags": [
         "vegetarian"
       ],
-      "image": "/items/1f950.svg"
+      "image": "/items/1f950.svg",
+      "nutrition": {
+        "kcal": 290,
+        "protein": 6,
+        "carbs": 30,
+        "fat": 16,
+        "richIn": [
+          "Vitamin A"
+        ]
+      }
     },
     {
       "id": "almond_croissant",
@@ -322,7 +502,16 @@
         "vegetarian",
         "popular"
       ],
-      "image": "/items/1f950.svg"
+      "image": "/items/1f950.svg",
+      "nutrition": {
+        "kcal": 460,
+        "protein": 10,
+        "carbs": 44,
+        "fat": 27,
+        "richIn": [
+          "Vitamin E"
+        ]
+      }
     },
     {
       "id": "pain_au_chocolat",
@@ -334,7 +523,16 @@
       "tags": [
         "vegetarian"
       ],
-      "image": "/items/1f950.svg"
+      "image": "/items/1f950.svg",
+      "nutrition": {
+        "kcal": 330,
+        "protein": 6,
+        "carbs": 36,
+        "fat": 18,
+        "richIn": [
+          "Vitamin A"
+        ]
+      }
     },
     {
       "id": "banana_bread",
@@ -346,7 +544,16 @@
       "tags": [
         "vegetarian"
       ],
-      "image": "/items/1f34c.svg"
+      "image": "/items/1f34c.svg",
+      "nutrition": {
+        "kcal": 340,
+        "protein": 5,
+        "carbs": 50,
+        "fat": 13,
+        "richIn": [
+          "Vitamin B6"
+        ]
+      }
     },
     {
       "id": "brownie",
@@ -359,7 +566,16 @@
         "vegetarian",
         "gluten-free"
       ],
-      "image": "/items/1f36b.svg"
+      "image": "/items/1f36b.svg",
+      "nutrition": {
+        "kcal": 220,
+        "protein": 3,
+        "carbs": 26,
+        "fat": 12,
+        "richIn": [
+          "Iron"
+        ]
+      }
     },
     {
       "id": "portuguese_tart",
@@ -371,7 +587,17 @@
       "tags": [
         "vegetarian"
       ],
-      "image": "/items/1f967.svg"
+      "image": "/items/1f967.svg",
+      "nutrition": {
+        "kcal": 250,
+        "protein": 4,
+        "carbs": 30,
+        "fat": 12,
+        "richIn": [
+          "Vitamin A",
+          "Vitamin D"
+        ]
+      }
     },
     {
       "id": "side_bacon",
@@ -382,7 +608,17 @@
       "description": "Side of streaky bacon",
       "heard": "A side or extra of streaky bacon. Ordered as 'bacon', 'some bacon', 'a side of bacon' or 'add bacon'.",
       "tags": [],
-      "image": "/items/1f953.svg"
+      "image": "/items/1f953.svg",
+      "nutrition": {
+        "kcal": 180,
+        "protein": 12,
+        "carbs": 0,
+        "fat": 14,
+        "richIn": [
+          "Vitamin B12",
+          "Vitamin B3"
+        ]
+      }
     },
     {
       "id": "side_avocado",
@@ -396,7 +632,18 @@
         "vegan",
         "healthy"
       ],
-      "image": "/items/1f951.svg"
+      "image": "/items/1f951.svg",
+      "nutrition": {
+        "kcal": 160,
+        "protein": 2,
+        "carbs": 8,
+        "fat": 15,
+        "richIn": [
+          "Vitamin E",
+          "Vitamin K",
+          "Folate"
+        ]
+      }
     },
     {
       "id": "side_poached_egg",
@@ -409,7 +656,17 @@
       "tags": [
         "vegetarian"
       ],
-      "image": "/items/1f95a.svg"
+      "image": "/items/1f95a.svg",
+      "nutrition": {
+        "kcal": 70,
+        "protein": 6,
+        "carbs": 0,
+        "fat": 5,
+        "richIn": [
+          "Vitamin B12",
+          "Vitamin D"
+        ]
+      }
     },
     {
       "id": "side_salmon",
@@ -422,7 +679,18 @@
       "tags": [
         "healthy"
       ],
-      "image": "/items/1f363.svg"
+      "image": "/items/1f363.svg",
+      "nutrition": {
+        "kcal": 120,
+        "protein": 18,
+        "carbs": 0,
+        "fat": 5,
+        "richIn": [
+          "Vitamin D",
+          "Vitamin B12",
+          "Omega-3"
+        ]
+      }
     },
     {
       "id": "espresso",
@@ -436,7 +704,14 @@
       "options": [
         "shots"
       ],
-      "image": "/items/2615.svg"
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 5,
+        "protein": 0,
+        "carbs": 1,
+        "fat": 0,
+        "richIn": []
+      }
     },
     {
       "id": "americano",
@@ -452,7 +727,14 @@
         "size",
         "shots"
       ],
-      "image": "/items/2615.svg"
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 5,
+        "protein": 0,
+        "carbs": 1,
+        "fat": 0,
+        "richIn": []
+      }
     },
     {
       "id": "flat_white",
@@ -470,7 +752,18 @@
         "size",
         "shots"
       ],
-      "image": "/items/2615.svg"
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 110,
+        "protein": 6,
+        "carbs": 8,
+        "fat": 6,
+        "richIn": [
+          "Vitamin B2",
+          "Vitamin B12",
+          "Calcium"
+        ]
+      }
     },
     {
       "id": "latte",
@@ -487,7 +780,18 @@
         "size",
         "shots"
       ],
-      "image": "/items/2615.svg"
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 150,
+        "protein": 8,
+        "carbs": 12,
+        "fat": 8,
+        "richIn": [
+          "Vitamin B2",
+          "Vitamin B12",
+          "Calcium"
+        ]
+      }
     },
     {
       "id": "cappuccino",
@@ -503,7 +807,18 @@
         "size",
         "shots"
       ],
-      "image": "/items/2615.svg"
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 120,
+        "protein": 6,
+        "carbs": 10,
+        "fat": 6,
+        "richIn": [
+          "Vitamin B2",
+          "Vitamin B12",
+          "Calcium"
+        ]
+      }
     },
     {
       "id": "mocha",
@@ -520,7 +835,17 @@
         "size",
         "shots"
       ],
-      "image": "/items/2615.svg"
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 250,
+        "protein": 9,
+        "carbs": 32,
+        "fat": 10,
+        "richIn": [
+          "Vitamin B2",
+          "Calcium"
+        ]
+      }
     },
     {
       "id": "filter",
@@ -534,7 +859,14 @@
       "options": [
         "size"
       ],
-      "image": "/items/2615.svg"
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 5,
+        "protein": 0,
+        "carbs": 1,
+        "fat": 0,
+        "richIn": []
+      }
     },
     {
       "id": "hot_chocolate",
@@ -549,7 +881,18 @@
         "milk",
         "size"
       ],
-      "image": "/items/2615.svg"
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 280,
+        "protein": 10,
+        "carbs": 34,
+        "fat": 12,
+        "richIn": [
+          "Vitamin B2",
+          "Vitamin D",
+          "Calcium"
+        ]
+      }
     },
     {
       "id": "tea",
@@ -563,7 +906,14 @@
       "options": [
         "milk"
       ],
-      "image": "/items/1fad6.svg"
+      "image": "/items/1fad6.svg",
+      "nutrition": {
+        "kcal": 5,
+        "protein": 0,
+        "carbs": 1,
+        "fat": 0,
+        "richIn": []
+      }
     },
     {
       "id": "orange_juice",
@@ -577,7 +927,17 @@
         "healthy",
         "vegan"
       ],
-      "image": "/items/1f9c3.svg"
+      "image": "/items/1f9c3.svg",
+      "nutrition": {
+        "kcal": 110,
+        "protein": 2,
+        "carbs": 25,
+        "fat": 0,
+        "richIn": [
+          "Vitamin C",
+          "Folate"
+        ]
+      }
     }
   ]
 }

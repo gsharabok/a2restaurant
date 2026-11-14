@@ -21,6 +21,7 @@ type Case = {
   /** At least one of these must be among the suggested dishes. */
   suggestAny?: string[];
   accepted?: number | null;
+  nutrition?: boolean;
   done?: boolean;
 };
 
@@ -71,6 +72,10 @@ const cases: Case[] = [
   { name: "open: salmon", said: "Is there something with salmon?", expect: [], suggestAny: ["eggs_royale", "side_salmon"] },
   { name: "open: order plus question", said: "I'll have a latte, and what pastries do you have?", expect: ["1 latte"], suggestAny: ["croissant", "almond_croissant", "pain_au_chocolat"] },
   { name: "open: accept by name", before: ["1 flat_white"], shown: ["eggs_benedict", "eggs_royale", "poached_eggs"], said: "I'll go with the eggs royale", expect: ["1 flat_white", "1 eggs_royale"] },
+  { name: "nutrition: calories", before: ["1 poached_eggs", "1 flat_white"], said: "How many calories is that?", expect: ["1 poached_eggs", "1 flat_white"], nutrition: true },
+  { name: "nutrition: protein and vitamins", before: ["1 eggs_royale"], said: "How much protein is in my order, and what vitamins?", expect: ["1 eggs_royale"], nutrition: true },
+  { name: "nutrition: show it", before: ["1 avo_smash", "1 latte"], said: "Can you show me the nutrition details", expect: ["1 avo_smash", "1 latte"], nutrition: true },
+  { name: "nutrition: high-protein dish is a suggestion", before: ["1 flat_white"], said: "What do you have that's high in protein?", expect: ["1 flat_white"], suggest: "protein", suggestAny: ["steak_salad"] },
   { name: "not on menu", said: "Can I get some hash browns", expect: [] },
   { name: "similar dishes", said: "Eggs royale and an avo smash with a side of smoked salmon", expect: ["1 eggs_royale", "1 avo_smash", "1 side_salmon"] },
 ];
@@ -89,6 +94,7 @@ async function main() {
       (test.suggestAny === undefined || test.suggestAny.some((id) => result.suggest?.itemIds.includes(id))) &&
       (test.accepted === undefined || result.accepted === test.accepted) &&
       (test.done === undefined || result.done === test.done) &&
+      result.nutrition === (test.nutrition ?? false) &&
       (test.suggest !== undefined || test.suggestAny !== undefined || result.suggest === null);
     if (ok) passed++;
     console.log(`${ok ? "PASS" : "FAIL"} ${String(result.ms).padStart(4)}ms  ${test.name}`);
@@ -96,7 +102,7 @@ async function main() {
       console.log(`       said: ${test.said}`);
       console.log(`       want: ${want.join(" | ")}  suggest=${test.suggest ?? null} accepted=${test.accepted ?? null} done=${test.done ?? false}`);
       console.log(`       conf: ${Object.entries(result.confidences).map(([id, c]) => `${id}=${c.toFixed(2)}`).join(" ")}`);
-      console.log(`       got:  ${got.join(" | ")}  suggest=${result.suggest ? `${result.suggest.topic}:${result.suggest.itemIds.join(",")}` : null} accepted=${result.accepted} done=${result.done}`);
+      console.log(`       got:  ${got.join(" | ")}  suggest=${result.suggest ? `${result.suggest.topic}:${result.suggest.itemIds.join(",")}` : null} nutrition=${result.nutrition} accepted=${result.accepted} done=${result.done}`);
     }
   }
   times.sort((a, b) => a - b);
