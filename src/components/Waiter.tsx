@@ -72,6 +72,7 @@ export function Waiter({ restaurant }: Props) {
       const words = turn.split(" ");
       for (let i = 1; i <= words.length; i++) {
         if (token !== playToken.current) return;
+        voice.guestTyped();
         hear({ settled: "", unsettled: words.slice(0, i).join(" ") });
         await wait(230);
       }
@@ -252,7 +253,7 @@ export function Waiter({ restaurant }: Props) {
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-semibold">{item.name}</p>
                     <p className="text-[11px] text-white/45 tabular-nums">{item.kcal} kcal · {item.protein}g protein</p>
-                    <p className="text-[11px] text-amber-200/70">say “add the {["first", "second", "third"][index]} one”</p>
+                    <p className="text-[11px] text-amber-200/70">say “{suggestion.items.length === 1 ? "yes please" : `add the ${["first", "second", "third"][index]} one`}”</p>
                   </div>
                   <p className="shrink-0 text-sm font-semibold tabular-nums">{formatPrice(item.price)}</p>
                 </div>
@@ -264,7 +265,7 @@ export function Waiter({ restaurant }: Props) {
 
       <footer className="relative z-10 px-6 pb-6">
         <AnimatePresence>
-          {voice.line && (
+          {voice.line && voice.line !== suggestion?.caption && (
             <motion.button
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}

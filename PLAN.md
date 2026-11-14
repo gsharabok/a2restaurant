@@ -2,7 +2,7 @@
 
 Repo: https://github.com/zarina-kassen/agent2restaurant (empty today)
 Reference experience: https://x.com/kunalabcdani/status/2119892841723990319
-Status: plan only. Nothing is built. Research done 2026-11-14.
+Status: phase 1 (one-way demo) is built and tagged `v0.1-one-way-demo`. Phase 2 (waiter voice) is built on top of it; see README.md. Research done 2026-11-14.
 
 ## 1. The demo in one paragraph
 

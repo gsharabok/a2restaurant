@@ -38,9 +38,10 @@ export function sayPrice(total: number): string {
 }
 
 function sayLine(line: PricedOrder["lines"][number]): string {
-  const chosen = line.optionRows.filter((row) => !row.isDefault).map((row) => row.valueLabel.toLowerCase());
+  // Reversed so it reads the way people say it: "large iced oat latte".
+  const chosen = line.optionRows.filter((row) => !row.isDefault).map((row) => row.valueLabel.toLowerCase()).reverse();
   const name = [...chosen, spoken(line.name)].join(" ");
-  if (line.qty === 1) return /s$/.test(name) ? name : `${/^[aeiou]/.test(name) ? "an" : "a"} ${name}`;
+  if (line.qty === 1) return name;
   return `${NUMBERS[line.qty] ?? line.qty} ${/s$/.test(name) ? name : `${name}s`}`;
 }
 
