@@ -22,11 +22,16 @@ export function Waiter({ restaurant, restaurants }: Props) {
   const [choosing, setChoosing] = useState(false);
   const resetSpeechTurn = useRef<() => void>(() => {});
   const payButton = useRef<PayHandle>(null);
+  const [payAsks, setPayAsks] = useState(0);
   const order = useLiveOrder(
     restaurant.id,
     useCallback(() => resetSpeechTurn.current(), []),
-    useCallback(() => payButton.current?.pay(), []),
+    useCallback(() => setPayAsks((asks) => asks + 1), []),
   );
+  // Opened after the screen has drawn the turn, so the checkout charges the order that turn left.
+  useEffect(() => {
+    if (payAsks > 0) payButton.current?.pay();
+  }, [payAsks]);
   const speech = useSpeech(order.hear);
   useEffect(() => {
     resetSpeechTurn.current = speech.resetTurn;
