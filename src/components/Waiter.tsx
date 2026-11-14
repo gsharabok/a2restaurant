@@ -6,6 +6,7 @@ import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { ChevronDown, Keyboard, Mic, MicOff, Play, RotateCcw, Square } from "lucide-react";
 import { ItemImage } from "./ItemImage";
 import { OrderCard } from "./OrderCard";
+import { PayButton } from "./PayButton";
 import { useLiveOrder } from "@/hooks/useLiveOrder";
 import { useSpeech } from "@/hooks/useSpeech";
 import { formatPrice } from "@/lib/format";
@@ -156,6 +157,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
           <p className="mt-1 h-4 text-xs tabular-nums text-white/40" data-testid="total-nutrition">
             {!empty && `${priced.nutrition.kcal.toLocaleString("en-GB")} kcal · ${priced.nutrition.protein}g protein`}
           </p>
+          {!empty && <PayButton restaurant={restaurant} priced={priced} className="mt-2" />}
         </div>
       </header>
 
@@ -377,9 +379,12 @@ export function Waiter({ restaurant, restaurants }: Props) {
                 </span>
                 <span className="text-3xl font-semibold tabular-nums">{formatPrice(priced.total)}</span>
               </div>
+              <div className="mt-6 flex justify-end">
+                <PayButton restaurant={restaurant} priced={priced} />
+              </div>
               <button
                 onClick={startOver}
-                className="mt-8 w-full rounded-full bg-amber-300 py-3 font-semibold text-black transition hover:bg-amber-200"
+                className="mt-3 w-full rounded-full bg-amber-300 py-3 font-semibold text-black transition hover:bg-amber-200"
               >
                 Start a new order
               </button>

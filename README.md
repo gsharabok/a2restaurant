@@ -11,6 +11,7 @@ The dropdown at the top left switches restaurant. The second one is Starbucks UK
 ```bash
 npm install
 echo "TYPESAFE_API_KEY=your-key" > .env.local   # from https://console.typesafe.ai/keys
+echo "STRIPE_SECRET_KEY=sk_test_..." >> .env.local  # optional: "Pay with Link" opens Stripe Checkout; without it, a demo checkout
 npm run dev
 ```
 
