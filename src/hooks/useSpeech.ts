@@ -155,5 +155,7 @@ export function useSpeech(onText: (text: SpeechText) => void) {
     [],
   );
 
-  return { listening, supported, error, start, stop, resetTurn };
+  const clearError = useCallback(() => setError(null), []);
+
+  return { listening, supported, error, start, stop, resetTurn, clearError };
 }

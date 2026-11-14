@@ -33,6 +33,8 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
   const [error, setError] = useState<string | null>(null);
 
   const base = useRef<Order>({ lines: [] });
+  const basePriced = useRef<PricedOrder>(EMPTY_PRICED);
+  const shownPriced = useRef<PricedOrder>(EMPTY_PRICED);
   const latest = useRef<InterpretResponse | null>(null);
   const shown = useRef<Suggestion | null>(null);
   const said = useRef("");
@@ -56,8 +58,9 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
     if (!said.current) return;
     if (result) {
       base.current = result.order;
-      // A suggestion stays up for exactly the following turn, so "add the first one" can refer to it.
-      const next = result.suggestion;
+      basePriced.current = shownPriced.current;
+      // Suggestions stay up until one is accepted or a new question replaces them.
+      const next = result.accepted ? null : (result.suggestion ?? shown.current);
       shown.current = next;
       setSuggestion(next);
       if (result.done && result.order.lines.length > 0) setDone(true);
@@ -69,12 +72,25 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
   }, []);
 
   const hear = useCallback(
-    (text: { settled: string; unsettled: string }) => {
+    (text: { settled: string; unsettled: string }, options?: { endOnSilence?: boolean }) => {
       const full = `${text.settled} ${text.unsettled}`.trim();
       setTranscript((current) => ({ ...text, previous: full ? "" : current.previous }));
       if (timer.current) clearTimeout(timer.current);
-      if (!full) return;
-      timer.current = setTimeout(commit, TURN_GAP_MS);
+      if (!full) {
+        // The words were taken back (typed text deleted): show the order from before the turn.
+        if (!said.current) return;
+        inFlight.current?.abort();
+        inFlight.current = null;
+        seq.current++;
+        said.current = "";
+        latest.current = null;
+        pendingCommit.current = false;
+        shownPriced.current = basePriced.current;
+        setPriced(basePriced.current);
+        setSuggestion(shown.current);
+        return;
+      }
+      if (options?.endOnSilence !== false) timer.current = setTimeout(commit, TURN_GAP_MS);
       if (full === said.current) return;
       said.current = full;
 
@@ -107,7 +123,8 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
           }
           const place = (id: string) => firstSeen.current.indexOf(id);
           const lines = [...result.priced.lines].sort((a, b) => place(a.itemId) - place(b.itemId));
-          setPriced({ ...result.priced, lines });
+          shownPriced.current = { ...result.priced, lines };
+          setPriced(shownPriced.current);
           setSuggestion(result.accepted ? null : (result.suggestion ?? shown.current));
           setLatency(Math.round(performance.now() - sent));
           setError(null);
@@ -137,6 +154,8 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
     inFlight.current = null;
     seq.current++;
     base.current = { lines: [] };
+    basePriced.current = EMPTY_PRICED;
+    shownPriced.current = EMPTY_PRICED;
     firstSeen.current = [];
     latest.current = null;
     shown.current = null;

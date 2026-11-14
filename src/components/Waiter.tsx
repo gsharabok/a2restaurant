@@ -36,6 +36,8 @@ export function Waiter({ restaurant }: Props) {
   const playDemo = useCallback(async () => {
     const token = ++playToken.current;
     speech.stop();
+    setTyping(false);
+    setTyped("");
     reset();
     setPlaying(true);
     await wait(500);
@@ -59,6 +61,7 @@ export function Waiter({ restaurant }: Props) {
   const startOver = () => {
     stopDemo();
     speech.stop();
+    speech.clearError();
     reset();
     setTyped("");
   };
@@ -74,6 +77,8 @@ export function Waiter({ restaurant }: Props) {
 
   const { priced, suggestion, transcript, done } = order;
   const empty = priced.lines.length === 0;
+  // Past four cards the order wraps to a second row, so cards shrink to keep everything on screen.
+  const compact = priced.lines.length > 4;
   const words = `${transcript.settled} ${transcript.unsettled}`.trim();
   const problem = order.error ?? speech.error;
 
@@ -127,10 +132,10 @@ export function Waiter({ restaurant }: Props) {
           ) : (
             <motion.div key="order" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="m-auto w-full">
               <LayoutGroup>
-                <motion.div layout className="mx-auto flex max-w-7xl flex-wrap items-stretch justify-center gap-4">
+                <motion.div layout className="mx-auto flex max-w-[86rem] flex-wrap items-stretch justify-center gap-4">
                   <AnimatePresence mode="popLayout">
                     {priced.lines.map((line) => (
-                      <OrderCard key={line.itemId} line={line} />
+                      <OrderCard key={line.itemId} line={line} compact={compact} />
                     ))}
                   </AnimatePresence>
                 </motion.div>
@@ -191,11 +196,11 @@ export function Waiter({ restaurant }: Props) {
                 value={typed}
                 onChange={(event) => {
                   setTyped(event.target.value);
-                  hear({ settled: "", unsettled: event.target.value });
+                  hear({ settled: "", unsettled: event.target.value }, { endOnSilence: false });
                 }}
                 onKeyDown={(event) => {
                   if (event.key !== "Enter" || !typed.trim()) return;
-                  hear({ settled: typed, unsettled: "" });
+                  hear({ settled: typed, unsettled: "" }, { endOnSilence: false });
                   endTurn();
                   setTyped("");
                 }}
@@ -255,7 +260,7 @@ export function Waiter({ restaurant }: Props) {
             >
               <p className="text-xs uppercase tracking-[0.2em] text-amber-200/80">Order ready</p>
               <h2 className="mt-1 text-3xl font-semibold tracking-tight">Here&apos;s your order</h2>
-              <ul className="mt-6 space-y-3">
+              <ul className="mt-6 max-h-[40dvh] space-y-3 overflow-y-auto pr-1">
                 {priced.lines.map((line) => {
                   const extras = line.optionRows.filter((row) => !row.isDefault).map((row) => row.valueLabel);
                   return (
