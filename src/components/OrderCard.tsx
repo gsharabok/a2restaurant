@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import type { PricedLine } from "@/lib/order";
 import { formatPrice } from "@/lib/format";
-import { ItemImage } from "./ItemImage";
+import { ItemArt } from "./ItemArt";
 
 /** A long option list shows only the first few choices plus the one picked, so the card stays narrow. */
 const visibleValues = (row: PricedLine["optionRows"][number]) =>
@@ -27,11 +27,7 @@ export function OrderCard({ line, size = "full", detailed = false }: { line: Pri
       data-testid={`card-${line.itemId}`}
     >
       <div className="flex items-start justify-between">
-        <AnimatePresence mode="popLayout" initial={false}>
-          <motion.div key={line.image} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}>
-            <ItemImage src={line.image} size={photo ? 112 : 80} className={`${compact ? "h-14 w-14" : size === "snug" ? "h-20 w-20 [@media(max-height:780px)]:h-14 [@media(max-height:780px)]:w-14" : photo ? "h-28 w-28" : "h-20 w-20"} max-sm:h-14 max-sm:w-14 transition-all`} />
-          </motion.div>
-        </AnimatePresence>
+        <ItemArt line={line} className={`shrink-0 ${compact ? "h-14 w-14" : size === "snug" ? "h-20 w-20 [@media(max-height:780px)]:h-14 [@media(max-height:780px)]:w-14" : photo ? "h-28 w-28" : "h-20 w-20"} max-sm:h-14 max-sm:w-14 transition-all`} />
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
             key={line.qty}

@@ -152,7 +152,8 @@
           "Vitamin D",
           "Choline"
         ]
-      }
+      },
+      "serve": "hot"
     },
     {
       "id": "avo_smash",
@@ -200,7 +201,8 @@
           "Folate",
           "Vitamin B12"
         ]
-      }
+      },
+      "serve": "hot"
     },
     {
       "id": "eggs_benedict",
@@ -223,7 +225,8 @@
           "Vitamin D",
           "Vitamin B1"
         ]
-      }
+      },
+      "serve": "hot"
     },
     {
       "id": "eggs_royale",
@@ -244,7 +247,8 @@
           "Vitamin B12",
           "Omega-3"
         ]
-      }
+      },
+      "serve": "hot"
     },
     {
       "id": "drunken_mushrooms",
@@ -267,7 +271,8 @@
           "Vitamin B2",
           "Vitamin B3"
         ]
-      }
+      },
+      "serve": "hot"
     },
     {
       "id": "espresso_pancakes",
@@ -291,7 +296,8 @@
           "Vitamin B2",
           "Calcium"
         ]
-      }
+      },
+      "serve": "hot"
     },
     {
       "id": "bacon_egg_brioche",
@@ -314,7 +320,8 @@
           "Vitamin D",
           "Vitamin E"
         ]
-      }
+      },
+      "serve": "hot"
     },
     {
       "id": "veggie_egg_brioche",
@@ -337,7 +344,8 @@
           "Vitamin B12",
           "Vitamin K"
         ]
-      }
+      },
+      "serve": "hot"
     },
     {
       "id": "granola",
@@ -481,7 +489,8 @@
           "Vitamin B1",
           "Vitamin B12"
         ]
-      }
+      },
+      "serve": "hot"
     },
     {
       "id": "croissant",
@@ -631,7 +640,8 @@
           "Vitamin B12",
           "Vitamin B3"
         ]
-      }
+      },
+      "serve": "hot"
     },
     {
       "id": "side_avocado",
@@ -679,7 +689,8 @@
           "Vitamin B12",
           "Vitamin D"
         ]
-      }
+      },
+      "serve": "hot"
     },
     {
       "id": "side_salmon",
@@ -724,7 +735,9 @@
         "carbs": 1,
         "fat": 0,
         "richIn": []
-      }
+      },
+      "serve": "hot",
+      "art": "black"
     },
     {
       "id": "americano",
@@ -747,7 +760,8 @@
         "carbs": 1,
         "fat": 0,
         "richIn": []
-      }
+      },
+      "art": "black"
     },
     {
       "id": "flat_white",
@@ -776,7 +790,9 @@
           "Vitamin B12",
           "Calcium"
         ]
-      }
+      },
+      "serve": "hot",
+      "art": "milky"
     },
     {
       "id": "latte",
@@ -804,7 +820,8 @@
           "Vitamin B12",
           "Calcium"
         ]
-      }
+      },
+      "art": "milky"
     },
     {
       "id": "cappuccino",
@@ -831,7 +848,9 @@
           "Vitamin B12",
           "Calcium"
         ]
-      }
+      },
+      "serve": "hot",
+      "art": "foamy"
     },
     {
       "id": "mocha",
@@ -858,7 +877,8 @@
           "Vitamin B2",
           "Calcium"
         ]
-      }
+      },
+      "art": "chocolate"
     },
     {
       "id": "filter",
@@ -879,7 +899,9 @@
         "carbs": 1,
         "fat": 0,
         "richIn": []
-      }
+      },
+      "serve": "hot",
+      "art": "black"
     },
     {
       "id": "hot_chocolate",
@@ -905,7 +927,9 @@
           "Vitamin D",
           "Calcium"
         ]
-      }
+      },
+      "serve": "hot",
+      "art": "chocolate"
     },
     {
       "id": "tea",
@@ -926,7 +950,8 @@
         "carbs": 1,
         "fat": 0,
         "richIn": []
-      }
+      },
+      "serve": "hot"
     },
     {
       "id": "orange_juice",
@@ -950,7 +975,8 @@
           "Vitamin C",
           "Folate"
         ]
-      }
+      },
+      "serve": "cold"
     }
   ]
 }
