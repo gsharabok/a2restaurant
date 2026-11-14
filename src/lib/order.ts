@@ -8,7 +8,7 @@ export type Order = { lines: OrderLine[] };
 export type PricedOption = { group: string; label: string; value: string; valueLabel: string; isDefault: boolean; values: { id: string; label: string }[] };
 export type PricedLine = OrderLine & {
   name: string;
-  emoji: string;
+  image: string;
   description: string;
   category: string;
   unitPrice: number;
@@ -66,7 +66,7 @@ export function priceOrder(order: Order): PricedOrder {
     return {
       ...line,
       name: item.name,
-      emoji: item.emoji,
+      image: item.image,
       description: item.description,
       category: item.category,
       unitPrice,

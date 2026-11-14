@@ -8,7 +8,7 @@ export type MenuItem = {
   category: string;
   price: number;
   pricePlaceholder?: boolean;
-  emoji: string;
+  image: string;
   description: string;
   heard: string;
   tags: string[];

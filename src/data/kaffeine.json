@@ -14,81 +14,570 @@
       "label": "Milk",
       "default": "whole",
       "values": [
-        { "id": "whole", "label": "Whole", "heard": "whole, regular, normal, dairy or cow's milk" },
-        { "id": "oat", "label": "Oat", "price": 0.5, "heard": "oat milk" },
-        { "id": "almond", "label": "Almond", "price": 0.5, "heard": "almond milk" },
-        { "id": "skimmed", "label": "Skimmed", "heard": "skimmed, skinny or low-fat milk" }
+        {
+          "id": "whole",
+          "label": "Whole",
+          "heard": "whole, regular, normal, dairy or cow's milk"
+        },
+        {
+          "id": "oat",
+          "label": "Oat",
+          "price": 0.5,
+          "heard": "oat milk"
+        },
+        {
+          "id": "almond",
+          "label": "Almond",
+          "price": 0.5,
+          "heard": "almond milk"
+        },
+        {
+          "id": "skimmed",
+          "label": "Skim",
+          "heard": "skimmed, skinny or low-fat milk"
+        }
       ]
     },
     "temp": {
       "label": "Temp",
       "default": "hot",
       "values": [
-        { "id": "hot", "label": "Hot", "heard": "hot" },
-        { "id": "iced", "label": "Iced", "heard": "iced, cold, over ice" }
+        {
+          "id": "hot",
+          "label": "Hot",
+          "heard": "hot"
+        },
+        {
+          "id": "iced",
+          "label": "Iced",
+          "heard": "iced, cold, over ice"
+        }
       ]
     },
     "size": {
       "label": "Size",
       "default": "regular",
       "values": [
-        { "id": "regular", "label": "Regular", "heard": "regular, small, normal or medium size" },
-        { "id": "large", "label": "Large", "price": 0.6, "heard": "large or big size" }
+        {
+          "id": "regular",
+          "label": "Regular",
+          "heard": "regular, small, normal or medium size"
+        },
+        {
+          "id": "large",
+          "label": "Large",
+          "price": 0.6,
+          "heard": "large or big size"
+        }
       ]
     },
     "shots": {
       "label": "Shots",
       "default": "standard",
       "values": [
-        { "id": "standard", "label": "Standard", "heard": "the normal number of espresso shots" },
-        { "id": "extra", "label": "Extra shot", "price": 0.7, "heard": "an extra shot, double shot, or stronger" },
-        { "id": "decaf", "label": "Decaf", "heard": "decaf, decaffeinated" }
+        {
+          "id": "standard",
+          "label": "Standard",
+          "heard": "the normal number of espresso shots"
+        },
+        {
+          "id": "extra",
+          "label": "Extra",
+          "price": 0.7,
+          "heard": "an extra shot, double shot, or stronger"
+        },
+        {
+          "id": "decaf",
+          "label": "Decaf",
+          "heard": "decaf, decaffeinated"
+        }
       ]
     },
     "portion": {
       "label": "Portion",
       "default": "regular",
       "values": [
-        { "id": "regular", "label": "Regular", "heard": "regular or small portion" },
-        { "id": "large", "label": "Large", "price": 2.0, "heard": "large or big portion" }
+        {
+          "id": "regular",
+          "label": "Regular",
+          "heard": "regular or small portion"
+        },
+        {
+          "id": "large",
+          "label": "Large",
+          "price": 2.0,
+          "heard": "large or big portion"
+        }
       ]
     }
   },
   "items": [
-    { "id": "poached_eggs", "name": "Poached Eggs", "category": "brunch", "price": 14.0, "emoji": "🍳", "description": "Poached Cacklebean eggs, hollandaise, Wildfarmed sourdough toast", "heard": "Poached eggs on sourdough toast with hollandaise. Also ordered as 'the poached eggs', 'eggs on toast' or just 'eggs'.", "tags": ["vegetarian"] },
-    { "id": "avo_smash", "name": "Avo Smash", "category": "brunch", "price": 14.0, "emoji": "🥑", "description": "Smashed avocado, lime, green sriracha, feta, pine nuts, chilli oil, sourdough", "heard": "Avo Smash: the smashed avocado on toast main dish, only when the guest says 'avo smash', 'avocado toast' or 'avo on toast'. Not when they say 'add avocado', 'some avocado' or 'a side of avocado'.", "tags": ["vegetarian", "healthy"] },
-    { "id": "eggs_florentine", "name": "Eggs Florentine", "category": "brunch", "price": 16.0, "emoji": "🥬", "description": "Poached eggs, sautéed spinach, hollandaise, toasted English muffins", "heard": "Eggs Florentine: poached eggs with spinach on English muffins.", "tags": ["vegetarian"] },
-    { "id": "eggs_benedict", "name": "Eggs Benedict", "category": "brunch", "price": 16.5, "emoji": "🥓", "description": "Poached eggs, espresso maple syrup ham, hollandaise, English muffins", "heard": "Eggs Benedict: poached eggs with ham on English muffins. Also ordered as 'eggs benny'.", "tags": ["popular"] },
-    { "id": "eggs_royale", "name": "Eggs Royale", "category": "brunch", "price": 17.0, "emoji": "🐟", "description": "Poached eggs, smoked salmon, hollandaise, toasted English muffins", "heard": "Eggs Royale: poached eggs with smoked salmon on English muffins.", "tags": [] },
-    { "id": "drunken_mushrooms", "name": "Drunken Mushrooms", "category": "brunch", "price": 17.0, "emoji": "🍄", "description": "Wild mushrooms, cream, garlic, thyme & white wine sauce, parmesan, sourdough", "heard": "Drunken mushrooms: wild mushrooms in white wine sauce on toast. Also ordered as 'mushrooms on toast'.", "tags": ["vegetarian"] },
-    { "id": "espresso_pancakes", "name": "Espresso Pancakes", "category": "brunch", "price": 14.0, "emoji": "🥞", "description": "Kaffeine espresso syrup, mascarpone cream, fresh berries", "heard": "Espresso pancakes with mascarpone and berries. Also ordered as 'pancakes'.", "tags": ["vegetarian", "popular"] },
-    { "id": "bacon_egg_brioche", "name": "Bacon & Egg Brioche", "category": "breakfast", "price": 10.5, "emoji": "🍔", "description": "Crispy bacon, fried egg, plum tomato, avocado, aioli, rocket", "heard": "Brioche bun with crispy bacon and fried egg. Also ordered as 'bacon and egg roll', 'bacon sandwich', 'breakfast bun' or 'bacon brioche'.", "tags": ["popular"] },
-    { "id": "veggie_egg_brioche", "name": "Feta & Egg Brioche", "category": "breakfast", "price": 9.5, "emoji": "🥯", "description": "Fried egg, plum tomato, feta, avocado, aioli, baby spinach", "heard": "Vegetarian brioche bun with fried egg, feta and avocado. Also ordered as 'veggie brioche' or 'egg and feta roll'.", "tags": ["vegetarian"] },
-    { "id": "granola", "name": "Paleo Granola", "category": "breakfast", "price": 10.0, "emoji": "🥣", "description": "Greek yoghurt, homemade raspberry compote", "heard": "Paleo granola with Greek yoghurt and raspberry compote. Also ordered as 'granola', 'granola bowl' or 'yoghurt and granola'.", "tags": ["vegetarian", "healthy"] },
-    { "id": "fruit_salad", "name": "Seasonal Fruit Salad", "category": "breakfast", "price": 8.5, "emoji": "🍓", "description": "Fresh seasonal fruit", "heard": "Seasonal fruit salad. Also ordered as 'fruit', 'fruit bowl' or 'fruit cup'.", "tags": ["vegan", "healthy"] },
-    { "id": "sourdough_toast", "name": "Sourdough Toast", "category": "breakfast", "price": 4.5, "emoji": "🍞", "description": "Wildfarmed sourdough, Estate Dairy cultured butter, choice of spreads", "heard": "Plain sourdough toast with butter and spreads, ordered on its own as 'toast' or 'toast and butter'.", "tags": ["vegetarian"] },
-    { "id": "goats_curd_salad", "name": "Goat's Curd Salad", "category": "lunch", "price": 10.0, "emoji": "🥗", "description": "Roasted honey sprouts, beetroot, toasted walnuts, balsamic glaze, rocket", "heard": "Goat's curd and beetroot salad. Also ordered as 'the goat cheese salad', 'beetroot salad' or 'the veggie salad'.", "tags": ["vegetarian", "healthy"], "options": ["portion"] },
-    { "id": "steak_salad", "name": "Griddled Steak Salad", "category": "lunch", "price": 10.0, "emoji": "🥩", "description": "Blackened sweet corn, avocado, cherry tomatoes, mozzarella, green pesto", "heard": "Griddled steak salad with sweet corn and avocado. Also ordered as 'the steak salad' or 'beef salad'.", "tags": ["healthy"], "options": ["portion"] },
-    { "id": "sausage_roll", "name": "Pork Belly Sausage Roll", "category": "lunch", "price": 6.0, "emoji": "🌭", "description": "Pork belly, onion, garlic, chilli, apple", "heard": "Pork belly sausage roll. Also ordered as 'sausage roll'.", "tags": [] },
-    { "id": "croissant", "name": "Butter Croissant", "category": "pastry", "price": 3.6, "emoji": "🥐", "description": "French butter croissant by Seven Seeded Bakery", "heard": "Plain French butter croissant. Ordered as 'a croissant' or 'plain croissant'. Not the almond croissant.", "tags": ["vegetarian"] },
-    { "id": "almond_croissant", "name": "Almond Croissant", "category": "pastry", "price": 4.4, "emoji": "🥐", "description": "Twice-baked with almond frangipane", "heard": "Almond croissant.", "tags": ["vegetarian", "popular"] },
-    { "id": "pain_au_chocolat", "name": "Pain au Chocolat", "category": "pastry", "price": 3.9, "emoji": "🍫", "description": "By Seven Seeded Bakery", "heard": "Pain au chocolat. Also ordered as 'chocolate croissant'.", "tags": ["vegetarian"] },
-    { "id": "banana_bread", "name": "Banana Bread", "category": "pastry", "price": 4.7, "emoji": "🍌", "description": "House-baked banana bread", "heard": "Banana bread. Also ordered as 'banana loaf' or 'banana cake'.", "tags": ["vegetarian"] },
-    { "id": "brownie", "name": "Mini Chocolate Brownie", "category": "pastry", "price": 2.6, "emoji": "🟫", "description": "Gluten free", "heard": "Mini chocolate brownie, gluten free. Ordered as 'a brownie'.", "tags": ["vegetarian", "gluten-free"] },
-    { "id": "portuguese_tart", "name": "Portuguese Tart", "category": "pastry", "price": 4.0, "emoji": "🥧", "description": "Custard tart", "heard": "Portuguese custard tart. Also ordered as 'pastel de nata' or 'custard tart'.", "tags": ["vegetarian"] },
-    { "id": "side_bacon", "name": "Streaky Bacon", "category": "side", "price": 3.5, "pricePlaceholder": true, "emoji": "🥓", "description": "Side of streaky bacon", "heard": "A side or extra of streaky bacon. Ordered as 'bacon', 'some bacon', 'a side of bacon' or 'add bacon'.", "tags": [] },
-    { "id": "side_avocado", "name": "Smashed Avocado", "category": "side", "price": 3.5, "pricePlaceholder": true, "emoji": "🥑", "description": "Side of smashed avocado", "heard": "A side or extra of smashed avocado. Ordered as 'avocado', 'some avo', 'a side of avocado' or 'add avocado'. Not the Avo Smash main dish.", "tags": ["vegan", "healthy"] },
-    { "id": "side_poached_egg", "name": "Extra Poached Egg", "category": "side", "price": 2.5, "pricePlaceholder": true, "emoji": "🥚", "description": "One extra Cacklebean poached egg", "heard": "One extra poached egg as a side, only when the guest explicitly says 'an extra egg', 'add an egg' or 'another egg'. Not the Poached Eggs main dish, and not any other side.", "tags": ["vegetarian"] },
-    { "id": "side_salmon", "name": "Smoked Salmon", "category": "side", "price": 5.0, "pricePlaceholder": true, "emoji": "🍣", "description": "Side of smoked salmon", "heard": "A side or extra of smoked salmon. Ordered as 'salmon', 'some smoked salmon' or 'add salmon'.", "tags": ["healthy"] },
-    { "id": "espresso", "name": "Espresso", "category": "drink", "price": 3.0, "pricePlaceholder": true, "emoji": "☕", "description": "Kaffeine house espresso", "heard": "Espresso served on its own as a drink: 'an espresso' or 'a short black'. Not an extra shot added to another drink such as a latte.", "tags": [], "options": ["shots"] },
-    { "id": "americano", "name": "Long Black", "category": "drink", "price": 3.5, "pricePlaceholder": true, "emoji": "☕", "description": "Espresso over hot water", "heard": "Long black or americano: black coffee made with espresso and water. Also ordered as 'black coffee' or 'americano'.", "tags": [], "options": ["temp", "size", "shots"] },
-    { "id": "flat_white", "name": "Flat White", "category": "drink", "price": 3.9, "pricePlaceholder": true, "emoji": "☕", "description": "Double ristretto, silky steamed milk", "heard": "Flat white. Also what a guest gets when they just say 'a coffee' or 'a white coffee' without naming a type.", "tags": ["popular"], "options": ["milk", "shots"] },
-    { "id": "latte", "name": "Latte", "category": "drink", "price": 4.1, "pricePlaceholder": true, "emoji": "🥛", "description": "Espresso with steamed milk", "heard": "Latte or caffe latte, hot or iced. Also ordered as 'iced latte' or 'milky coffee'.", "tags": [], "options": ["milk", "temp", "size", "shots"] },
-    { "id": "cappuccino", "name": "Cappuccino", "category": "drink", "price": 4.1, "pricePlaceholder": true, "emoji": "☕", "description": "Espresso, steamed milk, foam, chocolate dust", "heard": "Cappuccino.", "tags": [], "options": ["milk", "size", "shots"] },
-    { "id": "mocha", "name": "Mocha", "category": "drink", "price": 4.4, "pricePlaceholder": true, "emoji": "🍫", "description": "Espresso, chocolate, steamed milk", "heard": "Mocha: chocolate coffee.", "tags": [], "options": ["milk", "temp", "size", "shots"] },
-    { "id": "filter", "name": "Batch Filter", "category": "drink", "price": 3.5, "pricePlaceholder": true, "emoji": "☕", "description": "Today's single-origin batch brew", "heard": "Batch brew filter coffee, only when the guest says the word 'filter', 'batch' or 'drip'. Not when they just say 'a coffee'.", "tags": [], "options": ["size"] },
-    { "id": "hot_chocolate", "name": "Hot Chocolate", "category": "drink", "price": 4.2, "pricePlaceholder": true, "emoji": "🍫", "description": "Real chocolate, steamed milk", "heard": "Hot chocolate. Also ordered as 'hot cocoa'.", "tags": [], "options": ["milk", "size"] },
-    { "id": "tea", "name": "English Breakfast Tea", "category": "drink", "price": 3.5, "pricePlaceholder": true, "emoji": "🫖", "description": "Loose-leaf pot", "heard": "A pot of English breakfast tea. Ordered as 'tea', 'a cup of tea' or 'breakfast tea'.", "tags": [], "options": ["milk"] },
-    { "id": "orange_juice", "name": "Fresh Orange Juice", "category": "drink", "price": 4.5, "pricePlaceholder": true, "emoji": "🍊", "description": "Freshly squeezed", "heard": "Freshly squeezed orange juice. Ordered as 'orange juice', 'OJ' or 'a juice'.", "tags": ["healthy", "vegan"] }
+    {
+      "id": "poached_eggs",
+      "name": "Poached Eggs",
+      "category": "brunch",
+      "price": 14.0,
+      "description": "Poached Cacklebean eggs, hollandaise, Wildfarmed sourdough toast",
+      "heard": "Poached eggs on sourdough toast with hollandaise. Also ordered as 'the poached eggs', 'eggs on toast' or just 'eggs'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f373.svg"
+    },
+    {
+      "id": "avo_smash",
+      "name": "Avo Smash",
+      "category": "brunch",
+      "price": 14.0,
+      "description": "Smashed avocado, lime, green sriracha, feta, pine nuts, chilli oil, sourdough",
+      "heard": "Avo Smash: the smashed avocado on toast main dish, only when the guest says 'avo smash', 'avocado toast' or 'avo on toast'. Not when they say 'add avocado', 'some avocado' or 'a side of avocado'.",
+      "tags": [
+        "vegetarian",
+        "healthy"
+      ],
+      "image": "/items/1f951.svg"
+    },
+    {
+      "id": "eggs_florentine",
+      "name": "Eggs Florentine",
+      "category": "brunch",
+      "price": 16.0,
+      "description": "Poached eggs, sautéed spinach, hollandaise, toasted English muffins",
+      "heard": "Eggs Florentine: poached eggs with spinach on English muffins.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f373.svg"
+    },
+    {
+      "id": "eggs_benedict",
+      "name": "Eggs Benedict",
+      "category": "brunch",
+      "price": 16.5,
+      "description": "Poached eggs, espresso maple syrup ham, hollandaise, English muffins",
+      "heard": "Eggs Benedict: poached eggs with ham on English muffins. Also ordered as 'eggs benny'.",
+      "tags": [
+        "popular"
+      ],
+      "image": "/items/1f373.svg"
+    },
+    {
+      "id": "eggs_royale",
+      "name": "Eggs Royale",
+      "category": "brunch",
+      "price": 17.0,
+      "description": "Poached eggs, smoked salmon, hollandaise, toasted English muffins",
+      "heard": "Eggs Royale: poached eggs with smoked salmon on English muffins.",
+      "tags": [],
+      "image": "/items/1f373.svg"
+    },
+    {
+      "id": "drunken_mushrooms",
+      "name": "Drunken Mushrooms",
+      "category": "brunch",
+      "price": 17.0,
+      "description": "Wild mushrooms, cream, garlic, thyme & white wine sauce, parmesan, sourdough",
+      "heard": "Drunken mushrooms: wild mushrooms in white wine sauce on toast. Also ordered as 'mushrooms on toast'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f344.svg"
+    },
+    {
+      "id": "espresso_pancakes",
+      "name": "Espresso Pancakes",
+      "category": "brunch",
+      "price": 14.0,
+      "description": "Kaffeine espresso syrup, mascarpone cream, fresh berries",
+      "heard": "Espresso pancakes with mascarpone and berries. Also ordered as 'pancakes'.",
+      "tags": [
+        "vegetarian",
+        "popular"
+      ],
+      "image": "/items/1f95e.svg"
+    },
+    {
+      "id": "bacon_egg_brioche",
+      "name": "Bacon & Egg Brioche",
+      "category": "breakfast",
+      "price": 10.5,
+      "description": "Crispy bacon, fried egg, plum tomato, avocado, aioli, rocket",
+      "heard": "Brioche bun with crispy bacon and fried egg. Also ordered as 'bacon and egg roll', 'bacon sandwich', 'breakfast bun' or 'bacon brioche'.",
+      "tags": [
+        "popular"
+      ],
+      "image": "/items/1f96a.svg"
+    },
+    {
+      "id": "veggie_egg_brioche",
+      "name": "Feta & Egg Brioche",
+      "category": "breakfast",
+      "price": 9.5,
+      "description": "Fried egg, plum tomato, feta, avocado, aioli, baby spinach",
+      "heard": "Vegetarian brioche bun with fried egg, feta and avocado. Also ordered as 'veggie brioche' or 'egg and feta roll'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f96f.svg"
+    },
+    {
+      "id": "granola",
+      "name": "Paleo Granola",
+      "category": "breakfast",
+      "price": 10.0,
+      "description": "Greek yoghurt, homemade raspberry compote",
+      "heard": "Paleo granola with Greek yoghurt and raspberry compote. Also ordered as 'granola', 'granola bowl' or 'yoghurt and granola'.",
+      "tags": [
+        "vegetarian",
+        "healthy"
+      ],
+      "image": "/items/1f963.svg"
+    },
+    {
+      "id": "fruit_salad",
+      "name": "Seasonal Fruit Salad",
+      "category": "breakfast",
+      "price": 8.5,
+      "description": "Fresh seasonal fruit",
+      "heard": "Seasonal fruit salad. Also ordered as 'fruit', 'fruit bowl' or 'fruit cup'.",
+      "tags": [
+        "vegan",
+        "healthy"
+      ],
+      "image": "/items/1f353.svg"
+    },
+    {
+      "id": "sourdough_toast",
+      "name": "Sourdough Toast",
+      "category": "breakfast",
+      "price": 4.5,
+      "description": "Wildfarmed sourdough, Estate Dairy cultured butter, choice of spreads",
+      "heard": "Plain sourdough toast with butter and spreads, ordered on its own as 'toast' or 'toast and butter'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f35e.svg"
+    },
+    {
+      "id": "goats_curd_salad",
+      "name": "Goat's Curd Salad",
+      "category": "lunch",
+      "price": 10.0,
+      "description": "Roasted honey sprouts, beetroot, toasted walnuts, balsamic glaze, rocket",
+      "heard": "Goat's curd and beetroot salad. Also ordered as 'the goat cheese salad', 'beetroot salad' or 'the veggie salad'.",
+      "tags": [
+        "vegetarian",
+        "healthy"
+      ],
+      "options": [
+        "portion"
+      ],
+      "image": "/items/1f957.svg"
+    },
+    {
+      "id": "steak_salad",
+      "name": "Griddled Steak Salad",
+      "category": "lunch",
+      "price": 10.0,
+      "description": "Blackened sweet corn, avocado, cherry tomatoes, mozzarella, green pesto",
+      "heard": "Griddled steak salad with sweet corn and avocado. Also ordered as 'the steak salad' or 'beef salad'.",
+      "tags": [
+        "healthy"
+      ],
+      "options": [
+        "portion"
+      ],
+      "image": "/items/1f969.svg"
+    },
+    {
+      "id": "sausage_roll",
+      "name": "Pork Belly Sausage Roll",
+      "category": "lunch",
+      "price": 6.0,
+      "description": "Pork belly, onion, garlic, chilli, apple",
+      "heard": "Pork belly sausage roll. Also ordered as 'sausage roll'.",
+      "tags": [],
+      "image": "/items/1f956.svg"
+    },
+    {
+      "id": "croissant",
+      "name": "Butter Croissant",
+      "category": "pastry",
+      "price": 3.6,
+      "description": "French butter croissant by Seven Seeded Bakery",
+      "heard": "Plain French butter croissant. Ordered as 'a croissant' or 'plain croissant'. Not the almond croissant.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f950.svg"
+    },
+    {
+      "id": "almond_croissant",
+      "name": "Almond Croissant",
+      "category": "pastry",
+      "price": 4.4,
+      "description": "Twice-baked with almond frangipane",
+      "heard": "Almond croissant.",
+      "tags": [
+        "vegetarian",
+        "popular"
+      ],
+      "image": "/items/1f950.svg"
+    },
+    {
+      "id": "pain_au_chocolat",
+      "name": "Pain au Chocolat",
+      "category": "pastry",
+      "price": 3.9,
+      "description": "By Seven Seeded Bakery",
+      "heard": "Pain au chocolat. Also ordered as 'chocolate croissant'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f950.svg"
+    },
+    {
+      "id": "banana_bread",
+      "name": "Banana Bread",
+      "category": "pastry",
+      "price": 4.7,
+      "description": "House-baked banana bread",
+      "heard": "Banana bread. Also ordered as 'banana loaf' or 'banana cake'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f34c.svg"
+    },
+    {
+      "id": "brownie",
+      "name": "Mini Chocolate Brownie",
+      "category": "pastry",
+      "price": 2.6,
+      "description": "Gluten free",
+      "heard": "Mini chocolate brownie, gluten free. Ordered as 'a brownie'.",
+      "tags": [
+        "vegetarian",
+        "gluten-free"
+      ],
+      "image": "/items/1f36b.svg"
+    },
+    {
+      "id": "portuguese_tart",
+      "name": "Portuguese Tart",
+      "category": "pastry",
+      "price": 4.0,
+      "description": "Custard tart",
+      "heard": "Portuguese custard tart. Also ordered as 'pastel de nata' or 'custard tart'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f967.svg"
+    },
+    {
+      "id": "side_bacon",
+      "name": "Streaky Bacon",
+      "category": "side",
+      "price": 3.5,
+      "pricePlaceholder": true,
+      "description": "Side of streaky bacon",
+      "heard": "A side or extra of streaky bacon. Ordered as 'bacon', 'some bacon', 'a side of bacon' or 'add bacon'.",
+      "tags": [],
+      "image": "/items/1f953.svg"
+    },
+    {
+      "id": "side_avocado",
+      "name": "Smashed Avocado",
+      "category": "side",
+      "price": 3.5,
+      "pricePlaceholder": true,
+      "description": "Side of smashed avocado",
+      "heard": "A side or extra of smashed avocado. Ordered as 'avocado', 'some avo', 'a side of avocado' or 'add avocado'. Not the Avo Smash main dish.",
+      "tags": [
+        "vegan",
+        "healthy"
+      ],
+      "image": "/items/1f951.svg"
+    },
+    {
+      "id": "side_poached_egg",
+      "name": "Extra Poached Egg",
+      "category": "side",
+      "price": 2.5,
+      "pricePlaceholder": true,
+      "description": "One extra Cacklebean poached egg",
+      "heard": "One extra poached egg as a side, only when the guest explicitly says 'an extra egg', 'add an egg' or 'another egg'. Not the Poached Eggs main dish, and not any other side.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f95a.svg"
+    },
+    {
+      "id": "side_salmon",
+      "name": "Smoked Salmon",
+      "category": "side",
+      "price": 5.0,
+      "pricePlaceholder": true,
+      "description": "Side of smoked salmon",
+      "heard": "A side or extra of smoked salmon. Ordered as 'salmon', 'some smoked salmon' or 'add salmon'.",
+      "tags": [
+        "healthy"
+      ],
+      "image": "/items/1f363.svg"
+    },
+    {
+      "id": "espresso",
+      "name": "Espresso",
+      "category": "drink",
+      "price": 3.0,
+      "pricePlaceholder": true,
+      "description": "Kaffeine house espresso",
+      "heard": "Espresso served on its own as a drink: 'an espresso' or 'a short black'. Not an extra shot added to another drink such as a latte.",
+      "tags": [],
+      "options": [
+        "shots"
+      ],
+      "image": "/items/2615.svg"
+    },
+    {
+      "id": "americano",
+      "name": "Long Black",
+      "category": "drink",
+      "price": 3.5,
+      "pricePlaceholder": true,
+      "description": "Espresso over hot water",
+      "heard": "Long black or americano: black coffee made with espresso and water. Also ordered as 'black coffee' or 'americano'.",
+      "tags": [],
+      "options": [
+        "temp",
+        "size",
+        "shots"
+      ],
+      "image": "/items/2615.svg"
+    },
+    {
+      "id": "flat_white",
+      "name": "Flat White",
+      "category": "drink",
+      "price": 3.9,
+      "pricePlaceholder": true,
+      "description": "Double ristretto, silky steamed milk",
+      "heard": "Flat white. Also what a guest gets when they just say 'a coffee' or 'a white coffee' without naming a type.",
+      "tags": [
+        "popular"
+      ],
+      "options": [
+        "milk",
+        "size",
+        "shots"
+      ],
+      "image": "/items/2615.svg"
+    },
+    {
+      "id": "latte",
+      "name": "Latte",
+      "category": "drink",
+      "price": 4.1,
+      "pricePlaceholder": true,
+      "description": "Espresso with steamed milk",
+      "heard": "Latte or caffe latte, hot or iced. Also ordered as 'iced latte' or 'milky coffee'.",
+      "tags": [],
+      "options": [
+        "milk",
+        "temp",
+        "size",
+        "shots"
+      ],
+      "image": "/items/2615.svg"
+    },
+    {
+      "id": "cappuccino",
+      "name": "Cappuccino",
+      "category": "drink",
+      "price": 4.1,
+      "pricePlaceholder": true,
+      "description": "Espresso, steamed milk, foam, chocolate dust",
+      "heard": "Cappuccino.",
+      "tags": [],
+      "options": [
+        "milk",
+        "size",
+        "shots"
+      ],
+      "image": "/items/2615.svg"
+    },
+    {
+      "id": "mocha",
+      "name": "Mocha",
+      "category": "drink",
+      "price": 4.4,
+      "pricePlaceholder": true,
+      "description": "Espresso, chocolate, steamed milk",
+      "heard": "Mocha: chocolate coffee.",
+      "tags": [],
+      "options": [
+        "milk",
+        "temp",
+        "size",
+        "shots"
+      ],
+      "image": "/items/2615.svg"
+    },
+    {
+      "id": "filter",
+      "name": "Batch Filter",
+      "category": "drink",
+      "price": 3.5,
+      "pricePlaceholder": true,
+      "description": "Today's single-origin batch brew",
+      "heard": "Batch brew filter coffee, only when the guest says the word 'filter', 'batch' or 'drip'. Not when they just say 'a coffee'.",
+      "tags": [],
+      "options": [
+        "size"
+      ],
+      "image": "/items/2615.svg"
+    },
+    {
+      "id": "hot_chocolate",
+      "name": "Hot Chocolate",
+      "category": "drink",
+      "price": 4.2,
+      "pricePlaceholder": true,
+      "description": "Real chocolate, steamed milk",
+      "heard": "Hot chocolate. Also ordered as 'hot cocoa'.",
+      "tags": [],
+      "options": [
+        "milk",
+        "size"
+      ],
+      "image": "/items/2615.svg"
+    },
+    {
+      "id": "tea",
+      "name": "English Breakfast Tea",
+      "category": "drink",
+      "price": 3.5,
+      "pricePlaceholder": true,
+      "description": "Loose-leaf pot",
+      "heard": "A pot of English breakfast tea. Ordered as 'tea', 'a cup of tea' or 'breakfast tea'.",
+      "tags": [],
+      "options": [
+        "milk"
+      ],
+      "image": "/items/1fad6.svg"
+    },
+    {
+      "id": "orange_juice",
+      "name": "Fresh Orange Juice",
+      "category": "drink",
+      "price": 4.5,
+      "pricePlaceholder": true,
+      "description": "Freshly squeezed",
+      "heard": "Freshly squeezed orange juice. Ordered as 'orange juice', 'OJ' or 'a juice'.",
+      "tags": [
+        "healthy",
+        "vegan"
+      ],
+      "image": "/items/1f9c3.svg"
+    }
   ]
 }
