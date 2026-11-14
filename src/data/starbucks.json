@@ -141,8 +141,8 @@
       "category": "pastry",
       "price": 2.45,
       "pricePlaceholder": true,
-      "description": "Golden pastry with soft, flaky layers and a rich buttery flavour. For any additional condiments, please ask in-store. Please check the label for allergens.",
-      "heard": "Butter Croissant: Golden pastry with soft, flaky layers and a rich buttery flavour. For any additional condiments, please ask in-store. Please check the label for allergens. Also ordered as 'a croissant', 'plain croissant'. Not the almond croissant and not the ham and cheddar croissant.",
+      "description": "Golden pastry with soft, flaky layers and a rich buttery flavour. For any additional condiments, please ask in-store.",
+      "heard": "Butter Croissant: Golden pastry with soft, flaky layers and a rich buttery flavour. For any additional condiments, please ask in-store. Also ordered as 'a croissant', 'plain croissant'. Not the almond croissant and not the ham and cheddar croissant.",
       "tags": [
         "vegetarian"
       ],
@@ -181,8 +181,8 @@
       "category": "pastry",
       "price": 2.75,
       "pricePlaceholder": true,
-      "description": "Golden pastry made from free range eggs and butter, with a rich dark chocolate filling. For any additional condiments, please ask in-store. Please check the label for allergens.",
-      "heard": "Pain au Chocolat: Golden pastry made from free range eggs and butter, with a rich dark chocolate filling. For any additional condiments, please ask in-store. Please check the label for allergens. Also ordered as 'pain au chocolat', 'chocolate croissant'.",
+      "description": "Golden pastry made from free range eggs and butter, with a rich dark chocolate filling. For any additional condiments, please ask in-store.",
+      "heard": "Pain au Chocolat: Golden pastry made from free range eggs and butter, with a rich dark chocolate filling. For any additional condiments, please ask in-store. Also ordered as 'pain au chocolat', 'chocolate croissant'.",
       "tags": [
         "vegetarian"
       ],
@@ -1431,7 +1431,7 @@
       "price": 3.65,
       "pricePlaceholder": true,
       "description": "Espresso shots are topped with hot water to produce a light layer of crema.",
-      "heard": "Caffè Americano: Espresso shots are topped with hot water to produce a light layer of crema. Also ordered as 'an americano', 'black coffee', 'long black'. Can be hot or iced.",
+      "heard": "Caffè Americano: Espresso shots are topped with hot water to produce a light layer of crema. Also ordered as 'an americano', 'black coffee', 'long black'. Can be hot or iced. Not the Aerocano.",
       "tags": [
         "vegan"
       ],
@@ -3964,7 +3964,7 @@
       "price": 4.65,
       "pricePlaceholder": true,
       "description": "Coffee meets milk and ice in a blender for a rumble and tumble topped with a swirl of whipped cream and together they create one of our original Frappuccino beverages.",
-      "heard": "Coffee Frappuccino: Coffee meets milk and ice in a blender for a rumble and tumble topped with a swirl of whipped cream and together they create one of our original Frappuccino beverages. Also ordered as 'a coffee frappuccino', 'plain frappuccino'. Always served cold over ice.",
+      "heard": "Coffee Frappuccino: Coffee meets milk and ice in a blender for a rumble and tumble topped with a swirl of whipped cream and together they create one of our original Frappuccino beverages. Also ordered as 'a coffee frappuccino'. Only when they say coffee frappuccino; just 'a frappuccino' is the caramel one. Always served cold over ice.",
       "tags": [
         "vegetarian"
       ],
@@ -4261,6 +4261,508 @@
             "protein": 7,
             "carbs": 41,
             "fat": 18,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "cold"
+    },
+    {
+      "id": "still_water",
+      "name": "Still Water",
+      "category": "drink",
+      "price": 1.95,
+      "pricePlaceholder": true,
+      "description": "British spring water in 100% recycled plastic bottles and 100% recyclable.",
+      "heard": "Still Water: British spring water in 100% recycled plastic bottles and 100% recyclable. Also ordered as 'a water', 'still water', 'a bottle of water', 'mineral water'. A chilled bottled drink.",
+      "tags": [
+        "gluten-free",
+        "vegan",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-One-water-500ml-Still.jpeg",
+      "nutrition": {
+        "kcal": 0,
+        "protein": 0,
+        "carbs": 0,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "sparkling_water",
+      "name": "Sparkling Water",
+      "category": "drink",
+      "price": 1.95,
+      "pricePlaceholder": true,
+      "description": "British spring water in 100% recycled plastic bottles and 100% recyclable.",
+      "heard": "Sparkling Water: British spring water in 100% recycled plastic bottles and 100% recyclable. Also ordered as 'sparkling water', 'fizzy water', 'soda water'. A chilled bottled drink.",
+      "tags": [
+        "gluten-free",
+        "vegan",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-One-water-500ml-Sparkling.jpeg",
+      "nutrition": {
+        "kcal": 0,
+        "protein": 0,
+        "carbs": 0,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "vitamin_water",
+      "name": "Strawberry & Watermelon Vitamin Water",
+      "category": "drink",
+      "price": 2.45,
+      "pricePlaceholder": true,
+      "description": "Crisp watermelon, ripe strawberry and a refreshing dose of feel-good vitamins B12 and C.",
+      "heard": "Strawberry & Watermelon Vitamin Water: Crisp watermelon, ripe strawberry and a refreshing dose of feel-good vitamins B12 and C. Also ordered as 'vitamin water', 'strawberry and watermelon water', 'flavoured water'. A chilled bottled drink.",
+      "tags": [
+        "gluten-free",
+        "vegan",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Strawberry-%26-Watermelon-VITWATER-330ml.jpeg",
+      "nutrition": {
+        "kcal": 73,
+        "protein": 0,
+        "carbs": 17,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "still_lemonade",
+      "name": "Still Lemonade",
+      "category": "drink",
+      "price": 2.75,
+      "pricePlaceholder": true,
+      "description": "A refreshing still lemonade made from Spanish lemons.",
+      "heard": "Still Lemonade: A refreshing still lemonade made from Spanish lemons. Also ordered as 'a lemonade', 'still lemonade', 'cloudy lemonade'. A chilled bottled drink.",
+      "tags": [
+        "vegan",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Still-Lemonade-330ml.jpeg",
+      "nutrition": {
+        "kcal": 8,
+        "protein": 0,
+        "carbs": 1,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "raspberry_lemonade",
+      "name": "Raspberry Lemonade",
+      "category": "drink",
+      "price": 2.75,
+      "pricePlaceholder": true,
+      "description": "A refreshing still lemonade made from Spanish lemons with raspberry puree.",
+      "heard": "Raspberry Lemonade: A refreshing still lemonade made from Spanish lemons with raspberry puree. Also ordered as 'raspberry lemonade', 'pink lemonade'. A chilled bottled drink.",
+      "tags": [
+        "vegan",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Raspberry-Lemonade-330ml.jpeg",
+      "nutrition": {
+        "kcal": 61,
+        "protein": 0,
+        "carbs": 14,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "orange_juice",
+      "name": "Smooth Orange Juice",
+      "category": "drink",
+      "price": 2.75,
+      "pricePlaceholder": true,
+      "description": "100% pure squeezed fruit with the bits taken out for a deliciously smooth taste for any time of the day.",
+      "heard": "Smooth Orange Juice: 100% pure squeezed fruit with the bits taken out for a deliciously smooth taste for any time of the day. Also ordered as 'an orange juice', 'OJ', 'a juice'. A chilled bottled drink.",
+      "tags": [],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Smooth-Orange-Juice-250ml.jpeg",
+      "nutrition": {
+        "kcal": 91,
+        "protein": 2,
+        "carbs": 20,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "apple_mango_juice",
+      "name": "Apple & Mango Juice",
+      "category": "drink",
+      "price": 3.25,
+      "pricePlaceholder": true,
+      "description": "The crisp sweetness of ripe apples with the tropical fruitiness of juicy mangoes. Packed with so much flavour, it's a vibrant drink with no added sugars or artificial ingredients and a source of Vitamin C, perfect for a burst of fruity goodness.",
+      "heard": "Apple & Mango Juice: The crisp sweetness of ripe apples with the tropical fruitiness of juicy mangoes. Packed with so much flavour, it's a vibrant drink with no added sugars or artificial ingredients and a source of Vitamin C, perfect for a burst of fruity goodness. Also ordered as 'apple and mango juice', 'apple juice', 'mango juice'. A chilled bottled drink.",
+      "tags": [
+        "vegan",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Apple-Mango-Juice%E2%94%AC%C3%A1500ml.jpeg",
+      "nutrition": {
+        "kcal": 112,
+        "protein": 0,
+        "carbs": 28,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "berries_juice",
+      "name": "Berries Juice Drink",
+      "category": "drink",
+      "price": 1.75,
+      "pricePlaceholder": true,
+      "description": "Pasteurised juice drink made with apple and blackcurrant juices and strawberry and raspberry purees.",
+      "heard": "Berries Juice Drink: Pasteurised juice drink made with apple and blackcurrant juices and strawberry and raspberry purees. Also ordered as 'the berries juice', 'berry juice', 'a kids juice', 'juice carton'. A chilled bottled drink.",
+      "tags": [],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Berries-Juice-Drink%E2%94%AC%C3%A1200ml.jpeg",
+      "nutrition": {
+        "kcal": 63,
+        "protein": 0,
+        "carbs": 15,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "ginger_shot",
+      "name": "Ginger Shot",
+      "category": "drink",
+      "price": 2.45,
+      "pricePlaceholder": true,
+      "description": "Punchy apple, ginger and lime blend.",
+      "heard": "Ginger Shot: Punchy apple, ginger and lime blend. Also ordered as 'a ginger shot', 'juice shot'. A chilled bottled drink.",
+      "tags": [
+        "healthy"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Ginger-Shot.jpeg",
+      "nutrition": {
+        "kcal": 37,
+        "protein": 0,
+        "carbs": 8,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "turmeric_shot",
+      "name": "Turmeric Shot",
+      "category": "drink",
+      "price": 2.45,
+      "pricePlaceholder": true,
+      "description": "A fiery blend of apple and turmeric with hot cayenne and fresh citrus.",
+      "heard": "Turmeric Shot: A fiery blend of apple and turmeric with hot cayenne and fresh citrus. Also ordered as 'a turmeric shot'. A chilled bottled drink.",
+      "tags": [
+        "healthy"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Turmeric-Shot.jpeg",
+      "nutrition": {
+        "kcal": 42,
+        "protein": 0,
+        "carbs": 9,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "vitamin_d_shot",
+      "name": "Acerola & Raspberry Vitamin D Shot",
+      "category": "drink",
+      "price": 2.45,
+      "pricePlaceholder": true,
+      "description": "Tangy acerola, juicy berries and Vitamin D – your daily burst of sunshine.",
+      "heard": "Acerola & Raspberry Vitamin D Shot: Tangy acerola, juicy berries and Vitamin D – your daily burst of sunshine. Also ordered as 'the vitamin D shot', 'raspberry shot', 'vitamin shot'. A chilled bottled drink.",
+      "tags": [
+        "gluten-free",
+        "healthy",
+        "vegan",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Acerola-%26-Raspberry-Vitamin-D-Shot-100ml.jpeg",
+      "nutrition": {
+        "kcal": 40,
+        "protein": 0,
+        "carbs": 9,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "ristretto_bianco",
+      "name": "Ristretto Bianco",
+      "category": "drink",
+      "price": 4.25,
+      "pricePlaceholder": true,
+      "description": "Three Starbucks Blonde Ristretto shots are paired with whole milk – in a perfectly balanced coffee to milk ratio",
+      "heard": "Ristretto Bianco: Three Starbucks Blonde Ristretto shots are paired with whole milk – in a perfectly balanced coffee to milk ratio Also ordered as 'a ristretto bianco', 'blonde flat white'.",
+      "tags": [],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Ristretto-Bianco_2.jpeg",
+      "options": [
+        "milk"
+      ],
+      "nutrition": {
+        "kcal": 106,
+        "protein": 6,
+        "carbs": 8,
+        "fat": 6,
+        "richIn": []
+      },
+      "serve": "hot"
+    },
+    {
+      "id": "aerocano",
+      "name": "Aerocano",
+      "category": "drink",
+      "price": 3.95,
+      "pricePlaceholder": true,
+      "description": "Starbucks Blonde® roast espresso shots aerated together with ice resulting in a creamy smooth textured Americano-style beverage",
+      "heard": "Aerocano: Blonde espresso shots aerated with ice into a creamy, smooth cold coffee. Ordered only by the word 'aerocano'. It is a different drink from the Caffè Americano. Always served cold over ice.",
+      "tags": [],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Aerocano_0.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 9,
+        "protein": 0,
+        "carbs": 1,
+        "fat": 0,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 6,
+            "protein": 0,
+            "carbs": 1,
+            "fat": 0,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 9,
+            "protein": 0,
+            "carbs": 1,
+            "fat": 0,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 12,
+            "protein": 1,
+            "carbs": 1,
+            "fat": 0,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "cold"
+    },
+    {
+      "id": "toffee_nut_frappuccino",
+      "name": "Toffee Nut Frappuccino",
+      "category": "drink",
+      "price": 5.15,
+      "pricePlaceholder": true,
+      "description": "Toffee nut flavour syrup is combined with coffee and milk, blended with ice, topped with whipped cream and toffee nut flavour sprinkles.",
+      "heard": "Toffee Nut Frappuccino: Toffee nut flavour syrup is combined with coffee and milk, blended with ice, topped with whipped cream and toffee nut flavour sprinkles. Also ordered as 'a toffee nut frappuccino'. A festive drink. Always served cold over ice.",
+      "tags": [
+        "festive",
+        "vegan",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Toffee-Nut-Frappuccino_1.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 321,
+        "protein": 5,
+        "carbs": 40,
+        "fat": 16,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 245,
+            "protein": 4,
+            "carbs": 30,
+            "fat": 12,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 321,
+            "protein": 5,
+            "carbs": 40,
+            "fat": 16,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 358,
+            "protein": 5,
+            "carbs": 48,
+            "fat": 16,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "cold"
+    },
+    {
+      "id": "gingerbread_frappuccino",
+      "name": "Gingerbread Frappuccino",
+      "category": "drink",
+      "price": 5.15,
+      "pricePlaceholder": true,
+      "description": "Gingerbread flavour syrup is combined with coffee, milk and blended with ice. It’s topped with whipped cream and cinnamon.",
+      "heard": "Gingerbread Frappuccino: Gingerbread flavour syrup is combined with coffee, milk and blended with ice. It’s topped with whipped cream and cinnamon. Also ordered as 'a gingerbread frappuccino'. A festive drink. Always served cold over ice.",
+      "tags": [
+        "festive",
+        "vegan",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Gingerbread-Frappuccino_0.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 315,
+        "protein": 4,
+        "carbs": 39,
+        "fat": 16,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 252,
+            "protein": 3,
+            "carbs": 30,
+            "fat": 13,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 315,
+            "protein": 4,
+            "carbs": 39,
+            "fat": 16,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 358,
+            "protein": 4,
+            "carbs": 49,
+            "fat": 16,
+            "richIn": []
+          }
+        }
+      ],
+      "serve": "cold"
+    },
+    {
+      "id": "peppermint_mocha_frappuccino",
+      "name": "Peppermint Mocha Frappuccino",
+      "category": "drink",
+      "price": 5.15,
+      "pricePlaceholder": true,
+      "description": "A blend of coffee, milk and ice are mixed with peppermint flavour syrup and mocha sauce, topped with whipped cream and finished with crunchy peppermint sugar sprinkles.",
+      "heard": "Peppermint Mocha Frappuccino: A blend of coffee, milk and ice are mixed with peppermint flavour syrup and mocha sauce, topped with whipped cream and finished with crunchy peppermint sugar sprinkles. Also ordered as 'a peppermint mocha frappuccino', 'mint frappuccino'. A festive drink. Always served cold over ice.",
+      "tags": [
+        "festive",
+        "vegan",
+        "vegetarian"
+      ],
+      "image": "https://www.digitalassets.starbucks.eu/sites/starbucks-medialibrary/files/SBX-MOP-1500x1500-Peppermint-Mocha-Frappuccino.jpeg",
+      "options": [
+        "size"
+      ],
+      "nutrition": {
+        "kcal": 443,
+        "protein": 7,
+        "carbs": 61,
+        "fat": 18,
+        "richIn": []
+      },
+      "variants": [
+        {
+          "when": {
+            "size": "tall"
+          },
+          "nutrition": {
+            "kcal": 335,
+            "protein": 6,
+            "carbs": 46,
+            "fat": 14,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "grande"
+          },
+          "nutrition": {
+            "kcal": 443,
+            "protein": 7,
+            "carbs": 61,
+            "fat": 18,
+            "richIn": []
+          }
+        },
+        {
+          "when": {
+            "size": "venti"
+          },
+          "nutrition": {
+            "kcal": 514,
+            "protein": 8,
+            "carbs": 76,
+            "fat": 19,
             "richIn": []
           }
         }
