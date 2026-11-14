@@ -173,12 +173,13 @@ async function pickSuggestions(input: { said: string; order: Order; apiKey: stri
   const topic = (SUGGESTION_TOPICS as readonly string[]).includes(answers.topic?.choice ?? "")
     ? (answers.topic!.choice as SuggestionTopic)
     : "other";
-  // A question about a number is answered from the menu's numbers, not from the model's judgement.
+  const score = (id: string) => answers[`match_${id}`]?.noul ?? 0;
+  // A question about a number is ranked by the menu's numbers, among the dishes that fit the rest of the request.
   if (topic === "protein") {
-    const byProtein = [...candidates].sort((a, b) => b.nutrition.protein - a.nutrition.protein);
+    const fitting = candidates.filter((item) => score(item.id) >= MIN_MATCH);
+    const byProtein = fitting.sort((a, b) => b.nutrition.protein - a.nutrition.protein);
     return { topic, itemIds: byProtein.slice(0, 3).map((item) => item.id) };
   }
-  const score = (id: string) => answers[`match_${id}`]?.noul ?? 0;
   const itemIds = candidates
     .filter((item) => score(item.id) >= MIN_MATCH)
     .sort((a, b) => score(b.id) - score(a.id))

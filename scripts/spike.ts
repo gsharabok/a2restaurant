@@ -20,6 +20,8 @@ type Case = {
   suggest?: string | null;
   /** At least one of these must be among the suggested dishes. */
   suggestAny?: string[];
+  /** None of these may be suggested. */
+  suggestNone?: string[];
   accepted?: number | null;
   nutrition?: boolean;
   done?: boolean;
@@ -76,6 +78,7 @@ const cases: Case[] = [
   { name: "nutrition: protein and vitamins", before: ["1 eggs_royale"], said: "How much protein is in my order, and what vitamins?", expect: ["1 eggs_royale"], nutrition: true },
   { name: "nutrition: show it", before: ["1 avo_smash", "1 latte"], said: "Can you show me the nutrition details", expect: ["1 avo_smash", "1 latte"], nutrition: true },
   { name: "nutrition: high-protein dish is a suggestion", before: ["1 flat_white"], said: "What do you have that's high in protein?", expect: ["1 flat_white"], suggest: "protein", suggestAny: ["steak_salad"] },
+  { name: "nutrition: vegetarian high protein", said: "Something vegetarian that's high in protein?", expect: [], suggestAny: ["veggie_egg_brioche", "granola", "eggs_florentine", "poached_eggs", "avo_smash"], suggestNone: ["steak_salad", "eggs_royale", "eggs_benedict", "side_bacon", "side_salmon", "bacon_egg_brioche", "sausage_roll"] },
   { name: "not on menu", said: "Can I get some hash browns", expect: [] },
   { name: "similar dishes", said: "Eggs royale and an avo smash with a side of smoked salmon", expect: ["1 eggs_royale", "1 avo_smash", "1 side_salmon"] },
 ];
@@ -92,6 +95,7 @@ async function main() {
       JSON.stringify(got) === JSON.stringify(want) &&
       (test.suggest === undefined || (result.suggest?.topic ?? null) === test.suggest) &&
       (test.suggestAny === undefined || test.suggestAny.some((id) => result.suggest?.itemIds.includes(id))) &&
+      !(test.suggestNone ?? []).some((id) => result.suggest?.itemIds.includes(id)) &&
       (test.accepted === undefined || result.accepted === test.accepted) &&
       (test.done === undefined || result.done === test.done) &&
       result.nutrition === (test.nutrition ?? false) &&
