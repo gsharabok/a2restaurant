@@ -35,6 +35,8 @@ export async function POST(request: Request) {
       apiKey,
       signal: request.signal,
     });
+    const sheet = result.reviews ? reviewSheet(restaurantId, menu, result.reviews) : null;
+    const unreviewed = result.reviews?.kind === "item" ? menu.itemsById.get(result.reviews.id) : undefined;
     return Response.json({
       order: result.order,
       priced: priceOrder(menu, result.order),
@@ -43,8 +45,8 @@ export async function POST(request: Request) {
       nutrition: result.nutrition,
       done: result.done,
       pay: result.pay,
-      reviews: result.reviews ? reviewSheet(restaurantId, menu, result.reviews) : null,
-      reviewsMissing: result.reviewsAsked && !result.reviews ? `I don't have guest reviews for ${menu.restaurant.name} yet.` : null,
+      reviews: sheet,
+      reviewsMissing: result.reviewsAsked && !sheet ? `I don't have any guest reviews of ${unreviewed ? `the ${unreviewed.name.toLowerCase()}` : menu.restaurant.name} yet.` : null,
       ms: result.ms,
     });
   } catch (error) {

@@ -51,9 +51,8 @@ export function reviewSubjects(restaurantId: string, menu: Menu): { key: string;
       subject: { kind: "topic", id } as ReviewSubject,
       heard: `${topic.label} in general, not one named menu item.`,
     })),
-    ...Object.keys(reviews.items)
-      .filter((id) => menu.itemsById.has(id))
-      .map((id) => ({ key: `item_${id}`, subject: { kind: "item", id } as ReviewSubject, heard: `The menu item "${menu.itemsById.get(id)!.name}".` })),
+    // Every dish is a choice, so asking about one nobody reviewed is answered with "none" rather than another dish's reviews.
+    ...menu.items.map((item) => ({ key: `item_${item.id}`, subject: { kind: "item", id: item.id } as ReviewSubject, heard: `The menu item "${item.name}".` })),
   ];
 }
 

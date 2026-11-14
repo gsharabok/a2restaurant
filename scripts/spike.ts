@@ -68,6 +68,7 @@ const cases: Case[] = [
   { name: "reviews: is it any good", said: "Is the banana bread any good?", expect: [], reviews: "item_banana_bread" },
   { name: "reviews: a topic", before: ["1 flat_white"], said: "What do people say about the service?", expect: ["1 flat_white"], reviews: "topic_service" },
   { name: "reviews: rating", said: "How is this place rated on Google?", expect: [], reviews: "restaurant" },
+  { name: "reviews: a dish nobody reviewed", said: "What are the reviews like for the eggs benedict?", expect: [], reviews: "item_eggs_benedict" },
   { name: "reviews: none saved for starbucks", at: "starbucks", said: "What are the reviews like?", expect: [], reviewsAsked: true },
   { name: "brief: eggs bacon coffee", said: "I'm gonna have some eggs, maybe a little bit of bacon, and then a coffee", expect: ["1 poached_eggs", "1 side_bacon", "1 flat_white"] },
   { name: "quantities", said: "Two flat whites and three almond croissants please", expect: ["2 flat_white", "3 almond_croissant"] },
