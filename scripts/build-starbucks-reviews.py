@@ -33,6 +33,12 @@ def sentence(text, about):
 def block(rs, n, about):
     # Readable, complete reviews first; the order is otherwise the page's own.
     ranked = sorted(rs, key=lambda r: (not (60 < len(r["text"]) < 520), bool(r.get("truncated"))))
+    # Quotes follow the mix of ratings, so a subject with unhappy reviews shows one.
+    share = sum(r["rating"] >= 4 for r in rs) / len(rs)
+    good, bad = [r for r in ranked if r["rating"] >= 4], [r for r in ranked if r["rating"] <= 3]
+    want = min(len(bad), 0 if share > 0.85 else 1 if share >= 0.5 else 2 if share > 0.15 else 3)
+    picked = (good[:3 - want] + bad[:want]) if len(rs) > 3 else ranked
+    ranked = picked + [r for r in ranked if r not in picked]
     return {"mentions": len(rs), "average": round(sum(r["rating"] for r in rs) / len(rs), 1),
             "positiveShare": round(sum(r["rating"] >= 4 for r in rs) / len(rs), 2),
             "distribution": [sum(r["rating"] == s for r in rs) for s in (5, 4, 3, 2, 1)],
