@@ -59,8 +59,8 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
     if (result) {
       base.current = result.order;
       basePriced.current = shownPriced.current;
-      // Suggestions stay up until one is accepted or a new question replaces them.
-      const next = result.accepted ? null : (result.suggestion ?? shown.current);
+      // Suggestions stay up until a new question replaces them or one is accepted.
+      const next = result.suggestion ?? (result.accepted ? null : shown.current);
       shown.current = next;
       setSuggestion(next);
       if (result.done && result.order.lines.length > 0) setDone(true);
@@ -125,7 +125,7 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
           const lines = [...result.priced.lines].sort((a, b) => place(a.itemId) - place(b.itemId));
           shownPriced.current = { ...result.priced, lines };
           setPriced(shownPriced.current);
-          setSuggestion(result.accepted ? null : (result.suggestion ?? shown.current));
+          setSuggestion(result.suggestion ?? (result.accepted ? null : shown.current));
           setLatency(Math.round(performance.now() - sent));
           setError(null);
         })
