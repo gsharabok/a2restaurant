@@ -309,7 +309,7 @@ export async function interpret(input: {
   const missed = unchanged && !asking && !done && (answers.wanting?.noul ?? 0) >= MIN_ASKING;
   const lackingScore = answers.unavailable?.noul ?? 0;
   const lacking = lackingScore >= MIN_UNAVAILABLE;
-  const unavailable = !acceptedId && (lackingScore >= MIN_MAYBE_UNAVAILABLE || missed);
+  const unavailable = lackingScore >= MIN_MAYBE_UNAVAILABLE || missed;
   const suggest =
     !nutrition && (unavailable || asking)
       ? { ...(await pickSuggestions({ menu, said, order, unavailable, apiKey: input.apiKey, signal: input.signal })), ...(unavailable ? { exact: lacking } : {}) }
