@@ -1,0 +1,943 @@
+{
+  "restaurant": {
+    "id": "kaffeine-great-titchfield",
+    "name": "Kaffeine",
+    "address": "66 Great Titchfield St, London W1W 7QJ",
+    "tagline": "Speciality coffee & brunch, Fitzrovia",
+    "currency": "GBP",
+    "menuSource": "https://kaffeine.co.uk/location/66-great-titchfield-street/",
+    "menuDate": "2026-11-09",
+    "priceNote": "Food prices are from Kaffeine's published menu. Drink and side prices are placeholders: the published menu does not list them.",
+    "nutritionNote": "Nutrition figures are estimates from typical recipes, not published by Kaffeine."
+  },
+  "optionGroups": {
+    "milk": {
+      "label": "Milk",
+      "default": "whole",
+      "values": [
+        {
+          "id": "whole",
+          "label": "Whole",
+          "heard": "whole, regular, normal, dairy or cow's milk"
+        },
+        {
+          "id": "oat",
+          "label": "Oat",
+          "price": 0.5,
+          "heard": "oat milk",
+          "nutritionScale": 0.9
+        },
+        {
+          "id": "almond",
+          "label": "Almond",
+          "price": 0.5,
+          "heard": "almond milk",
+          "nutritionScale": 0.65
+        },
+        {
+          "id": "skimmed",
+          "label": "Skim",
+          "heard": "skimmed, skinny or low-fat milk",
+          "nutritionScale": 0.65
+        }
+      ]
+    },
+    "temp": {
+      "label": "Temp",
+      "default": "hot",
+      "values": [
+        {
+          "id": "hot",
+          "label": "Hot",
+          "heard": "hot"
+        },
+        {
+          "id": "iced",
+          "label": "Iced",
+          "heard": "iced, cold, over ice"
+        }
+      ]
+    },
+    "size": {
+      "label": "Size",
+      "default": "regular",
+      "values": [
+        {
+          "id": "regular",
+          "label": "Regular",
+          "heard": "regular, small, normal or medium size"
+        },
+        {
+          "id": "large",
+          "label": "Large",
+          "price": 0.6,
+          "heard": "large or big size",
+          "nutritionScale": 1.35
+        }
+      ]
+    },
+    "shots": {
+      "label": "Shots",
+      "default": "standard",
+      "values": [
+        {
+          "id": "standard",
+          "label": "Standard",
+          "heard": "the normal number of espresso shots"
+        },
+        {
+          "id": "extra",
+          "label": "Extra",
+          "price": 0.7,
+          "heard": "an extra shot, double shot, or stronger"
+        },
+        {
+          "id": "decaf",
+          "label": "Decaf",
+          "heard": "decaf, decaffeinated"
+        }
+      ]
+    },
+    "portion": {
+      "label": "Portion",
+      "default": "regular",
+      "values": [
+        {
+          "id": "regular",
+          "label": "Regular",
+          "heard": "regular or small portion"
+        },
+        {
+          "id": "large",
+          "label": "Large",
+          "price": 2.0,
+          "heard": "large or big portion",
+          "nutritionScale": 1.4
+        }
+      ]
+    }
+  },
+  "items": [
+    {
+      "id": "poached_eggs",
+      "name": "Poached Eggs",
+      "category": "brunch",
+      "price": 14.0,
+      "description": "Poached Cacklebean eggs, hollandaise, Wildfarmed sourdough toast",
+      "heard": "Poached eggs on sourdough toast with hollandaise. Also ordered as 'the poached eggs', 'eggs on toast' or just 'eggs'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f373.svg",
+      "nutrition": {
+        "kcal": 520,
+        "protein": 24,
+        "carbs": 34,
+        "fat": 32,
+        "richIn": [
+          "Vitamin B12",
+          "Vitamin D",
+          "Choline"
+        ]
+      }
+    },
+    {
+      "id": "avo_smash",
+      "name": "Avo Smash",
+      "category": "brunch",
+      "price": 14.0,
+      "description": "Smashed avocado, lime, green sriracha, feta, pine nuts, chilli oil, sourdough",
+      "heard": "Avo Smash: the smashed avocado on toast main dish, only when the guest says 'avo smash', 'avocado toast' or 'avo on toast'. Not when they say 'add avocado', 'some avocado' or 'a side of avocado'.",
+      "tags": [
+        "vegetarian",
+        "healthy"
+      ],
+      "image": "/items/1f951.svg",
+      "nutrition": {
+        "kcal": 560,
+        "protein": 16,
+        "carbs": 42,
+        "fat": 36,
+        "richIn": [
+          "Vitamin E",
+          "Vitamin K",
+          "Folate"
+        ]
+      }
+    },
+    {
+      "id": "eggs_florentine",
+      "name": "Eggs Florentine",
+      "category": "brunch",
+      "price": 16.0,
+      "description": "Poached eggs, sautéed spinach, hollandaise, toasted English muffins",
+      "heard": "Eggs Florentine: poached eggs with spinach on English muffins.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f373.svg",
+      "nutrition": {
+        "kcal": 540,
+        "protein": 25,
+        "carbs": 32,
+        "fat": 34,
+        "richIn": [
+          "Vitamin A",
+          "Vitamin K",
+          "Folate",
+          "Vitamin B12"
+        ]
+      }
+    },
+    {
+      "id": "eggs_benedict",
+      "name": "Eggs Benedict",
+      "category": "brunch",
+      "price": 16.5,
+      "description": "Poached eggs, espresso maple syrup ham, hollandaise, English muffins",
+      "heard": "Eggs Benedict: poached eggs with ham on English muffins. Also ordered as 'eggs benny'.",
+      "tags": [
+        "popular"
+      ],
+      "image": "/items/1f373.svg",
+      "nutrition": {
+        "kcal": 610,
+        "protein": 32,
+        "carbs": 36,
+        "fat": 36,
+        "richIn": [
+          "Vitamin B12",
+          "Vitamin D",
+          "Vitamin B1"
+        ]
+      }
+    },
+    {
+      "id": "eggs_royale",
+      "name": "Eggs Royale",
+      "category": "brunch",
+      "price": 17.0,
+      "description": "Poached eggs, smoked salmon, hollandaise, toasted English muffins",
+      "heard": "Eggs Royale: poached eggs with smoked salmon on English muffins.",
+      "tags": [],
+      "image": "/items/1f373.svg",
+      "nutrition": {
+        "kcal": 620,
+        "protein": 34,
+        "carbs": 32,
+        "fat": 38,
+        "richIn": [
+          "Vitamin D",
+          "Vitamin B12",
+          "Omega-3"
+        ]
+      }
+    },
+    {
+      "id": "drunken_mushrooms",
+      "name": "Drunken Mushrooms",
+      "category": "brunch",
+      "price": 17.0,
+      "description": "Wild mushrooms, cream, garlic, thyme & white wine sauce, parmesan, sourdough",
+      "heard": "Drunken mushrooms: wild mushrooms in white wine sauce on toast. Also ordered as 'mushrooms on toast'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f344.svg",
+      "nutrition": {
+        "kcal": 480,
+        "protein": 14,
+        "carbs": 40,
+        "fat": 28,
+        "richIn": [
+          "Vitamin D",
+          "Vitamin B2",
+          "Vitamin B3"
+        ]
+      }
+    },
+    {
+      "id": "espresso_pancakes",
+      "name": "Espresso Pancakes",
+      "category": "brunch",
+      "price": 14.0,
+      "description": "Kaffeine espresso syrup, mascarpone cream, fresh berries",
+      "heard": "Espresso pancakes with mascarpone and berries. Also ordered as 'pancakes'.",
+      "tags": [
+        "vegetarian",
+        "popular"
+      ],
+      "image": "/items/1f95e.svg",
+      "nutrition": {
+        "kcal": 640,
+        "protein": 12,
+        "carbs": 82,
+        "fat": 28,
+        "richIn": [
+          "Vitamin C",
+          "Vitamin B2",
+          "Calcium"
+        ]
+      }
+    },
+    {
+      "id": "bacon_egg_brioche",
+      "name": "Bacon & Egg Brioche",
+      "category": "breakfast",
+      "price": 10.5,
+      "description": "Crispy bacon, fried egg, plum tomato, avocado, aioli, rocket",
+      "heard": "Brioche bun with crispy bacon and fried egg. Also ordered as 'bacon and egg roll', 'bacon sandwich', 'breakfast bun' or 'bacon brioche'.",
+      "tags": [
+        "popular"
+      ],
+      "image": "/items/1f96a.svg",
+      "nutrition": {
+        "kcal": 590,
+        "protein": 26,
+        "carbs": 38,
+        "fat": 36,
+        "richIn": [
+          "Vitamin B12",
+          "Vitamin D",
+          "Vitamin E"
+        ]
+      }
+    },
+    {
+      "id": "veggie_egg_brioche",
+      "name": "Feta & Egg Brioche",
+      "category": "breakfast",
+      "price": 9.5,
+      "description": "Fried egg, plum tomato, feta, avocado, aioli, baby spinach",
+      "heard": "Vegetarian brioche bun with fried egg, feta and avocado. Also ordered as 'veggie brioche' or 'egg and feta roll'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f96f.svg",
+      "nutrition": {
+        "kcal": 540,
+        "protein": 20,
+        "carbs": 38,
+        "fat": 33,
+        "richIn": [
+          "Vitamin A",
+          "Vitamin B12",
+          "Vitamin K"
+        ]
+      }
+    },
+    {
+      "id": "granola",
+      "name": "Paleo Granola",
+      "category": "breakfast",
+      "price": 10.0,
+      "description": "Greek yoghurt, homemade raspberry compote",
+      "heard": "Paleo granola with Greek yoghurt and raspberry compote. Also ordered as 'granola', 'granola bowl' or 'yoghurt and granola'.",
+      "tags": [
+        "vegetarian",
+        "healthy"
+      ],
+      "image": "/items/1f963.svg",
+      "nutrition": {
+        "kcal": 420,
+        "protein": 18,
+        "carbs": 28,
+        "fat": 26,
+        "richIn": [
+          "Vitamin E",
+          "Vitamin B12",
+          "Calcium"
+        ]
+      }
+    },
+    {
+      "id": "fruit_salad",
+      "name": "Seasonal Fruit Salad",
+      "category": "breakfast",
+      "price": 8.5,
+      "description": "Fresh seasonal fruit",
+      "heard": "Seasonal fruit salad. Also ordered as 'fruit', 'fruit bowl' or 'fruit cup'.",
+      "tags": [
+        "vegan",
+        "healthy"
+      ],
+      "image": "/items/1f353.svg",
+      "nutrition": {
+        "kcal": 160,
+        "protein": 2,
+        "carbs": 38,
+        "fat": 1,
+        "richIn": [
+          "Vitamin C",
+          "Vitamin A",
+          "Folate"
+        ]
+      }
+    },
+    {
+      "id": "sourdough_toast",
+      "name": "Sourdough Toast",
+      "category": "breakfast",
+      "price": 4.5,
+      "description": "Wildfarmed sourdough, Estate Dairy cultured butter, choice of spreads",
+      "heard": "Plain sourdough toast with butter and spreads, ordered on its own as 'toast' or 'toast and butter'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f35e.svg",
+      "nutrition": {
+        "kcal": 310,
+        "protein": 8,
+        "carbs": 44,
+        "fat": 11,
+        "richIn": [
+          "Vitamin B1",
+          "Folate"
+        ]
+      }
+    },
+    {
+      "id": "goats_curd_salad",
+      "name": "Goat's Curd Salad",
+      "category": "lunch",
+      "price": 10.0,
+      "description": "Roasted honey sprouts, beetroot, toasted walnuts, balsamic glaze, rocket",
+      "heard": "Goat's curd and beetroot salad. Also ordered as 'the goat cheese salad', 'beetroot salad' or 'the veggie salad'.",
+      "tags": [
+        "vegetarian",
+        "healthy"
+      ],
+      "options": [
+        "portion"
+      ],
+      "image": "/items/1f957.svg",
+      "nutrition": {
+        "kcal": 380,
+        "protein": 14,
+        "carbs": 24,
+        "fat": 26,
+        "richIn": [
+          "Vitamin K",
+          "Vitamin C",
+          "Folate"
+        ]
+      }
+    },
+    {
+      "id": "steak_salad",
+      "name": "Griddled Steak Salad",
+      "category": "lunch",
+      "price": 10.0,
+      "description": "Blackened sweet corn, avocado, cherry tomatoes, mozzarella, green pesto",
+      "heard": "Griddled steak salad with sweet corn and avocado. Also ordered as 'the steak salad' or 'beef salad'.",
+      "tags": [
+        "healthy"
+      ],
+      "options": [
+        "portion"
+      ],
+      "image": "/items/1f969.svg",
+      "nutrition": {
+        "kcal": 520,
+        "protein": 38,
+        "carbs": 18,
+        "fat": 32,
+        "richIn": [
+          "Vitamin B12",
+          "Vitamin B6",
+          "Vitamin C",
+          "Iron"
+        ]
+      }
+    },
+    {
+      "id": "sausage_roll",
+      "name": "Pork Belly Sausage Roll",
+      "category": "lunch",
+      "price": 6.0,
+      "description": "Pork belly, onion, garlic, chilli, apple",
+      "heard": "Pork belly sausage roll. Also ordered as 'sausage roll'.",
+      "tags": [],
+      "image": "/items/1f956.svg",
+      "nutrition": {
+        "kcal": 450,
+        "protein": 16,
+        "carbs": 30,
+        "fat": 29,
+        "richIn": [
+          "Vitamin B1",
+          "Vitamin B12"
+        ]
+      }
+    },
+    {
+      "id": "croissant",
+      "name": "Butter Croissant",
+      "category": "pastry",
+      "price": 3.6,
+      "description": "French butter croissant by Seven Seeded Bakery",
+      "heard": "Plain French butter croissant. Ordered as 'a croissant' or 'plain croissant'. Not the almond croissant.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f950.svg",
+      "nutrition": {
+        "kcal": 290,
+        "protein": 6,
+        "carbs": 30,
+        "fat": 16,
+        "richIn": [
+          "Vitamin A"
+        ]
+      }
+    },
+    {
+      "id": "almond_croissant",
+      "name": "Almond Croissant",
+      "category": "pastry",
+      "price": 4.4,
+      "description": "Twice-baked with almond frangipane",
+      "heard": "Almond croissant.",
+      "tags": [
+        "vegetarian",
+        "popular"
+      ],
+      "image": "/items/1f950.svg",
+      "nutrition": {
+        "kcal": 460,
+        "protein": 10,
+        "carbs": 44,
+        "fat": 27,
+        "richIn": [
+          "Vitamin E"
+        ]
+      }
+    },
+    {
+      "id": "pain_au_chocolat",
+      "name": "Pain au Chocolat",
+      "category": "pastry",
+      "price": 3.9,
+      "description": "By Seven Seeded Bakery",
+      "heard": "Pain au chocolat. Also ordered as 'chocolate croissant'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f950.svg",
+      "nutrition": {
+        "kcal": 330,
+        "protein": 6,
+        "carbs": 36,
+        "fat": 18,
+        "richIn": [
+          "Vitamin A"
+        ]
+      }
+    },
+    {
+      "id": "banana_bread",
+      "name": "Banana Bread",
+      "category": "pastry",
+      "price": 4.7,
+      "description": "House-baked banana bread",
+      "heard": "Banana bread. Also ordered as 'banana loaf' or 'banana cake'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f34c.svg",
+      "nutrition": {
+        "kcal": 340,
+        "protein": 5,
+        "carbs": 50,
+        "fat": 13,
+        "richIn": [
+          "Vitamin B6"
+        ]
+      }
+    },
+    {
+      "id": "brownie",
+      "name": "Mini Chocolate Brownie",
+      "category": "pastry",
+      "price": 2.6,
+      "description": "Gluten free",
+      "heard": "Mini chocolate brownie, gluten free. Ordered as 'a brownie'.",
+      "tags": [
+        "vegetarian",
+        "gluten-free"
+      ],
+      "image": "/items/1f36b.svg",
+      "nutrition": {
+        "kcal": 220,
+        "protein": 3,
+        "carbs": 26,
+        "fat": 12,
+        "richIn": [
+          "Iron"
+        ]
+      }
+    },
+    {
+      "id": "portuguese_tart",
+      "name": "Portuguese Tart",
+      "category": "pastry",
+      "price": 4.0,
+      "description": "Custard tart",
+      "heard": "Portuguese custard tart. Also ordered as 'pastel de nata' or 'custard tart'.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f967.svg",
+      "nutrition": {
+        "kcal": 250,
+        "protein": 4,
+        "carbs": 30,
+        "fat": 12,
+        "richIn": [
+          "Vitamin A",
+          "Vitamin D"
+        ]
+      }
+    },
+    {
+      "id": "side_bacon",
+      "name": "Streaky Bacon",
+      "category": "side",
+      "price": 3.5,
+      "pricePlaceholder": true,
+      "description": "Side of streaky bacon",
+      "heard": "A side or extra of streaky bacon. Ordered as 'bacon', 'some bacon', 'a side of bacon' or 'add bacon'.",
+      "tags": [],
+      "image": "/items/1f953.svg",
+      "nutrition": {
+        "kcal": 180,
+        "protein": 12,
+        "carbs": 0,
+        "fat": 14,
+        "richIn": [
+          "Vitamin B12",
+          "Vitamin B3"
+        ]
+      }
+    },
+    {
+      "id": "side_avocado",
+      "name": "Smashed Avocado",
+      "category": "side",
+      "price": 3.5,
+      "pricePlaceholder": true,
+      "description": "Side of smashed avocado",
+      "heard": "A side or extra of smashed avocado. Ordered as 'avocado', 'some avo', 'a side of avocado' or 'add avocado'. Not the Avo Smash main dish.",
+      "tags": [
+        "vegan",
+        "healthy"
+      ],
+      "image": "/items/1f951.svg",
+      "nutrition": {
+        "kcal": 160,
+        "protein": 2,
+        "carbs": 8,
+        "fat": 15,
+        "richIn": [
+          "Vitamin E",
+          "Vitamin K",
+          "Folate"
+        ]
+      }
+    },
+    {
+      "id": "side_poached_egg",
+      "name": "Extra Poached Egg",
+      "category": "side",
+      "price": 2.5,
+      "pricePlaceholder": true,
+      "description": "One extra Cacklebean poached egg",
+      "heard": "One extra poached egg as a side, only when the guest explicitly says 'an extra egg', 'add an egg' or 'another egg'. Not the Poached Eggs main dish, and not any other side.",
+      "tags": [
+        "vegetarian"
+      ],
+      "image": "/items/1f95a.svg",
+      "nutrition": {
+        "kcal": 70,
+        "protein": 6,
+        "carbs": 0,
+        "fat": 5,
+        "richIn": [
+          "Vitamin B12",
+          "Vitamin D"
+        ]
+      }
+    },
+    {
+      "id": "side_salmon",
+      "name": "Smoked Salmon",
+      "category": "side",
+      "price": 5.0,
+      "pricePlaceholder": true,
+      "description": "Side of smoked salmon",
+      "heard": "A side or extra of smoked salmon. Ordered as 'salmon', 'some smoked salmon' or 'add salmon'.",
+      "tags": [
+        "healthy"
+      ],
+      "image": "/items/1f363.svg",
+      "nutrition": {
+        "kcal": 120,
+        "protein": 18,
+        "carbs": 0,
+        "fat": 5,
+        "richIn": [
+          "Vitamin D",
+          "Vitamin B12",
+          "Omega-3"
+        ]
+      }
+    },
+    {
+      "id": "espresso",
+      "name": "Espresso",
+      "category": "drink",
+      "price": 3.0,
+      "pricePlaceholder": true,
+      "description": "Kaffeine house espresso",
+      "heard": "Espresso served on its own as a drink: 'an espresso' or 'a short black'. Not an extra shot added to another drink such as a latte.",
+      "tags": [],
+      "options": [
+        "shots"
+      ],
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 5,
+        "protein": 0,
+        "carbs": 1,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "americano",
+      "name": "Long Black",
+      "category": "drink",
+      "price": 3.5,
+      "pricePlaceholder": true,
+      "description": "Espresso over hot water",
+      "heard": "Long black or americano: black coffee made with espresso and water. Also ordered as 'black coffee' or 'americano'.",
+      "tags": [],
+      "options": [
+        "temp",
+        "size",
+        "shots"
+      ],
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 5,
+        "protein": 0,
+        "carbs": 1,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "flat_white",
+      "name": "Flat White",
+      "category": "drink",
+      "price": 3.9,
+      "pricePlaceholder": true,
+      "description": "Double ristretto, silky steamed milk",
+      "heard": "Flat white. Also what a guest gets when they just say 'a coffee' or 'a white coffee' without naming a type.",
+      "tags": [
+        "popular"
+      ],
+      "options": [
+        "milk",
+        "size",
+        "shots"
+      ],
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 110,
+        "protein": 6,
+        "carbs": 8,
+        "fat": 6,
+        "richIn": [
+          "Vitamin B2",
+          "Vitamin B12",
+          "Calcium"
+        ]
+      }
+    },
+    {
+      "id": "latte",
+      "name": "Latte",
+      "category": "drink",
+      "price": 4.1,
+      "pricePlaceholder": true,
+      "description": "Espresso with steamed milk",
+      "heard": "Latte or caffe latte, hot or iced. Also ordered as 'iced latte' or 'milky coffee'.",
+      "tags": [],
+      "options": [
+        "milk",
+        "temp",
+        "size",
+        "shots"
+      ],
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 150,
+        "protein": 8,
+        "carbs": 12,
+        "fat": 8,
+        "richIn": [
+          "Vitamin B2",
+          "Vitamin B12",
+          "Calcium"
+        ]
+      }
+    },
+    {
+      "id": "cappuccino",
+      "name": "Cappuccino",
+      "category": "drink",
+      "price": 4.1,
+      "pricePlaceholder": true,
+      "description": "Espresso, steamed milk, foam, chocolate dust",
+      "heard": "Cappuccino.",
+      "tags": [],
+      "options": [
+        "milk",
+        "size",
+        "shots"
+      ],
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 120,
+        "protein": 6,
+        "carbs": 10,
+        "fat": 6,
+        "richIn": [
+          "Vitamin B2",
+          "Vitamin B12",
+          "Calcium"
+        ]
+      }
+    },
+    {
+      "id": "mocha",
+      "name": "Mocha",
+      "category": "drink",
+      "price": 4.4,
+      "pricePlaceholder": true,
+      "description": "Espresso, chocolate, steamed milk",
+      "heard": "Mocha: chocolate coffee.",
+      "tags": [],
+      "options": [
+        "milk",
+        "temp",
+        "size",
+        "shots"
+      ],
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 250,
+        "protein": 9,
+        "carbs": 32,
+        "fat": 10,
+        "richIn": [
+          "Vitamin B2",
+          "Calcium"
+        ]
+      }
+    },
+    {
+      "id": "filter",
+      "name": "Batch Filter",
+      "category": "drink",
+      "price": 3.5,
+      "pricePlaceholder": true,
+      "description": "Today's single-origin batch brew",
+      "heard": "Batch brew filter coffee, only when the guest says the word 'filter', 'batch' or 'drip'. Not when they just say 'a coffee'.",
+      "tags": [],
+      "options": [
+        "size"
+      ],
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 5,
+        "protein": 0,
+        "carbs": 1,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "hot_chocolate",
+      "name": "Hot Chocolate",
+      "category": "drink",
+      "price": 4.2,
+      "pricePlaceholder": true,
+      "description": "Real chocolate, steamed milk",
+      "heard": "Hot chocolate. Also ordered as 'hot cocoa'.",
+      "tags": [],
+      "options": [
+        "milk",
+        "size"
+      ],
+      "image": "/items/2615.svg",
+      "nutrition": {
+        "kcal": 280,
+        "protein": 10,
+        "carbs": 34,
+        "fat": 12,
+        "richIn": [
+          "Vitamin B2",
+          "Vitamin D",
+          "Calcium"
+        ]
+      }
+    },
+    {
+      "id": "tea",
+      "name": "English Breakfast Tea",
+      "category": "drink",
+      "price": 3.5,
+      "pricePlaceholder": true,
+      "description": "Loose-leaf pot",
+      "heard": "A pot of English breakfast tea. Ordered as 'tea', 'a cup of tea' or 'breakfast tea'.",
+      "tags": [],
+      "options": [
+        "milk"
+      ],
+      "image": "/items/1fad6.svg",
+      "nutrition": {
+        "kcal": 5,
+        "protein": 0,
+        "carbs": 1,
+        "fat": 0,
+        "richIn": []
+      }
+    },
+    {
+      "id": "orange_juice",
+      "name": "Fresh Orange Juice",
+      "category": "drink",
+      "price": 4.5,
+      "pricePlaceholder": true,
+      "description": "Freshly squeezed",
+      "heard": "Freshly squeezed orange juice. Ordered as 'orange juice', 'OJ' or 'a juice'.",
+      "tags": [
+        "healthy",
+        "vegan"
+      ],
+      "image": "/items/1f9c3.svg",
+      "nutrition": {
+        "kcal": 110,
+        "protein": 2,
+        "carbs": 25,
+        "fat": 0,
+        "richIn": [
+          "Vitamin C",
+          "Folate"
+        ]
+      }
+    }
+  ]
+}
