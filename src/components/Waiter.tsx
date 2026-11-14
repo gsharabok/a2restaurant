@@ -8,6 +8,7 @@ import { CuratedSet } from "./CuratedSet";
 import { ItemImage } from "./ItemImage";
 import { OrderCard } from "./OrderCard";
 import { PayButton, type PayHandle } from "./PayButton";
+import { ReviewsPanel } from "./ReviewsPanel";
 import { useLiveOrder } from "@/hooks/useLiveOrder";
 import { useSpeech, type SpeechText } from "@/hooks/useSpeech";
 import { useWaiterVoice } from "@/hooks/useWaiterVoice";
@@ -120,7 +121,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
     }
   };
 
-  const { priced, suggestion, nutritionAsked, transcript, done } = order;
+  const { priced, suggestion, nutritionAsked, reviews, closeReviews, transcript, done } = order;
   // An answer that shows up mid-sentence is voiced ahead of time, during the guest's closing pause.
   const answering = Boolean(transcript.settled || transcript.unsettled) && suggestion;
   const { prepare } = voice;
@@ -254,6 +255,8 @@ export function Waiter({ restaurant, restaurants }: Props) {
         </AnimatePresence>
       </section>
 
+      <ReviewsPanel sheet={reviews} onClose={closeReviews} />
+
       <AnimatePresence>
         {showNutrition && (
           <motion.aside
@@ -344,7 +347,8 @@ export function Waiter({ restaurant, restaurants }: Props) {
         )}
       </AnimatePresence>
 
-      <footer className="relative z-10 px-6 pb-6 max-sm:px-3 max-sm:pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+      {/* Above the reviews sheet, so the guest can keep talking or typing while it is open. */}
+      <footer className="relative z-40 px-6 pb-6 max-sm:px-3 max-sm:pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <AnimatePresence>
           {voice.line && voice.line !== suggestion?.caption && (
             <motion.button
@@ -353,7 +357,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
               exit={{ opacity: 0, y: 8 }}
               onClick={voice.stop}
               title="Click to stop the waiter"
-              className={`${showSuggestions ? "max-sm:hidden" : ""} mx-auto mb-3 flex max-w-3xl items-center gap-3 rounded-2xl max-sm:mb-2 border border-amber-200/20 bg-amber-200/[0.07] px-4 py-2 text-left text-sm text-amber-100/90 backdrop-blur`}
+              className={`${reviews ? "hidden" : showSuggestions ? "max-sm:hidden" : ""} mx-auto mb-3 flex max-w-3xl items-center gap-3 rounded-2xl max-sm:mb-2 border border-amber-200/20 bg-amber-200/[0.07] px-4 py-2 text-left text-sm text-amber-100/90 backdrop-blur`}
               data-testid="waiter-line"
               data-speaking={voice.speaking}
             >
