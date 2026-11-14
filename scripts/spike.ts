@@ -4,6 +4,7 @@
  */
 import fs from "node:fs";
 import { interpret } from "../src/lib/interpret";
+import { menus, type Menu } from "../src/lib/menu";
 import type { Order } from "../src/lib/order";
 
 const key =
@@ -20,6 +21,8 @@ type Case = {
   suggest?: string | null;
   /** At least one of these must be among the suggested dishes. */
   suggestAny?: string[];
+  /** Restaurant id; Kaffeine when omitted. */
+  at?: string;
   /** None of these may be suggested. */
   suggestNone?: string[];
   accepted?: number | null;
@@ -34,11 +37,10 @@ const parse = (lines: string[]): Order => ({
     return { qty: Number(qty), itemId, options: Object.fromEntries(rest.map((pair) => pair.split("="))) };
   }),
 });
-const NON_DEFAULT: Record<string, string> = { milk: "whole", temp: "hot", size: "regular", shots: "standard", portion: "regular" };
-const show = (order: Order) =>
+const show = (menu: Menu, order: Order) =>
   order.lines
     .map((line) =>
-      [line.qty, line.itemId, ...Object.entries(line.options).filter(([g, v]) => NON_DEFAULT[g] !== v).map(([g, v]) => `${g}=${v}`).sort()].join(" "),
+      [line.qty, line.itemId, ...Object.entries(line.options).filter(([g, v]) => menu.optionGroups[g]?.default !== v).map(([g, v]) => `${g}=${v}`).sort()].join(" "),
     )
     .sort();
 
@@ -79,6 +81,12 @@ const cases: Case[] = [
   { name: "nutrition: show it", before: ["1 avo_smash", "1 latte"], said: "Can you show me the nutrition details", expect: ["1 avo_smash", "1 latte"], nutrition: true },
   { name: "nutrition: high-protein dish is a suggestion", before: ["1 flat_white"], said: "What do you have that's high in protein?", expect: ["1 flat_white"], suggest: "protein", suggestAny: ["steak_salad"] },
   { name: "nutrition: vegetarian high protein", said: "Something vegetarian that's high in protein?", expect: [], suggestAny: ["veggie_egg_brioche", "granola", "eggs_florentine", "poached_eggs", "avo_smash"], suggestNone: ["steak_salad", "eggs_royale", "eggs_benedict", "side_bacon", "side_salmon", "bacon_egg_brioche", "sausage_roll"] },
+  { name: "starbucks: order", at: "starbucks", said: "Can I get a grande latte, a bacon roll and a blueberry muffin", expect: ["1 latte", "1 bacon_roll", "1 blueberry_muffin"] },
+  { name: "starbucks: options", at: "starbucks", before: ["1 latte"], said: "Make the latte iced, venti, with oat milk", expect: ["1 latte temp=iced size=venti milk=oat"] },
+  { name: "starbucks: size word", at: "starbucks", said: "A large americano and a cinnamon bun please", expect: ["1 americano size=venti", "1 cinnamon_bun"] },
+  { name: "starbucks: swap", at: "starbucks", before: ["1 blueberry_muffin", "1 latte"], said: "Swap the muffin for an almond croissant", expect: ["1 latte", "1 almond_croissant"] },
+  { name: "starbucks: lunch question", at: "starbucks", said: "What do you have for lunch?", expect: [], suggestAny: ["ham_cheese_toastie", "grilled_cheese", "tuna_melt", "tomato_mozzarella_panini", "chicken_caesar_flatbread", "festive_toastie", "egg_mayo_sandwich"] },
+  { name: "starbucks: vegan question", at: "starbucks", said: "Any vegan food?", expect: [], suggestAny: ["beyond_sandwich", "overnight_oats", "fruit_pot"], suggestNone: ["bacon_roll", "egg_bites", "tuna_melt", "yogurt_granola"] },
   { name: "not on menu", said: "Can I get some hash browns", expect: [] },
   { name: "similar dishes", said: "Eggs royale and an avo smash with a side of smoked salmon", expect: ["1 eggs_royale", "1 avo_smash", "1 side_salmon"] },
 ];
@@ -87,10 +95,11 @@ async function main() {
   let passed = 0;
   const times: number[] = [];
   for (const test of cases) {
-    const result = await interpret({ before: parse(test.before ?? []), said: test.said, shownSuggestions: test.shown, apiKey: key! });
+    const menu = menus[test.at ?? "kaffeine"];
+    const result = await interpret({ menu, before: parse(test.before ?? []), said: test.said, shownSuggestions: test.shown, apiKey: key! });
     times.push(result.ms);
-    const got = show(result.order);
-    const want = show(parse(test.expect));
+    const got = show(menu, result.order);
+    const want = show(menu, parse(test.expect));
     const ok =
       JSON.stringify(got) === JSON.stringify(want) &&
       (test.suggest === undefined || (result.suggest?.topic ?? null) === test.suggest) &&

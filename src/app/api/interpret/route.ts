@@ -1,3 +1,4 @@
+import { getMenu } from "@/lib/menu";
 import { interpret } from "@/lib/interpret";
 import { priceOrder, sanitizeOrder } from "@/lib/order";
 import { toSuggestion } from "@/lib/suggest";
@@ -8,16 +9,20 @@ export async function POST(request: Request) {
     return Response.json({ error: "TYPESAFE_API_KEY is not set. Add it to .env.local and restart." }, { status: 500 });
   }
   const body = (await request.json().catch(() => null)) as {
+    restaurant?: unknown;
     before?: unknown;
     said?: unknown;
     shownSuggestions?: unknown;
   } | null;
+  const menu = getMenu(body?.restaurant);
+  if (!menu) return Response.json({ error: "Unknown restaurant." }, { status: 400 });
   const said = typeof body?.said === "string" ? body.said.slice(0, 2000) : "";
   const shown = Array.isArray(body?.shownSuggestions) ? body.shownSuggestions.map(String).slice(0, 3) : [];
 
   try {
     const result = await interpret({
-      before: sanitizeOrder(body?.before),
+      menu,
+      before: sanitizeOrder(menu, body?.before),
       said,
       shownSuggestions: shown,
       apiKey,
@@ -25,8 +30,8 @@ export async function POST(request: Request) {
     });
     return Response.json({
       order: result.order,
-      priced: priceOrder(result.order),
-      suggestion: result.suggest ? toSuggestion(result.suggest) : null,
+      priced: priceOrder(menu, result.order),
+      suggestion: result.suggest ? toSuggestion(menu, result.suggest) : null,
       accepted: result.accepted,
       nutrition: result.nutrition,
       done: result.done,

@@ -4,11 +4,14 @@ A voice waiter for restaurants. The guest says what they want and the order buil
 
 The seed restaurant is [Kaffeine](https://kaffeine.co.uk/location/66-great-titchfield-street/), 66 Great Titchfield St, London. Food prices come from its published menu; drink and side prices are placeholders.
 
+The dropdown at the top left switches restaurant. The second one is Starbucks UK (`/starbucks`): product names, descriptions, photos and nutrition come from its [published menu](https://www.starbucks.co.uk/menu), with photos loaded from Starbucks' own media library. Starbucks does not publish prices there, so every Starbucks price is a placeholder. Each restaurant is one JSON file in `src/data`, registered in `src/lib/menu.ts`.
+
 ## Run it
 
 ```bash
 npm install
 echo "TYPESAFE_API_KEY=your-key" > .env.local   # from https://console.typesafe.ai/keys
+echo "STRIPE_SECRET_KEY=sk_test_..." >> .env.local  # optional: "Pay with Link" opens Stripe Checkout; without it, a demo checkout
 npm run dev
 ```
 

@@ -1,4 +1,4 @@
-import { itemsById } from "./menu";
+import type { Menu } from "./menu";
 import type { SuggestionPick, SuggestionTopic } from "./interpret";
 
 export type Suggestion = {
@@ -10,23 +10,28 @@ export type Suggestion = {
 const CAPTIONS: Record<SuggestionTopic, string> = {
   healthy: "On the lighter side, these are fresh and filling.",
   protein: "The most protein on the menu.",
-  popular: "These are what most tables order here.",
+  popular: "These are what most people order here.",
   vegetarian: "All meat-free.",
   vegan: "These are vegan.",
   sweet: "Something sweet to go with your coffee.",
   breakfast: "A few favourites from the breakfast menu.",
   lunch: "From the lunch menu.",
   drinks: "A few of our drinks.",
-  other: "Here's what we have.",
+  other: "Here are a few ideas.",
 };
 
-export function toSuggestion(pick: SuggestionPick): Suggestion {
+const CATEGORY_OF: Partial<Record<SuggestionTopic, string>> = { drinks: "drink", lunch: "lunch" };
+
+export function toSuggestion(menu: Menu, pick: SuggestionPick): Suggestion {
   const items = pick.itemIds
-    .map((id) => itemsById.get(id))
+    .map((id) => menu.itemsById.get(id))
     .filter((item) => item !== undefined)
     .map(({ id, name, image, description, price, nutrition }) => ({ id, name, image, description, price, kcal: nutrition.kcal, protein: nutrition.protein }));
+  // A caption that names a kind of dish is only used when every pick is that kind.
+  const kind = CATEGORY_OF[pick.topic];
+  const topic = kind && !pick.itemIds.every((id) => menu.itemsById.get(id)?.category === kind) ? "other" : pick.topic;
   return {
-    caption: items.length ? CAPTIONS[pick.topic] : "Sorry, nothing on the menu matches that.",
+    caption: items.length ? CAPTIONS[topic] : "Sorry, nothing on the menu matches that.",
     items,
   };
 }
