@@ -18,6 +18,8 @@ type InterpretResponse = {
   reviews: ReviewSheet | null;
   /** What to tell a guest who asked for reviews where none are saved. */
   reviewsMissing: string | null;
+  /** Set while choosing a restaurant, once the guest has picked one. */
+  go?: { restaurant: string; item?: string } | null;
   ms: number;
 };
 
@@ -39,6 +41,7 @@ export function useLiveOrder(
   onPayAsked?: () => void,
   /** Shown every interpretation as the turn it would make; returns true when the waiter will answer it. */
   onTurnPreview?: (turn: CommittedTurn) => boolean,
+  onGo?: (go: { restaurant: string; item?: string }) => void,
 ) {
   const [priced, setPriced] = useState<PricedOrder>(EMPTY_PRICED);
   const [suggestion, setSuggestion] = useState<Suggestion | null>(null);
@@ -64,14 +67,16 @@ export function useLiveOrder(
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const committed = useRef(onTurnCommitted);
   const payAsked = useRef(onPayAsked);
+  const goAsked = useRef(onGo);
   const preview = useRef(onTurnPreview);
   /** How the turn will end: on silence or not, whether an answer is waiting, and when words last arrived or changed. */
   const ending = useRef({ onSilence: true, answerReady: false, heardAt: 0, changedAt: 0 });
   useEffect(() => {
     committed.current = onTurnCommitted;
     payAsked.current = onPayAsked;
+    goAsked.current = onGo;
     preview.current = onTurnPreview;
-  }, [onTurnCommitted, onPayAsked, onTurnPreview]);
+  }, [onTurnCommitted, onPayAsked, onTurnPreview, onGo]);
 
   const commit = useCallback(() => {
     if (inFlight.current) {
@@ -110,6 +115,8 @@ export function useLiveOrder(
       setReviews(result.reviews);
       // Paying waits for the end of the sentence, so a half-heard phrase never opens the checkout.
       if (result.pay) payAsked.current?.();
+      // Like paying, leaving for a restaurant waits for the end of the sentence.
+      if (result.go) goAsked.current?.(result.go);
     }
     setTranscript({ settled: "", unsettled: "", previous: said.current });
     said.current = "";

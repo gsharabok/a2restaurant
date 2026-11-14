@@ -273,7 +273,7 @@ async function pickSuggestions(input: { menu: Menu; said: string; order: Order; 
 }
 
 /** Second, smaller question asked only when the guest wants reviews: what are they asking about? */
-async function pickReviewSubject(input: { menu: Menu; restaurantId: string; said: string; apiKey: string; signal?: AbortSignal }): Promise<ReviewSubject> {
+export async function pickReviewSubject(input: { menu: Menu; restaurantId: string; said: string; apiKey: string; signal?: AbortSignal }): Promise<ReviewSubject> {
   const subjects = reviewSubjects(input.restaurantId, input.menu);
   const answers = await ask(
     {
