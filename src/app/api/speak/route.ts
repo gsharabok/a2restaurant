@@ -6,7 +6,8 @@ const MAX_CHARS = 500;
 const MAX_CACHED = 60;
 
 /** Lines repeat (captions, rehearsed demo), so a spoken line is only bought once per server run. */
-const cache = new Map<string, Uint8Array<ArrayBuffer>>();
+/** Holds lines still being generated too, so a line asked for twice at once is only generated once. */
+const cache = new Map<string, Promise<Uint8Array<ArrayBuffer> | null>>();
 
 const HEADERS = { "content-type": "audio/mpeg", "cache-control": "no-store" };
 
@@ -20,7 +21,7 @@ export async function GET(request: Request) {
 
   const voice = process.env.ELEVENLABS_VOICE_ID ?? DEFAULT_VOICE;
   const cacheKey = `${voice}:${text}`;
-  const cached = cache.get(cacheKey);
+  const cached = await cache.get(cacheKey);
   if (cached) return new Response(cached, { headers: HEADERS });
 
   let upstream: Response;
@@ -46,12 +47,14 @@ export async function GET(request: Request) {
 
   // Audio goes to the browser as it arrives; a copy is kept once the whole line is in.
   const [toBrowser, toCache] = upstream.body.tee();
-  new Response(toCache)
+  if (cache.size >= MAX_CACHED) cache.delete(cache.keys().next().value!);
+  const audio = new Response(toCache)
     .arrayBuffer()
-    .then((audio) => {
-      if (cache.size >= MAX_CACHED) cache.delete(cache.keys().next().value!);
-      cache.set(cacheKey, new Uint8Array(audio));
-    })
-    .catch(() => {});
+    .then((buffer) => new Uint8Array(buffer))
+    .catch(() => null);
+  cache.set(cacheKey, audio);
+  audio.then((done) => {
+    if (!done && cache.get(cacheKey) === audio) cache.delete(cacheKey);
+  });
   return new Response(toBrowser, { headers: HEADERS });
 }
