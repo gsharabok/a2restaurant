@@ -52,7 +52,7 @@ Typing, or clicking the line the waiter is saying, stops it at once. On laptop s
 2. Each change is sent to `/api/interpret` with the order as it stood when the sentence began. An older request still in flight is aborted (`src/hooks/useLiveOrder.ts`).
 3. The route asks [Jev](https://typesafe.ai) one batched question set: a quantity for every menu item, each option of each drink, whether the guest wants a recommendation, and whether they are finished (`src/lib/interpret.ts`).
 4. Code validates the answer against the menu and computes prices (`src/lib/order.ts`). The model never produces a price.
-5. React renders one card per order line and animates the differences.
+5. React renders one card per order line and animates the differences. The picture on each card follows the order too (`src/components/ItemArt.tsx`): it grows with the size, steams when hot, and takes ice when iced. Kaffeine drinks are drawn in code (`DrinkArt.tsx`); Starbucks photos keep every variant loaded so a switch shows at once. These are decoration on an order that is already drawn, so none of them delays an update.
 6. When the sentence ends, `src/hooks/useWaiterVoice.ts` decides whether the waiter answers, and plays the line.
 
 Because every update re-reads the whole sentence against the order from before the sentence, corrections ("a cappuccino, no wait, a mocha") fix the screen instead of stacking up.

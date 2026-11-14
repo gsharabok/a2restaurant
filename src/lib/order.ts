@@ -1,4 +1,4 @@
-import { resolveVariant, type Menu, type MenuItem, type Nutrition } from "./menu";
+import { resolveVariant, type DrinkArtKind, type Menu, type MenuItem, type Nutrition, type Temperature } from "./menu";
 
 export const MAX_QTY = 4;
 
@@ -9,6 +9,11 @@ export type PricedOption = { group: string; label: string; value: string; valueL
 export type PricedLine = OrderLine & {
   name: string;
   image: string;
+  /** Every photo the item's options can switch to, so the card can load them before they are needed. */
+  images: string[];
+  /** Hot or cold as ordered: the hot/iced option when the item has one, otherwise how it is served. */
+  temperature?: Temperature;
+  art?: DrinkArtKind;
   description: string;
   category: string;
   unitPrice: number;
@@ -74,6 +79,9 @@ export function priceOrder(menu: Menu, order: Order): PricedOrder {
       ...line,
       name: item.name,
       image,
+      images: [...new Set([item.image, ...(item.variants ?? []).flatMap((variant) => variant.image ?? [])])],
+      temperature: line.options.temp === "iced" ? ("cold" as const) : line.options.temp === "hot" ? ("hot" as const) : item.serve,
+      art: item.art,
       description: item.description,
       category: item.category,
       unitPrice,

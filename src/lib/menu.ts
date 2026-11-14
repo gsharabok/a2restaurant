@@ -8,6 +8,8 @@ export type Nutrition = { kcal: number; protein: number; carbs: number; fat: num
 export type OptionGroup = { label: string; default: string; values: OptionValue[] };
 /** Replaces the item's photo or nutrition when every option in `when` is chosen, e.g. the iced venti. */
 export type Variant = { when: Record<string, string>; image?: string; nutrition?: Nutrition };
+export type Temperature = "hot" | "cold";
+export type DrinkArtKind = "black" | "milky" | "foamy" | "chocolate";
 export type MenuItem = {
   id: string;
   name: string;
@@ -21,6 +23,10 @@ export type MenuItem = {
   options?: string[];
   nutrition: Nutrition;
   variants?: Variant[];
+  /** How the item arrives when it has no hot/iced option: decides whether it steams or carries ice. */
+  serve?: Temperature;
+  /** Draws the drink as a live cup or glass instead of showing `image`. */
+  art?: DrinkArtKind;
 };
 export type Restaurant = {
   id: string;
