@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EMPTY_PRICED, type Order, type PricedOrder } from "@/lib/order";
 import type { Suggestion } from "@/lib/suggest";
+import type { ReviewSheet } from "@/lib/reviews";
+import { acceptedNames } from "@/lib/curate";
 import type { CommittedTurn } from "@/lib/waiterSay";
 
 type InterpretResponse = {
@@ -13,6 +15,9 @@ type InterpretResponse = {
   nutrition: boolean;
   done: boolean;
   pay: boolean;
+  reviews: ReviewSheet | null;
+  /** What to tell a guest who asked for reviews where none are saved. */
+  reviewsMissing: string | null;
   ms: number;
 };
 
@@ -41,6 +46,8 @@ export function useLiveOrder(
   const [done, setDone] = useState(false);
   /** True while the guest's latest words ask for the nutrition breakdown. */
   const [nutritionAsked, setNutritionAsked] = useState(false);
+  /** The reviews the guest asked for, kept up until they close it or move on. */
+  const [reviews, setReviews] = useState<ReviewSheet | null>(null);
   const [latency, setLatency] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -78,7 +85,7 @@ export function useLiveOrder(
     let turn: CommittedTurn | null = null;
     if (result) {
       const countBefore = basePriced.current.count;
-      const acceptedName = result.accepted ? (shown.current?.items[result.accepted - 1]?.name ?? null) : null;
+      const acceptedName = result.accepted ? acceptedNames(shown.current, result.accepted) : null;
       base.current = result.order;
       basePriced.current = shownPriced.current;
       // Suggestions stay up until a new question replaces them or one is accepted.
@@ -97,7 +104,10 @@ export function useLiveOrder(
         nutrition: result.nutrition,
         done,
         pay: result.pay,
+        reviewsSay: result.reviews?.say ?? result.reviewsMissing,
       };
+      // Like paying, reviews open at the end of the sentence; the next turn that isn't about reviews closes them.
+      setReviews(result.reviews);
       // Paying waits for the end of the sentence, so a half-heard phrase never opens the checkout.
       if (result.pay) payAsked.current?.();
     }
@@ -125,7 +135,8 @@ export function useLiveOrder(
           ...result,
           priced: shownPriced.current,
           countBefore: basePriced.current.count,
-          acceptedName: result.accepted ? (shown.current?.items[result.accepted - 1]?.name ?? null) : null,
+          acceptedName: result.accepted ? acceptedNames(shown.current, result.accepted) : null,
+          reviewsSay: result.reviews?.say ?? result.reviewsMissing,
           suggestionsShown: Boolean(next?.items.length),
           done: result.done && result.order.lines.length > 0,
         }),
@@ -179,6 +190,7 @@ export function useLiveOrder(
           before: base.current,
           said: full,
           shownSuggestions: shown.current?.items.map((item) => item.id) ?? [],
+          shownCombo: shown.current?.combo?.ask,
         }),
         signal: controller.signal,
       })
@@ -246,6 +258,7 @@ export function useLiveOrder(
     setTranscript({ settled: "", unsettled: "", previous: "" });
     setDone(false);
     setNutritionAsked(false);
+    setReviews(null);
     setLatency(null);
     setError(null);
   }, []);
@@ -255,5 +268,7 @@ export function useLiveOrder(
     inFlight.current?.abort();
   }, []);
 
-  return { priced, suggestion, nutritionAsked, transcript, done, latency, error, hear, endTurn, offer, reset };
+  const closeReviews = useCallback(() => setReviews(null), []);
+
+  return { priced, suggestion, nutritionAsked, reviews, closeReviews, transcript, done, latency, error, hear, endTurn, offer, reset };
 }
