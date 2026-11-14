@@ -1,3 +1,4 @@
+import { tooMany } from "@/lib/rateLimit";
 import { getMenu } from "@/lib/menu";
 import { priceOrder, sanitizeOrder } from "@/lib/order";
 
@@ -7,6 +8,8 @@ import { priceOrder, sanitizeOrder } from "@/lib/order";
  * Without STRIPE_SECRET_KEY it answers `{ url: null }` and the screen shows its own demo checkout.
  */
 export async function POST(request: Request) {
+  const limited = tooMany(request, "checkout", 20);
+  if (limited) return limited;
   const body = (await request.json().catch(() => null)) as { restaurant?: unknown; order?: unknown } | null;
   const menu = getMenu(body?.restaurant);
   if (!menu) return Response.json({ error: "Unknown restaurant." }, { status: 400 });

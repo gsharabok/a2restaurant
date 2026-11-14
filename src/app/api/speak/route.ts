@@ -1,3 +1,5 @@
+import { tooMany } from "@/lib/rateLimit";
+
 /** The waiter's voice: turns one short line into streamed speech with ElevenLabs. */
 const MODEL = "eleven_flash_v2_5";
 /** "Lucy": young, British, conversational. Any id from /v1/voices works. */
@@ -23,6 +25,10 @@ export async function GET(request: Request) {
   const cacheKey = `${voice}:${text}`;
   const cached = await cache.get(cacheKey);
   if (cached) return new Response(cached, { headers: HEADERS });
+
+  // Only a line that has to be bought counts: the waiter says a handful a minute.
+  const limited = tooMany(request, "speak", 30);
+  if (limited) return limited;
 
   let upstream: Response;
   try {

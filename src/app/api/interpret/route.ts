@@ -1,9 +1,13 @@
+import { tooMany } from "@/lib/rateLimit";
 import { getMenu } from "@/lib/menu";
 import { interpret } from "@/lib/interpret";
 import { priceOrder, sanitizeOrder } from "@/lib/order";
 import { toSuggestion } from "@/lib/suggest";
 
 export async function POST(request: Request) {
+  // Speech re-reads the order on every interim result, a few times a second while the guest talks.
+  const limited = tooMany(request, "interpret", 300);
+  if (limited) return limited;
   const apiKey = process.env.TYPESAFE_API_KEY;
   if (!apiKey) {
     return Response.json({ error: "TYPESAFE_API_KEY is not set. Add it to .env.local and restart." }, { status: 500 });

@@ -29,6 +29,12 @@ Open http://localhost:3000 in Chrome (speech recognition uses Chrome's built-in 
 - **Speaker button:** mutes or unmutes the waiter.
 - **Headphones button:** turn it on when you wear headphones. Then speaking cuts the waiter off mid-sentence. Leave it off on laptop speakers (see below).
 
+## Sharing it
+
+To give someone a public link, import the repository into a host for Next.js apps (Vercel is the simplest), set `TYPESAFE_API_KEY` and `ELEVENLABS_API_KEY` there, and deploy. The microphone needs HTTPS and Chrome.
+
+The endpoints that spend credits are capped per visitor per minute (`src/lib/rateLimit.ts`): 300 interpretations, 30 newly generated spoken lines, 20 checkouts. The count lives in the server's memory, so on a host that runs several copies it slows abuse down but does not stop it.
+
 ## The waiter's voice
 
 The waiter speaks only after the guest has finished a sentence, never over them:
