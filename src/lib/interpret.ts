@@ -12,13 +12,23 @@ const MIN_CONFIDENCE = 0.6;
 /** Putting a new item on the order needs more certainty than editing one, so look-alike dishes don't appear uninvited. */
 const MIN_CONFIDENCE_TO_ADD = 0.78;
 
-export const SUGGESTION_TOPICS = ["healthy", "protein", "popular", "vegetarian", "vegan", "sweet", "breakfast", "lunch", "drinks", "other"] as const;
+export const SUGGESTION_TOPICS = ["healthy", "protein", "popular", "vegetarian", "vegan", "sweet", "breakfast", "lunch", "drinks", "other", "unavailable"] as const;
 export type SuggestionTopic = (typeof SUGGESTION_TOPICS)[number];
 /** Dishes that answer a question such as "anything with eggs?", best match first. */
-export type SuggestionPick = { topic: SuggestionTopic; itemIds: string[] };
+export type SuggestionPick = {
+  topic: SuggestionTopic;
+  itemIds: string[];
+  /** False when nothing answered the question well and these are only the nearest dishes, or when it is unclear the menu lacks what they asked for. */
+  exact: boolean;
+};
 /** A dish must match the guest's question at least this well to be suggested. */
 const MIN_MATCH = 0.5;
+/** When nothing matches that well, the nearest dishes are shown instead of nothing, down to this score. */
+const MIN_NEAR = 0.2;
 const MIN_ASKING = 0.6;
+const MIN_UNAVAILABLE = 0.7;
+/** Between the two, the waiter is unsure the menu lacks it and says so. */
+const MIN_MAYBE_UNAVAILABLE = 0.5;
 const MIN_REVIEWS = 0.7;
 
 export type Interpretation = {
@@ -103,6 +113,22 @@ function buildQuestions(menu: Menu, before: Order, shownSuggestions: string[], c
       "Examples: \"what do you have for breakfast\", \"do you have anything with eggs\", \"what's popular\", \"I want something healthy\", \"what do you recommend\", \"any vegan options\", \"what's high in protein\". " +
       "Asking only for the nutrition of what is already ordered does not count.",
   };
+  questions.unavailable = {
+    type: "noul",
+    instructions:
+      "Has the guest asked to have, or asked whether you sell, a specific food or drink that this coffee shop's menu does not have? " +
+      `The whole menu is: ${menu.items.map((item) => item.name).join("; ")}. ` +
+      "A shorter or looser name for something on the menu counts as on the menu, for example \"a croissant\", \"a coffee\", \"a tea\" or \"a toastie\". " +
+      "Changing how a menu item is made (size, milk, iced, extra shot) does not count, and neither does a general question such as \"what's healthy\". " +
+      "Examples that do count on a menu without them: \"a slice of pizza\", \"do you have sushi\", \"a pint of lager\".",
+  };
+  questions.wanting = {
+    type: "noul",
+    instructions:
+      "Has the guest named a food or drink they want to have or add, such as \"a green tea\", \"a sandwich\" or \"some water\"? " +
+      "The transcript may stop mid-sentence: if the name of the thing has not been said yet or is cut off, the answer is no. " +
+      "Greetings, thanks, questions, paying, finishing, and removing or changing something already ordered do not count.",
+  };
   questions.nutrition = {
     type: "noul",
     instructions:
@@ -178,8 +204,11 @@ export async function ask(body: object, apiKey: string, signal?: AbortSignal): P
   return ((await response.json()) as { answers: Record<string, Answer> }).answers;
 }
 
-/** Scores every dish against the guest's question and returns the best three not already ordered. */
-async function pickSuggestions(input: { menu: Menu; said: string; order: Order; apiKey: string; signal?: AbortSignal }): Promise<SuggestionPick> {
+/**
+ * Scores every dish against the guest's question and returns the best three not already ordered.
+ * With `unavailable`, the guest asked for something the menu lacks and the dishes are scored as stand-ins for it.
+ */
+async function pickSuggestions(input: { menu: Menu; said: string; order: Order; unavailable: boolean; apiKey: string; signal?: AbortSignal }): Promise<SuggestionPick> {
   const { menu } = input;
   const ordered = new Set(input.order.lines.map((line) => line.itemId));
   const candidates = menu.items.filter((item) => !ordered.has(item.id));
@@ -205,9 +234,12 @@ async function pickSuggestions(input: { menu: Menu; said: string; order: Order; 
     questions[`match_${item.id}`] = {
       type: "noul",
       instructions:
-        `A coffee shop guest asked the waiter a question or for a suggestion. \`guest_already_ordered\` is what they have so far. ` +
-        `Would "${item.name}" be a good dish to show them in answer? If they ask what goes with something they already have, ` +
-        `a good answer complements it (food with a drink, a drink with food) and is not another item of the same kind. ` +
+        (input.unavailable
+          ? `A coffee shop guest asked for something that is not on the menu. Find what they asked for in \`guest_said\`. Everything in \`guest_already_ordered\` was understood and is not the missing thing: ignore those parts of what they said. ` +
+            `Is "${item.name}" a close stand-in for the missing thing: the same kind of food or drink, with a similar flavour or main ingredient, that they would likely take instead? `
+          : `A coffee shop guest asked the waiter a question or for a suggestion. \`guest_already_ordered\` is what they have so far. ` +
+            `Would "${item.name}" be a good dish to show them in answer? If they ask what goes with something they already have, ` +
+            `a good answer complements it (food with a drink, a drink with food) and is not another item of the same kind. `) +
         `${item.name}: ${item.description}. Menu section: ${item.category}. Tags: ${item.tags.join(", ") || "none"}. ` +
         `Per serving about ${item.nutrition.kcal} kcal, ${item.nutrition.protein} g protein, ${item.nutrition.carbs} g carbs, ${item.nutrition.fat} g fat.`,
     };
@@ -217,22 +249,27 @@ async function pickSuggestions(input: { menu: Menu; said: string; order: Order; 
     guest_said: input.said,
   };
   const answers = await ask({ state, questions }, input.apiKey, input.signal);
-  const topic = (SUGGESTION_TOPICS as readonly string[]).includes(answers.topic?.choice ?? "")
-    ? (answers.topic!.choice as SuggestionTopic)
-    : "other";
+  const topic = input.unavailable
+    ? "unavailable"
+    : (SUGGESTION_TOPICS as readonly string[]).includes(answers.topic?.choice ?? "")
+      ? (answers.topic!.choice as SuggestionTopic)
+      : "other";
   const score = (id: string) => answers[`match_${id}`]?.noul ?? 0;
   // A question about a number is ranked by the menu's numbers, among the dishes that fit the rest of the request.
   if (topic === "protein") {
     const fitting = candidates.filter((item) => score(item.id) >= MIN_MATCH);
     const byProtein = fitting.sort((a, b) => b.nutrition.protein - a.nutrition.protein);
-    return { topic, itemIds: byProtein.slice(0, 3).map((item) => item.id) };
+    if (fitting.length) return { topic, itemIds: byProtein.slice(0, 3).map((item) => item.id), exact: true };
   }
-  const itemIds = candidates
-    .filter((item) => score(item.id) >= MIN_MATCH)
-    .sort((a, b) => score(b.id) - score(a.id))
-    .slice(0, 3)
-    .map((item) => item.id);
-  return { topic, itemIds };
+  const best = (min: number) =>
+    candidates
+      .filter((item) => score(item.id) >= min)
+      .sort((a, b) => score(b.id) - score(a.id))
+      .slice(0, 3)
+      .map((item) => item.id);
+  const itemIds = best(MIN_MATCH);
+  if (itemIds.length || input.unavailable) return { topic, itemIds: itemIds.length ? itemIds : best(MIN_NEAR), exact: true };
+  return { topic, itemIds: best(MIN_NEAR), exact: false };
 }
 
 /** Second, smaller question asked only when the guest wants reviews: what are they asking about? */
@@ -334,14 +371,23 @@ export async function interpret(input: {
   // A turn that asks for a curated set leaves the order alone: dishes named in it are wishes for the set.
   const order = goals ? before : sanitizeOrder(menu, { lines });
   const nutrition = (answers.nutrition?.noul ?? 0) >= MIN_ASKING && order.lines.length > 0;
+  // A request that changed nothing would leave the guest with a silent screen, so it is answered with the nearest dishes,
+  // as is asking for something the menu lacks.
+  const asking = (answers.asking?.noul ?? 0) >= MIN_ASKING;
+  const done = (answers.done?.noul ?? 0) > 0.7;
+  const unchanged = JSON.stringify(order) === JSON.stringify(before);
+  const missed = unchanged && !goals && !reviewsAsked && !asking && !done && (answers.wanting?.noul ?? 0) >= MIN_ASKING;
+  const lackingScore = answers.unavailable?.noul ?? 0;
+  const lacking = lackingScore >= MIN_UNAVAILABLE;
+  const unavailable = lackingScore >= MIN_MAYBE_UNAVAILABLE || missed;
   const reviews =
     withReviews && reviewsAsked
       ? await pickReviewSubject({ menu, restaurantId: input.restaurantId!, said, apiKey: input.apiKey, signal: input.signal })
       : null;
   const curate = goals ? await curateMenu({ menu, ask: curateAsk, goals, order, named: lines.map((line) => line.itemId).filter((id) => !beforeById.has(id)), apiKey: input.apiKey, signal: input.signal }) : null;
   const suggest =
-    !curate && !nutrition && !reviewsAsked && (answers.asking?.noul ?? 0) >= MIN_ASKING
-      ? await pickSuggestions({ menu, said, order, apiKey: input.apiKey, signal: input.signal })
+    !curate && !nutrition && !reviewsAsked && (unavailable || asking)
+      ? { ...(await pickSuggestions({ menu, said, order, unavailable, apiKey: input.apiKey, signal: input.signal })), ...(unavailable ? { exact: lacking } : {}) }
       : null;
 
   return {
@@ -350,7 +396,7 @@ export async function interpret(input: {
     curate,
     accepted: acceptedId ? ordinal + 1 : acceptedSet.length ? 1 : null,
     nutrition: nutrition && !curate,
-    done: (answers.done?.noul ?? 0) > 0.7,
+    done,
     pay: (answers.pay?.noul ?? 0) > 0.7 && order.lines.length > 0,
     reviews,
     reviewsAsked,
