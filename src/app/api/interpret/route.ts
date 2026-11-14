@@ -1,9 +1,10 @@
 import { tooMany } from "@/lib/rateLimit";
 import { getMenu } from "@/lib/menu";
 import { interpret } from "@/lib/interpret";
-import { priceOrder, sanitizeOrder } from "@/lib/order";
+import { EMPTY_PRICED, priceOrder, sanitizeOrder } from "@/lib/order";
 import { toSuggestion } from "@/lib/suggest";
 import { reviewSheet } from "@/lib/reviews";
+import { ANYWHERE, explore } from "@/lib/explore";
 
 export async function POST(request: Request) {
   // Speech re-reads the order on every interim result, a few times a second while the guest talks.
@@ -21,10 +22,21 @@ export async function POST(request: Request) {
     shownCombo?: unknown;
   } | null;
   const restaurantId = String(body?.restaurant ?? "");
-  const menu = getMenu(body?.restaurant);
-  if (!menu) return Response.json({ error: "Unknown restaurant." }, { status: 400 });
   const said = typeof body?.said === "string" ? body.said.slice(0, 2000) : "";
   const shown = Array.isArray(body?.shownSuggestions) ? body.shownSuggestions.map(String).slice(0, 4) : [];
+  if (restaurantId === ANYWHERE) {
+    try {
+      const started = performance.now();
+      const found = await explore({ said, shown, apiKey, signal: request.signal });
+      return Response.json({ order: { lines: [] }, priced: EMPTY_PRICED, accepted: null, nutrition: false, done: false, pay: false, ...found, ms: Math.round(performance.now() - started) });
+    } catch (error) {
+      if (request.signal.aborted) return new Response(null, { status: 499 });
+      console.error("explore failed", error);
+      return Response.json({ error: "The interpreter could not be reached." }, { status: 502 });
+    }
+  }
+  const menu = getMenu(body?.restaurant);
+  if (!menu) return Response.json({ error: "Unknown restaurant." }, { status: 400 });
 
   try {
     const result = await interpret({

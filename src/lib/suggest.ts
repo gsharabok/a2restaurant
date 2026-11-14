@@ -4,7 +4,7 @@ import type { Combo } from "./curate";
 
 export type Suggestion = {
   caption: string;
-  items: { id: string; name: string; image: string; description: string; price: number; kcal: number; protein: number }[];
+  items: { id: string; name: string; image: string; description: string; price: number; kcal: number; protein: number; /** The item's restaurant, while the guest is still choosing where to go. */ place?: { id: string; name: string } }[];
   /** Set when the items are one curated set that meets a goal together, accepted as a whole. */
   combo?: Combo;
 };

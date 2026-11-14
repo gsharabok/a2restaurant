@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { ChevronDown, Headphones, Keyboard, Mic, MicOff, Play, RotateCcw, Square, Volume2, VolumeX } from "lucide-react";
@@ -19,11 +20,18 @@ import type { CommittedTurn } from "@/lib/waiterSay";
 type Props = {
   restaurant: { id: string; name: string; tagline: string; nutritionNote: string; hints: string[]; demoTurns: string[] };
   restaurants: { id: string; name: string }[];
+  /** True before the guest has chosen a restaurant: they ask what they fancy and pick where to go. */
+  choosingPlace?: boolean;
 };
+
+/** Carries the guest's choice from the choosing screen to the restaurant they picked. */
+const ARRIVAL_KEY = "a2r-arrival";
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export function Waiter({ restaurant, restaurants }: Props) {
+export function Waiter({ restaurant, restaurants, choosingPlace = false }: Props) {
+  const router = useRouter();
+  const leave = useRef<() => void>(() => {});
   const [choosing, setChoosing] = useState(false);
   const resetSpeechTurn = useRef<() => void>(() => {});
   const payButton = useRef<PayHandle>(null);
@@ -46,6 +54,14 @@ export function Waiter({ restaurant, restaurants }: Props) {
     ),
     useCallback(() => setPayAsks((asks) => asks + 1), []),
     onPreview,
+    useCallback(
+      (go: { restaurant: string; item?: string }) => {
+        sessionStorage.setItem(ARRIVAL_KEY, JSON.stringify(go));
+        leave.current();
+        router.push(`/${go.restaurant}`);
+      },
+      [router],
+    ),
   );
   // Opened after the screen has drawn the turn, so the checkout charges the order that turn left.
   useEffect(() => {
@@ -115,6 +131,34 @@ export function Waiter({ restaurant, restaurants }: Props) {
     setTyped("");
   };
 
+  useEffect(() => {
+    leave.current = startOver;
+  });
+  // Arriving from the choosing screen: the dish that brought the guest here goes on the order, or the waiter greets them.
+  const { say } = voice;
+  useEffect(() => {
+    if (choosingPlace) return;
+    const timer = setTimeout(() => {
+      const arrival = sessionStorage.getItem(ARRIVAL_KEY);
+      sessionStorage.removeItem(ARRIVAL_KEY);
+      if (!arrival) return;
+      const go = JSON.parse(arrival) as { restaurant: string; item?: string };
+      if (go.restaurant !== restaurant.id) return;
+      if (go.item) {
+        hear({ settled: `One ${go.item} please`, unsettled: "" }, { endOnSilence: false });
+        endTurn();
+      } else say(`Welcome to ${restaurant.name}. What can I get you?`);
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [choosingPlace, restaurant.id, restaurant.name, hear, endTurn, say]);
+
+  const pick = (index: number) => {
+    guestTyped();
+    hear({ settled: `I'll take the ${["first", "second", "third", "fourth"][index]} one`, unsettled: "" }, { endOnSilence: false });
+    endTurn();
+    setTyped("");
+  };
+
   const toggleMic = () => {
     stopDemo();
     if (speech.listening) speech.stop();
@@ -173,7 +217,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
                 exit={{ opacity: 0, y: -6 }}
                 className="absolute -left-3 top-11 z-30 w-56 overflow-hidden rounded-2xl border border-white/10 bg-[#171512] p-1.5 shadow-2xl"
               >
-                {restaurants.map((option) => (
+                {[...(choosingPlace ? [] : [{ id: "", name: "Somewhere else…" }]), ...restaurants].map((option) => (
                   <li key={option.id} role="option" aria-selected={option.id === restaurant.id}>
                     <Link
                       href={`/${option.id}`}
@@ -194,7 +238,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
             )}
           </AnimatePresence>
         </div>
-        <div className="shrink-0 text-right">
+        <div className={`shrink-0 text-right ${choosingPlace ? "invisible" : ""}`}>
           <p className="text-xs uppercase tracking-[0.2em] text-white/35">
             {priced.count > 0 ? `${priced.count} item${priced.count === 1 ? "" : "s"}` : "Your order"}
           </p>
@@ -224,9 +268,11 @@ export function Waiter({ restaurant, restaurants }: Props) {
               exit={{ opacity: 0, y: -10 }}
               className="m-auto text-center"
             >
-              <h1 className="text-5xl font-semibold tracking-tight max-sm:text-3xl">What can I get you?</h1>
+              <h1 className="text-5xl font-semibold tracking-tight max-sm:text-3xl">{choosingPlace ? "What do you fancy?" : "What can I get you?"}</h1>
               <p className="mt-4 text-lg text-white/45 max-sm:mt-2 max-sm:text-base">
-                {speech.listening ? "I'm listening. Just say your order." : "Tap the microphone and say your order."}
+                {choosingPlace
+                  ? "Say what you're in the mood for, then pick where to go."
+                  : speech.listening ? "I'm listening. Just say your order." : "Tap the microphone and say your order."}
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-2 max-sm:mt-5">
                 {restaurant.hints.map((hint) => (
@@ -328,13 +374,26 @@ export function Waiter({ restaurant, restaurants }: Props) {
               {suggestion.items.map((item, index) => (
                 <div
                   key={item.id}
-                  className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl border border-amber-200/25 bg-amber-200/[0.06] px-4 py-3 max-sm:flex-none max-sm:px-3 max-sm:py-1.5"
+                  role={item.place ? "button" : undefined}
+                  onClick={item.place ? () => pick(index) : undefined}
+                  tabIndex={item.place ? 0 : undefined}
+                  onKeyDown={
+                    item.place
+                      ? (event) => {
+                          if (event.key !== "Enter" && event.key !== " ") return;
+                          event.preventDefault();
+                          pick(index);
+                        }
+                      : undefined
+                  }
+                  className={`flex min-w-0 flex-1 items-center gap-3 rounded-2xl border border-amber-200/25 bg-amber-200/[0.06] px-4 py-3 max-sm:flex-none max-sm:px-3 max-sm:py-1.5 ${item.place ? "cursor-pointer transition hover:bg-amber-200/[0.12]" : ""}`}
                 >
                   <ItemImage src={item.image} size={48} className="h-12 w-12 shrink-0 max-sm:h-10 max-sm:w-10" />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-semibold">{item.name}</p>
+                    {item.place && <p className="truncate text-[11px] font-medium uppercase tracking-wider text-amber-200/90" data-testid="place">at {item.place.name}</p>}
                     <p className="text-[11px] text-white/45 tabular-nums max-sm:hidden">{item.kcal} kcal · {item.protein}g protein</p>
-                    <p className="text-[11px] text-amber-200/70">say “{suggestion.items.length === 1 ? "yes please" : `add the ${["first", "second", "third"][index]} one`}”</p>
+                    <p className="text-[11px] text-amber-200/70">say “{item.place ? `I'll take the ${["first", "second", "third", "fourth"][index]} one` : suggestion.items.length === 1 ? "yes please" : `add the ${["first", "second", "third"][index]} one`}”</p>
                   </div>
                   <p className="shrink-0 text-sm font-semibold tabular-nums">{formatPrice(item.price)}</p>
                 </div>
@@ -402,7 +461,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
                   setTyped("");
                 }}
                 enterKeyHint="send"
-                placeholder="Type your order and press Enter"
+                placeholder={choosingPlace ? "Type what you fancy and press Enter" : "Type your order and press Enter"}
                 className="w-full bg-transparent text-white outline-none placeholder:text-white/30"
                 data-testid="typed-input"
               />
@@ -415,7 +474,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
               </p>
             ) : (
               <p className="truncate text-white/30">
-                {transcript.previous || (speech.listening ? "Listening…" : "Tap the mic, or type your order")}
+                {transcript.previous || (speech.listening ? "Listening…" : choosingPlace ? "Tap the mic, or type what you fancy" : "Tap the mic, or type your order")}
               </p>
             )}
           </div>

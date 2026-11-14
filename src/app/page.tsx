@@ -1,6 +1,6 @@
 import { RestaurantScreen } from "@/components/RestaurantScreen";
-import { DEFAULT_RESTAURANT } from "@/lib/menu";
 
+/** The guest starts with no restaurant chosen. */
 export default function Home() {
-  return <RestaurantScreen id={DEFAULT_RESTAURANT} />;
+  return <RestaurantScreen />;
 }
