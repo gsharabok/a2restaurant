@@ -1,9 +1,12 @@
 import type { Menu } from "./menu";
 import type { SuggestionPick, SuggestionTopic } from "./interpret";
+import type { Combo } from "./curate";
 
 export type Suggestion = {
   caption: string;
   items: { id: string; name: string; image: string; description: string; price: number; kcal: number; protein: number }[];
+  /** Set when the items are one curated set that meets a goal together, accepted as a whole. */
+  combo?: Combo;
 };
 
 /** Phase 1 shows the caption; phase 2 can also speak it. */
