@@ -25,6 +25,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
   const [choosing, setChoosing] = useState(false);
   const resetSpeechTurn = useRef<() => void>(() => {});
   const payButton = useRef<PayHandle>(null);
+  const [payAsks, setPayAsks] = useState(0);
   const offerRef = useRef<(suggestion: Suggestion) => void>(() => {});
   const voice = useWaiterVoice({
     restaurantId: restaurant.id,
@@ -41,8 +42,12 @@ export function Waiter({ restaurant, restaurants }: Props) {
       },
       [onTurn],
     ),
-    useCallback(() => payButton.current?.pay(), []),
+    useCallback(() => setPayAsks((asks) => asks + 1), []),
   );
+  // Opened after the screen has drawn the turn, so the checkout charges the order that turn left.
+  useEffect(() => {
+    if (payAsks > 0) payButton.current?.pay();
+  }, [payAsks]);
   const orderHear = order.hear;
   // While the waiter is talking through the speakers, the microphone hears the waiter, not the guest.
   const hearMic = useCallback(
