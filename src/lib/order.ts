@@ -81,7 +81,8 @@ export function priceOrder(menu: Menu, order: Order): PricedOrder {
       pricePlaceholder: Boolean(item.pricePlaceholder),
       optionRows,
       nutrition: {
-        kcal: Math.round((base.kcal * scale) / 5) * 5,
+        // A scaled figure is an estimate, so it is rounded to 5; an unscaled one is shown as the menu gives it.
+        kcal: scale === 1 ? base.kcal : Math.round((base.kcal * scale) / 5) * 5,
         protein: Math.round(base.protein * scale),
         carbs: Math.round(base.carbs * scale),
         fat: Math.round(base.fat * scale),
