@@ -16,7 +16,8 @@ export async function POST(request: Request) {
   const secret = process.env.STRIPE_SECRET_KEY;
   if (!secret) return Response.json({ url: null, total: priced.total });
 
-  const back = `${new URL(request.url).origin}/${menu.restaurant.id}`;
+  // The page address is the registry key the request named, which getMenu has just checked.
+  const back = `${new URL(request.url).origin}/${body!.restaurant as string}`;
   const form = new URLSearchParams({
     mode: "payment",
     success_url: `${back}?paid=1`,
