@@ -82,11 +82,13 @@ export function Waiter({ restaurant, restaurants }: Props) {
 
   const { priced, suggestion, nutritionAsked, transcript, done } = order;
   const empty = priced.lines.length === 0;
-  // Past four cards the order wraps to a second row, so cards shrink to keep everything on screen.
-  const compact = priced.lines.length > 4;
+
   const words = `${transcript.settled} ${transcript.unsettled}`.trim();
   const problem = order.error ?? speech.error;
   const showNutrition = nutritionAsked && !empty && !done;
+  const showSuggestions = Boolean(suggestion && suggestion.items.length > 0 && !done && !showNutrition);
+  // Cards shrink when they would not fit: past four the order wraps to a second row, and a panel below takes their height.
+  const cardSize = priced.lines.length > 4 ? "compact" : showNutrition || showSuggestions ? "snug" : "full";
   const macros = [
     { label: "Calories", value: priced.nutrition.kcal.toLocaleString("en-GB"), unit: "kcal" },
     { label: "Protein", value: priced.nutrition.protein, unit: "g" },
@@ -161,7 +163,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
         </div>
       </header>
 
-      <section className="relative z-10 flex min-h-0 flex-1 overflow-y-auto px-10 py-6 [scrollbar-width:none]">
+      <section className="relative z-10 flex min-h-0 flex-1 overflow-y-auto px-10 py-6 [@media(max-height:780px)]:py-2 [scrollbar-width:none]">
         <AnimatePresence mode="wait" initial={false}>
           {empty ? (
             <motion.div
@@ -189,7 +191,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
                 <motion.div layout className="mx-auto flex max-w-[86rem] flex-wrap items-stretch justify-center gap-4">
                   <AnimatePresence mode="popLayout">
                     {priced.lines.map((line) => (
-                      <OrderCard key={line.itemId} line={line} compact={compact} detailed={showNutrition} />
+                      <OrderCard key={line.itemId} line={line} size={cardSize} detailed={showNutrition} />
                     ))}
                   </AnimatePresence>
                 </motion.div>
@@ -241,7 +243,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
       </AnimatePresence>
 
       <AnimatePresence>
-        {suggestion && suggestion.items.length > 0 && !done && !showNutrition && (
+        {suggestion && showSuggestions && (
           <motion.aside
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
