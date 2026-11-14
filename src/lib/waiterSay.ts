@@ -38,11 +38,15 @@ export function sayPrice(total: number): string {
 }
 
 function sayLine(line: PricedOrder["lines"][number]): string {
+  const chosen = line.optionRows.filter((row) => !row.isDefault);
+  // "Extra" alone would read as a size ("extra large latte"), so it is said after the name: "with an extra shot".
+  const isExtra = (row: (typeof chosen)[number]) => row.valueLabel.toLowerCase() === "extra";
   // Reversed so it reads the way people say it: "large iced oat latte".
-  const chosen = line.optionRows.filter((row) => !row.isDefault).map((row) => row.valueLabel.toLowerCase()).reverse();
-  const name = [...chosen, spoken(line.name)].join(" ");
-  if (line.qty === 1) return name;
-  return `${NUMBERS[line.qty] ?? line.qty} ${/s$/.test(name) ? name : `${name}s`}`;
+  const before = chosen.filter((row) => !isExtra(row)).map((row) => row.valueLabel.toLowerCase()).reverse();
+  const after = chosen.filter(isExtra).map((row) => `with an extra ${row.label.toLowerCase().replace(/s$/, "")}`);
+  const name = [...before, spoken(line.name)].join(" ");
+  const counted = line.qty === 1 ? name : `${NUMBERS[line.qty] ?? line.qty} ${/s$/.test(name) ? name : `${name}s`}`;
+  return [counted, ...after].join(" ");
 }
 
 function readBack(priced: PricedOrder): string {
