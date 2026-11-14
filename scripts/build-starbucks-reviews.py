@@ -51,12 +51,16 @@ for ours, refs in IDS.items():
     ids = list(dict.fromkeys(i for ref in refs for i in src["products"][ref]["review_ids"]))
     # "Iced matcha latte" is a review of the matcha latte, not of the plain latte the file also lists it under.
     def own(r, refs=refs):
-        mine = [i["matched_on"].lower() for i in r["items"] if i["id"] in refs]
+        mine = [(i["matched_on"].lower(), i["id"]) for i in r["items"] if i["id"] in refs]
         others = [(i["matched_on"].lower(), i["id"]) for i in r["items"] if i["id"] not in refs]
         text = r["text"].lower()
-        # "iced matcha lattes" is matched as "iced matcha" plus "lattes": the word belongs to the other drink.
-        def borrowed(m): return any(m.rstrip("s") in o or (f"{o} {m}" in text and m.rstrip("s") in ref) for o, ref in others) and len(re.findall(re.escape(m.rstrip("s")), text)) == 1
-        return any(not borrowed(m) for m in mine)
+        # A phrase that is part of another product's name belongs to that product: "matcha" in "matcha frappuccino",
+        # "brownie" in "brownie hot chocolate", "lattes" in "iced matcha lattes".
+        def borrowed(m, own):
+            stem = m.rstrip("s")
+            once = len(re.findall(re.escape(stem), text)) == 1
+            return any(stem in o or (f"{m} {o}" in text and o.rstrip("s") not in own) or (f"{o} {m}" in text and stem in ref and once) for o, ref in others)
+        return any(not borrowed(m, own) for m, own in mine)
     rs = [by[i] for i in ids if i in by and own(by[i])]
     def about(r, refs=refs):
         heard = [re.escape(i["matched_on"].lower()) for i in r.get("items", []) if i["id"] in refs]

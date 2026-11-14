@@ -1014,11 +1014,11 @@
    "photos": []
   },
   "matcha_latte": {
-   "mentions": 4,
+   "mentions": 3,
    "average": 5.0,
    "positiveShare": 1.0,
    "distribution": [
-    4,
+    3,
     0,
     0,
     0,
@@ -1032,16 +1032,16 @@
      "when": "a year ago"
     },
     {
-     "text": "Today I ordered a matcha frappuccino as usual, and I was very impressed because they made everything exactly as I requested.",
-     "author": "Nutcharat L",
-     "rating": 5,
-     "when": "3 months ago"
-    },
-    {
      "text": "My go-to drink is Oat milk matcha latte with extra matcha.",
      "author": "Aphirat Suthajitto",
      "rating": 5,
      "when": "2 years ago"
+    },
+    {
+     "text": "Always happy with my matcha latte",
+     "author": "Sandra Ebassa Ongbiteke",
+     "rating": 5,
+     "when": "7 years ago"
     }
    ],
    "cards": [
@@ -1052,18 +1052,6 @@
      "when": "a year ago",
      "text": "I’m a big matcha fan, though Starbucks usually isn’t my first choice. But I had one of the best iced matcha lattes here—made by Yeon. The building is currently under construction and still covered in scaffolding, but don’t let that stop you from walking in for a matcha.",
      "photos": [],
-     "reply": null
-    },
-    {
-     "author": "Nutcharat L",
-     "info": "Local Guide · 75 reviews · 276 photos",
-     "rating": 5,
-     "when": "3 months ago",
-     "text": "Today I ordered a matcha frappuccino as usual, and I was very impressed because they made everything exactly as I requested. The taste was perfect – not too sweet, the matcha was fragrant and just the right strength.…",
-     "photos": [
-      "https://lh3.googleusercontent.com/grass-cs/AABkmLfwXUeupttphCCRfyqOR1rxnpe52KoZTAFh9BAv2tJvKWtlASMvu2OWxme_SOQ672sGCaLePkRYsA4O9FXQaNuJd9MG34p_9Q82Tah7JYYhH2wzqummlNJDQJ4IY9UnUYr1BXhpMgG8xELs=w660-h990-p-k-no",
-      "https://lh3.googleusercontent.com/grass-cs/AABkmLeSnXnSt2JbUzQZ3EeIuVprZ4-90bhPqh76s1DjSl1f8bG-8_EPVDQUr4NjH6CJQhsaBwKrk_UuI3qSHr1l80ksNRuBTcGX38ZqgufNq3VtrSwAal2Koi0RcDfryAAOEnTmxBA48NmUbygZ=w660-h495-p-k-no"
-     ],
      "reply": null
     },
     {
@@ -1506,40 +1494,6 @@
      "rating": 5,
      "when": "4 years ago",
      "text": "Quick and efficient service. Loved the caramel frappacino.",
-     "photos": [],
-     "reply": null
-    }
-   ],
-   "summary": null,
-   "say": null,
-   "photos": []
-  },
-  "brownie": {
-   "mentions": 1,
-   "average": 5.0,
-   "positiveShare": 1.0,
-   "distribution": [
-    1,
-    0,
-    0,
-    0,
-    0
-   ],
-   "quotes": [
-    {
-     "text": "Nice fudge brownie hot chocolate",
-     "author": "Amaan Abdullah bindo",
-     "rating": 5,
-     "when": "4 years ago"
-    }
-   ],
-   "cards": [
-    {
-     "author": "Amaan Abdullah bindo",
-     "info": "Local Guide · 285 reviews · 3 photos",
-     "rating": 5,
-     "when": "4 years ago",
-     "text": "Nice fudge brownie hot chocolate",
      "photos": [],
      "reply": null
     }
