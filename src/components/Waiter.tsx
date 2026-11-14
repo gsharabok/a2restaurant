@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { ChevronDown, Headphones, Keyboard, Mic, MicOff, Play, RotateCcw, Square, Volume2, VolumeX } from "lucide-react";
+import { CuratedSet } from "./CuratedSet";
 import { ItemImage } from "./ItemImage";
 import { OrderCard } from "./OrderCard";
 import { PayButton, type PayHandle } from "./PayButton";
@@ -138,7 +139,7 @@ export function Waiter({ restaurant, restaurants }: Props) {
   const words = `${transcript.settled} ${transcript.unsettled}`.trim();
   const problem = order.error ?? speech.error ?? voice.error;
   const showNutrition = nutritionAsked && !empty && !done;
-  const showSuggestions = Boolean(suggestion && suggestion.items.length > 0 && !done && !showNutrition);
+  const showSuggestions = Boolean(suggestion && (suggestion.items.length > 0 || suggestion.combo) && !done && !showNutrition);
   // Cards shrink when they would not fit: past four the order wraps to a second row, and a panel below takes their height.
   const cardSize = priced.lines.length > 4 ? "compact" : showNutrition || showSuggestions ? "snug" : "full";
   const macros = [
@@ -311,7 +312,19 @@ export function Waiter({ restaurant, restaurants }: Props) {
             >
               {suggestion.caption}
             </p>
-            <div className="flex justify-center gap-3 max-sm:flex-col max-sm:gap-1.5">
+            {suggestion.combo && (
+              <CuratedSet
+                suggestion={suggestion}
+                note={restaurant.nutritionNote}
+                onAccept={() => {
+                  guestTyped();
+                  hear({ settled: "Yes, add them", unsettled: "" }, { endOnSilence: false });
+                  endTurn();
+                  setTyped("");
+                }}
+              />
+            )}
+            <div className={`flex justify-center gap-3 max-sm:flex-col max-sm:gap-1.5 ${suggestion.combo ? "hidden" : ""}`}>
               {suggestion.items.map((item, index) => (
                 <div
                   key={item.id}

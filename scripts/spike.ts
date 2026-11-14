@@ -5,7 +5,7 @@
 import fs from "node:fs";
 import { interpret } from "../src/lib/interpret";
 import { menus, type Menu } from "../src/lib/menu";
-import type { Order } from "../src/lib/order";
+import { priceOrder, type Order } from "../src/lib/order";
 
 const key =
   process.env.TYPESAFE_API_KEY ??
@@ -29,6 +29,11 @@ type Case = {
   nutrition?: boolean;
   done?: boolean;
   pay?: boolean;
+  /** Request behind a curated set on screen (`shown` holds its dishes). */
+  combo?: string;
+  /** A curated set is expected: every listed total must hold, and none of `curateNone` may be in it. */
+  curate?: { minProtein?: number; maxKcal?: number; maxPrice?: number; met?: boolean; any?: string[] } | null;
+  curateNone?: string[];
 };
 
 // Compact line syntax: "2 latte milk=oat temp=iced"
@@ -93,6 +98,19 @@ const cases: Case[] = [
   { name: "starbucks: swap", at: "starbucks", before: ["1 blueberry_muffin", "1 latte"], said: "Swap the muffin for an almond croissant", expect: ["1 latte", "1 almond_croissant"] },
   { name: "starbucks: lunch question", at: "starbucks", said: "What do you have for lunch?", expect: [], suggestAny: ["ham_cheese_toastie", "grilled_cheese", "tuna_melt", "tomato_mozzarella_panini", "chicken_caesar_flatbread", "festive_toastie", "egg_mayo_sandwich"] },
   { name: "starbucks: vegan question", at: "starbucks", said: "Any vegan food?", expect: [], suggestAny: ["beyond_sandwich", "overnight_oats", "fruit_pot"], suggestNone: ["bacon_roll", "egg_bites", "tuna_melt", "yogurt_granola"] },
+  { name: "curate: protein goal", said: "Hey, I want to get to fifty grams of protein", expect: [], curate: { minProtein: 50, met: true } },
+  { name: "curate: protein under a calorie ceiling", said: "I want 50 grams of protein and under 700 calories", expect: [], curate: { minProtein: 50, maxKcal: 700, met: true } },
+  { name: "curate: counts the order", before: ["1 eggs_royale", "1 latte"], said: "Get me to 60 grams of protein", expect: ["1 eggs_royale", "1 latte"], curate: { minProtein: 60, met: true } },
+  { name: "curate: vegetarian on a budget", said: "Around 35 grams of protein for under 25 pounds, and I'm vegetarian", expect: [], curate: { minProtein: 32, maxPrice: 25, met: true }, curateNone: ["steak_salad", "eggs_royale", "eggs_benedict", "side_bacon", "side_salmon", "bacon_egg_brioche", "sausage_roll"] },
+  { name: "curate: with a named dish", said: "I need 45 grams of protein with a flat white", expect: [], curate: { minProtein: 45, met: true, any: ["flat_white"] } },
+  { name: "curate: out of reach is the closest", said: "Two hundred grams of protein please", expect: [], curate: { met: false } },
+  { name: "curate: accept the set", shown: ["steak_salad", "side_bacon"], combo: "I want 50 grams of protein", said: "Yes, add them", expect: ["1 steak_salad", "1 side_bacon"], accepted: 1, curate: null },
+  { name: "curate: refine the set", shown: ["steak_salad", "side_bacon"], combo: "I want 40 grams of protein", said: "Can you make it vegetarian", expect: [], curate: { minProtein: 40, met: true }, curateNone: ["steak_salad", "side_bacon", "side_salmon", "eggs_royale"] },
+  { name: "curate: ordering instead leaves the set", shown: ["steak_salad", "side_bacon"], combo: "I want 50 grams of protein", said: "Actually just a flat white", expect: ["1 flat_white"], curate: null },
+  { name: "curate: starbucks", at: "starbucks", said: "I want fifty grams of protein under 700 calories", expect: [], curate: { minProtein: 50, maxKcal: 700, met: true } },
+  { name: "curate: starbucks vegan budget", at: "starbucks", said: "A vegan meal with at least 20 grams of protein for under 10 pounds", expect: [], curate: { minProtein: 20, maxPrice: 10, met: true }, curateNone: ["bacon_roll", "egg_bites", "tuna_melt", "yogurt_granola", "latte", "protein_latte"] },
+  { name: "curate: starbucks accept", at: "starbucks", shown: ["ham_cheese_toastie", "protein_latte"], combo: "50 grams of protein", said: "Sounds good, I'll take that", expect: ["1 ham_cheese_toastie", "1 protein_latte"], accepted: 1, curate: null },
+  { name: "curate: a plain order is not a goal", said: "Two lattes and a croissant", expect: ["2 latte", "1 croissant"], curate: null },
   { name: "not on menu", said: "Can I get some hash browns", expect: [] },
   { name: "similar dishes", said: "Eggs royale and an avo smash with a side of smoked salmon", expect: ["1 eggs_royale", "1 avo_smash", "1 side_salmon"] },
 ];
@@ -102,11 +120,27 @@ async function main() {
   const times: number[] = [];
   for (const test of cases) {
     const menu = menus[test.at ?? "kaffeine"];
-    const result = await interpret({ menu, before: parse(test.before ?? []), said: test.said, shownSuggestions: test.shown, apiKey: key! });
+    const result = await interpret({ menu, before: parse(test.before ?? []), said: test.said, shownSuggestions: test.shown, shownCombo: test.combo, apiKey: key! });
+    // Totals are recomputed here from the menu, not read from the proposal, so the check is independent of it.
+    const set = result.curate;
+    const meal = set ? priceOrder(menu, { lines: [...result.order.lines, ...set.items.map((item) => ({ itemId: item.id, qty: 1, options: {} }))] }) : null;
+    const goal = test.curate;
+    const curated =
+      goal === undefined || goal === null
+        ? set === null
+        : set !== null &&
+            meal !== null &&
+            (goal.minProtein === undefined || meal.nutrition.protein >= goal.minProtein) &&
+            (goal.maxKcal === undefined || meal.nutrition.kcal <= goal.maxKcal) &&
+            (goal.maxPrice === undefined || meal.total <= goal.maxPrice) &&
+            (goal.met === undefined || set.combo?.met === goal.met) &&
+            (goal.any === undefined || goal.any.some((id) => set.items.some((item) => item.id === id))) &&
+            !(test.curateNone ?? []).some((id) => set.items.some((item) => item.id === id));
     times.push(result.ms);
     const got = show(menu, result.order);
     const want = show(menu, parse(test.expect));
     const ok =
+      curated &&
       JSON.stringify(got) === JSON.stringify(want) &&
       (test.suggest === undefined || (result.suggest?.topic ?? null) === test.suggest) &&
       (test.suggestAny === undefined || test.suggestAny.some((id) => result.suggest?.itemIds.includes(id))) &&
@@ -122,7 +156,7 @@ async function main() {
       console.log(`       said: ${test.said}`);
       console.log(`       want: ${want.join(" | ")}  suggest=${test.suggest ?? null} accepted=${test.accepted ?? null} done=${test.done ?? false}`);
       console.log(`       conf: ${Object.entries(result.confidences).map(([id, c]) => `${id}=${c.toFixed(2)}`).join(" ")}`);
-      console.log(`       got:  ${got.join(" | ")}  suggest=${result.suggest ? `${result.suggest.topic}:${result.suggest.itemIds.join(",")}` : null} nutrition=${result.nutrition} accepted=${result.accepted} done=${result.done} pay=${result.pay}`);
+      console.log(`       got:  ${got.join(" | ")}  suggest=${result.suggest ? `${result.suggest.topic}:${result.suggest.itemIds.join(",")}` : null} curate=${set ? `${set.items.map((item) => item.id).join("+")} (${meal!.nutrition.protein}g, ${meal!.nutrition.kcal} kcal, £${meal!.total}, met=${set.combo?.met})` : null} nutrition=${result.nutrition} accepted=${result.accepted} done=${result.done} pay=${result.pay}`);
     }
   }
   times.sort((a, b) => a - b);

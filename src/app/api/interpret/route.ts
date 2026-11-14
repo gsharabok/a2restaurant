@@ -17,11 +17,12 @@ export async function POST(request: Request) {
     before?: unknown;
     said?: unknown;
     shownSuggestions?: unknown;
+    shownCombo?: unknown;
   } | null;
   const menu = getMenu(body?.restaurant);
   if (!menu) return Response.json({ error: "Unknown restaurant." }, { status: 400 });
   const said = typeof body?.said === "string" ? body.said.slice(0, 2000) : "";
-  const shown = Array.isArray(body?.shownSuggestions) ? body.shownSuggestions.map(String).slice(0, 3) : [];
+  const shown = Array.isArray(body?.shownSuggestions) ? body.shownSuggestions.map(String).slice(0, 4) : [];
 
   try {
     const result = await interpret({
@@ -29,13 +30,14 @@ export async function POST(request: Request) {
       before: sanitizeOrder(menu, body?.before),
       said,
       shownSuggestions: shown,
+      shownCombo: typeof body?.shownCombo === "string" ? body.shownCombo.slice(0, 2000) : undefined,
       apiKey,
       signal: request.signal,
     });
     return Response.json({
       order: result.order,
       priced: priceOrder(menu, result.order),
-      suggestion: result.suggest ? toSuggestion(menu, result.suggest) : null,
+      suggestion: result.curate ?? (result.suggest ? toSuggestion(menu, result.suggest) : null),
       accepted: result.accepted,
       nutrition: result.nutrition,
       done: result.done,

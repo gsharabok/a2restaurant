@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EMPTY_PRICED, type Order, type PricedOrder } from "@/lib/order";
 import type { Suggestion } from "@/lib/suggest";
+import { acceptedNames } from "@/lib/curate";
 import type { CommittedTurn } from "@/lib/waiterSay";
 
 type InterpretResponse = {
@@ -69,7 +70,7 @@ export function useLiveOrder(
     let turn: CommittedTurn | null = null;
     if (result) {
       const countBefore = basePriced.current.count;
-      const acceptedName = result.accepted ? (shown.current?.items[result.accepted - 1]?.name ?? null) : null;
+      const acceptedName = result.accepted ? acceptedNames(shown.current, result.accepted) : null;
       base.current = result.order;
       basePriced.current = shownPriced.current;
       // Suggestions stay up until a new question replaces them or one is accepted.
@@ -136,6 +137,7 @@ export function useLiveOrder(
           before: base.current,
           said: full,
           shownSuggestions: shown.current?.items.map((item) => item.id) ?? [],
+          shownCombo: shown.current?.combo?.ask,
         }),
         signal: controller.signal,
       })
