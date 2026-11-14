@@ -8,6 +8,12 @@ The seed restaurant is [Kaffeine](https://kaffeine.co.uk/location/66-great-titch
 
 The dropdown at the top left switches restaurant. The second one is Starbucks UK (`/starbucks`): product names, descriptions, photos and nutrition come from its [published menu](https://www.starbucks.co.uk/menu), with photos loaded from Starbucks' own media library. Starbucks does not publish prices there, so every Starbucks price is a placeholder. Each restaurant is one JSON file in `src/data`, registered in `src/lib/menu.ts`.
 
+## The owner's dashboard
+
+`/dashboard` (Kaffeine) and `/dashboard/starbucks` are for the restaurant, not the guest: today's revenue and orders, sales by hour, best sellers, and **missed demand**, the things guests asked the waiter for that the menu could not give them. It needs no API keys.
+
+The app stores no orders, so every figure on the dashboard is sample data. `src/lib/dashboard.ts` draws orders from the real menu with a seeded generator and prices them with the same code as the guest screen, so the page is the same on every load. The missed-demand requests are a hand-written list per restaurant in the same file.
+
 ## Run it
 
 ```bash
