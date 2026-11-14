@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EMPTY_PRICED, type Order, type PricedOrder } from "@/lib/order";
 import type { Suggestion } from "@/lib/suggest";
+import type { CommittedTurn } from "@/lib/waiterSay";
 
 type InterpretResponse = {
   order: Order;
@@ -24,7 +25,7 @@ export type Transcript = { settled: string; unsettled: string; previous: string 
  * stood when the turn began, so revised words correct the screen instead of stacking up.
  * Only the newest answer is ever rendered.
  */
-export function useLiveOrder(onTurnCommitted?: () => void) {
+export function useLiveOrder(onTurnCommitted?: (turn: CommittedTurn | null) => void) {
   const [priced, setPriced] = useState<PricedOrder>(EMPTY_PRICED);
   const [suggestion, setSuggestion] = useState<Suggestion | null>(null);
   const [transcript, setTranscript] = useState<Transcript>({ settled: "", unsettled: "", previous: "" });
@@ -58,19 +59,33 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
     pendingCommit.current = false;
     const result = latest.current;
     if (!said.current) return;
+    let turn: CommittedTurn | null = null;
     if (result) {
+      const countBefore = basePriced.current.count;
+      const acceptedName = result.accepted ? (shown.current?.items[result.accepted - 1]?.name ?? null) : null;
       base.current = result.order;
       basePriced.current = shownPriced.current;
       // Suggestions stay up until a new question replaces them or one is accepted.
       const next = result.suggestion ?? (result.accepted ? null : shown.current);
       shown.current = next;
       setSuggestion(next);
-      if (result.done && result.order.lines.length > 0) setDone(true);
+      const done = result.done && result.order.lines.length > 0;
+      if (done) setDone(true);
+      turn = {
+        order: result.order,
+        priced: shownPriced.current,
+        countBefore,
+        suggestion: result.suggestion,
+        acceptedName,
+        suggestionsShown: Boolean(next?.items.length),
+        nutrition: result.nutrition,
+        done,
+      };
     }
     setTranscript({ settled: "", unsettled: "", previous: said.current });
     said.current = "";
     latest.current = null;
-    committed.current?.();
+    committed.current?.(turn);
   }, []);
 
   const hear = useCallback(
@@ -152,6 +167,12 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
     commit();
   }, [commit]);
 
+  /** Shows a suggestion the waiter came up with unasked; the guest can accept it like any other. */
+  const offer = useCallback((offered: Suggestion) => {
+    shown.current = offered;
+    setSuggestion(offered);
+  }, []);
+
   const reset = useCallback(() => {
     if (timer.current) clearTimeout(timer.current);
     inFlight.current?.abort();
@@ -179,5 +200,5 @@ export function useLiveOrder(onTurnCommitted?: () => void) {
     inFlight.current?.abort();
   }, []);
 
-  return { priced, suggestion, nutritionAsked, transcript, done, latency, error, hear, endTurn, reset };
+  return { priced, suggestion, nutritionAsked, transcript, done, latency, error, hear, endTurn, offer, reset };
 }
